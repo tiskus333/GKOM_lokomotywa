@@ -12,15 +12,15 @@
 ![Szkic](./szkic.png)
 
 ## Milestones
-1.Gotowa lista zadań
-2.Działająca kamera
-3.Ukończony model lokomotywy
-4.Ukończony model wagonu
-5.Stworzenie otoczenia
-6.Działa regulacja oświetlenia
-7.Pociągiem można sterować interaktywnie
-8.Dodane efekty cząsteczkowe
-9.Prezentacja gotowego projektu
+1.Gotowa lista zadań  
+2.Działająca kamera  
+3.Ukończony model lokomotywy  
+4.Ukończony model wagonu  
+5.Stworzenie otoczenia  
+6.Działa regulacja oświetlenia  
+7.Pociągiem można sterować interaktywnie  
+8.Dodane efekty cząsteczkowe  
+9.Prezentacja gotowego projektu  
 
 ## Lista Zadań
 - [ ] Przygotowanie środowiska pracy

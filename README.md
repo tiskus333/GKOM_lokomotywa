@@ -11,25 +11,30 @@
 ## Wstępny szkic
 ![Szkic](./szkic.png)
 
+
+
 ## Milestones
-1.Gotowa lista zadań  
-2.Działająca kamera  
-3.Ukończony model lokomotywy  
-4.Ukończony model wagonu  
-5.Stworzenie otoczenia  
-6.Działa regulacja oświetlenia  
-7.Pociągiem można sterować interaktywnie  
-8.Dodane efekty cząsteczkowe  
-9.Prezentacja gotowego projektu  
+
+
+1. Przygotowanie bazy projektu  
+2. Działająca kamera  
+3. Ukończony model wagonu   
+4. Ukończony model lokomotywy  
+5. Stworzenie otoczenia  
+6. Działa regulacja oświetlenia  
+7. Generowanie modelu w ruchu
+8. Pociągiem można sterować interaktywnie  
+9. Ukończenie bazy programistycznej projektu
+10. Prezentacja gotowego projektu  
 
 ## Lista Zadań
-- [ ] Przygotowanie środowiska pracy
-- [ ] Zaplanowanie zadań w ramach narzędzi na GitLabie (stworzenie oraz podział issue-ów, stworzenie metazadań)
-- [ ] Szkolenie z obsługi gita oraz GitLaba
+Lista zazdań w formie oddzielnych issues [tutaj](http://gitlab.ii.pw.edu.pl/gkom.20z/206.-pociag/-/issues?scope=all&utf8=%E2%9C%93&state=all)
+- [x] Przygotowanie środowiska pracy
+- [x] Zaplanowanie zadań w ramach narzędzi na GitLabie (stworzenie oraz podział issue-ów, stworzenie metazadań)
+- [ ] Stworzenie klas bazowych (pustych interfejsów) dla renderowanych obiektów
 - [ ] Zapoznanie się z dokumentacją biblioteki
 - [ ] Przygotowanie interfejsów oraz klas do pracy z openGL-em
     - [ ] Ustalenie zakresu zadań, które mają być realizowane za pomocą tych wrapperów
-    - [ ] Funkcje oraz obiekty do obsługi figur geometrycznych
     - [ ] Nakładanie więzów na obiekty oraz ich grupowanie
 - [ ] Przygotowanie CI
 - [ ] Przygotowanie modelu lokomotywy
@@ -46,7 +51,10 @@
     - [ ] Nadanie koloru lub tekstur
 - [ ] Przygotowanie tekstur
 - [ ] Implementacja ruchomej kamery
+- [ ] Dodanie obsługi oświetlenia
+- [ ] Dodanie elementów świecących
 - [ ] Obsługa wejść użytkownika
+- [ ] Zarządzanie repozytorium
 
 
 

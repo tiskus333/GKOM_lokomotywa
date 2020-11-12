@@ -4,7 +4,7 @@ Shape::Shape() {}
 
 Shape::~Shape() {}
 
-void Shape::move(const glm::vec3& displacement) override
+void Shape::move(const glm::vec3& displacement)
 {
 	this->position += displacement;
 }
@@ -15,8 +15,4 @@ void Shape::rotate(const glm::vec3& angle)
 void Shape::scale(const glm::vec3& factor)
 {
 	this->scale_factor += factor;
-}
-void Shape::move(const glm::vec3& displacement)
-{
-	this->position += displacement;
 }

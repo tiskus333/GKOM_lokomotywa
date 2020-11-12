@@ -10,7 +10,7 @@ protected:
 public:
 	Composite();
 	~Composite() = default;
-	void draw();
+	void draw() override;
 	void move(const glm::vec3& displacement) override;
 	void rotate(const glm::vec3& angle) override;
 	void scale(const glm::vec3& factor) override;

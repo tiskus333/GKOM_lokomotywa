@@ -4,6 +4,10 @@ Composite::Composite()
 {
 }
 
+void Composite::draw()
+{
+}
+
 void Composite::move(const glm::vec3& displacement)
 {
 }

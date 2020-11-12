@@ -56,8 +56,7 @@ Lista zazdań w formie oddzielnych issues [tutaj](http://gitlab.ii.pw.edu.pl/gko
 - [ ] Obsługa wejść użytkownika
 - [ ] Zarządzanie repozytorium
 
-## Aktualny stan projektu
-![Zrzut] (./screenshot.jpg)
+
 
 ## Wykorzystywane materiały
  - https://learnopengl.com/

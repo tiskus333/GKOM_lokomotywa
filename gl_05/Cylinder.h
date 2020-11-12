@@ -3,5 +3,8 @@
 class Cylinder :
     public Shape
 {
+    Cylinder();
+    ~Cylinder() = default;
+
 };
 

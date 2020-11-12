@@ -5,6 +5,7 @@ class Cylinder :
 {
     Cylinder();
     ~Cylinder() = default;
-
+    float radius;
+    float height;
 };
 

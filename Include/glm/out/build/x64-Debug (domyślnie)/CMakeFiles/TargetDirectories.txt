@@ -1,2 +1,0 @@
-D:/reposForVS/Include/glm/out/build/x64-Debug (domyślnie)/CMakeFiles/edit_cache.dir
-D:/reposForVS/Include/glm/out/build/x64-Debug (domyślnie)/CMakeFiles/rebuild_cache.dir

@@ -4,8 +4,8 @@
 class Object
 {
 protected:
-	glm::vec3 position;
-	Object* parent;
+	glm::vec3 position_;
+	Object* parent_;
 
 public:
 	virtual void draw() = 0;

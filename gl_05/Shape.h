@@ -6,25 +6,26 @@
 class Shape : public Object
 {
 public:
-	bool rotatable;
-	glm::vec3 color;
-	glm::vec3 size;
-	glm::vec3 rotation;
-	glm::vec3 scale_factor;
-	glm::mat4 model;
+	bool rotatable_;
+	glm::vec4 color_;
+	glm::vec3 size_;
+	glm::vec3 rotation_;
+	glm::vec3 scale_factor_;
+	glm::mat4 model_;
 
 
-	std::vector<GLfloat> verticies;
-	std::vector<GLfloat> indicies;
-	GLuint VAO, VBO, EBO;
+	std::vector<GLfloat> verticies_;
+	std::vector<GLfloat> indicies_;
+	GLuint VAO_, VBO_, EBO_;
 
-	const char* texture_path;
+	GLuint texture_;
 
 	Shape();
 	~Shape();
 	void move(const glm::vec3& displacement) override;
 	void rotate(const glm::vec3& angle) override;
 	void scale(const glm::vec3& factor) override;
+	bool isRotatable();
 
 };
 

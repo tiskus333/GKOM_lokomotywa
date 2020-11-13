@@ -87,7 +87,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Carriage.cpp" />
+    <ClCompile Include="Composite.cpp" />
+    <ClCompile Include="Cuboid.cpp" />
+    <ClCompile Include="Cylinder.cpp" />
+    <ClCompile Include="Shape.cpp" />
     <ClCompile Include="shprogram.cpp" />
+    <ClCompile Include="Locomotive.cpp" />
+    <ClCompile Include="TrainTracks.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="gl_05.frag" />
@@ -99,7 +107,16 @@
     <Image Include="weiti.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Carriage.h" />
+    <ClInclude Include="Composite.h" />
+    <ClInclude Include="Cuboid.h" />
+    <ClInclude Include="Cylinder.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="Shape.h" />
     <ClInclude Include="shprogram.h" />
+    <ClInclude Include="Locomotive.h" />
+    <ClInclude Include="TrainTracks.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

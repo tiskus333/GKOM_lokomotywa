@@ -6,17 +6,16 @@
 class Composite : public Object
 {
 protected:
-	std::vector<std::unique_ptr<Object>> elements;
+	std::vector<std::unique_ptr<Shape>> elements;
 public:
-	Composite();
-	~Composite() = default;
-	void draw() override;
+	Composite(const glm::vec3& positon);
+	~Composite();
+	void draw();
 	void move(const glm::vec3& displacement) override;
-	void rotate(const glm::vec3& angle) override;
-	void scale(const glm::vec3& factor) override;
-	void addElement();
-	void removeElement(int index);
-	std::unique_ptr<Object>& getElement(int index);
+	void rotate(const glm::vec3& angle, const glm::vec3& point) override;
+	void addElement(const Shape& object);
+	void removeElement(uint32_t index);
+	std::unique_ptr<Shape>& getElement(int index);
 
 };
 

@@ -7,6 +7,7 @@ class Composite : public Object
 {
 protected:
 	std::vector<std::unique_ptr<Shape>> elements;
+	const std::shared_ptr<Shader> shader_;
 public:
 	Composite(const glm::vec3& positon);
 	~Composite();

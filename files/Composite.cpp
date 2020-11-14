@@ -12,7 +12,7 @@ Composite::~Composite()
 void Composite::draw()
 {
 	for (auto& el : elements)
-		el->draw();
+		el->draw(shader_);
 }
 
 void Composite::move(const glm::vec3& displacement)

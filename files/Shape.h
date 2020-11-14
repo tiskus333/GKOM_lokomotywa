@@ -19,7 +19,7 @@ public:
 	std::vector<GLuint> indices_;
 	GLuint VAO_, VBO_, EBO_;
 
-	GLuint texture_;
+	std::string texture_path_;
 
 	Shape();
 	~Shape();

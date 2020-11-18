@@ -99,6 +99,8 @@
     <ClCompile Include="TrainTracks.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="CubeShader.frag" />
+    <None Include="CubeShader.vert" />
     <None Include="gl_05.frag" />
     <None Include="gl_05.vert" />
   </ItemGroup>

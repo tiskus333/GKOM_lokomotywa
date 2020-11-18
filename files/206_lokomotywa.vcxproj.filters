@@ -52,6 +52,12 @@
   <ItemGroup>
     <None Include="gl_05.frag" />
     <None Include="gl_05.vert" />
+    <None Include="CubeShader.frag">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="CubeShader.vert">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="iipw.png">

@@ -6,11 +6,13 @@ Cuboid::Cuboid(glm::vec3 position, glm::vec3 size)
 	generateVertices();
 }
 
-Cuboid::Cuboid(glm::vec3 position, glm::vec3 size, glm::vec4 color = glm::vec4(0.0,0.0,0.0,-1.0)) : size_(size)
+Cuboid::Cuboid(glm::vec3 position, glm::vec3 size, glm::vec3 color = glm::vec3(0,0,0)) : size_(size)
 {
-	
+	this->position_ = position;
 	this->color_ = color;
 	generateVertices();
+	generateIndices();
+	Shape::bindBuffers();
 }
 
 Cuboid::Cuboid(glm::vec3 position, glm::vec3 size, std::string texture_path = "") : size_(size)
@@ -20,154 +22,43 @@ Cuboid::Cuboid(glm::vec3 position, glm::vec3 size, std::string texture_path = ""
 	generateVertices();
 }
 
+void Cuboid::generateIndices()
+{
+	indices_ = { 
+		0,1,2,
+		0,2,3,
+		4,5,6,
+		4,6,7,
+		3,2,6,
+		3,6,7,
+		0,1,5,
+		0,5,4,
+		1,5,6,
+		1,6,2,
+		0,4,7,
+		0,7,3
+
+	};
+
+}
+
 //adding vertivces counterclockwise from nearest to furthest
 void Cuboid::generateVertices()
 {
-	vertices_.push_back(position_.x - size_.x / 2); // 0
-	vertices_.push_back(position_.y - size_.y / 2); 
-	vertices_.push_back(position_.z - size_.z / 2);
+	vertices_ = { -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+				1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+				1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+				-1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+				-1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+				1.0f, -1.0f,1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+				1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+				-1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f };
 
-	if (color_.w != -1)
+	for (int i = 3; i < vertices_.size(); i += 8)
 	{
-		vertices_.push_back(color_.x);
-		vertices_.push_back(color_.y);
-		vertices_.push_back(color_.z);
-		vertices_.push_back(color_.w);
+		vertices_.at(i) = color_.x;
+		vertices_.at(i+1) = color_.y;
+		vertices_.at(i+2) = color_.z;
 	}
-	else
-		for (int i = 0; i < 4; ++i)
-			vertices_.push_back(0.0);
-
-	vertices_.push_back(0.0);
-	vertices_.push_back(0.0);
-
-
-	vertices_.push_back(position_.x + size_.x / 2); // 1
-	vertices_.push_back(position_.y - size_.y / 2); 
-	vertices_.push_back(position_.z - size_.z / 2); 
-
-	if (color_.w != -1)
-	{
-		vertices_.push_back(color_.x);
-		vertices_.push_back(color_.y);
-		vertices_.push_back(color_.z);
-		vertices_.push_back(color_.w);
-	}
-	else
-		for (int i = 0; i < 4; ++i)
-			vertices_.push_back(0.0);
-
-	vertices_.push_back(1.0);
-	vertices_.push_back(0.0);
-
-	vertices_.push_back(position_.x + size_.x / 2); // 2
-	vertices_.push_back(position_.y + size_.y / 2);
-	vertices_.push_back(position_.z - size_.z / 2);
-
-	if (color_.w != -1)
-	{
-		vertices_.push_back(color_.x);
-		vertices_.push_back(color_.y);
-		vertices_.push_back(color_.z);
-		vertices_.push_back(color_.w);
-	}
-	else
-		for (int i = 0; i < 4; ++i)
-			vertices_.push_back(0.0);
-
-	vertices_.push_back(1.0);
-	vertices_.push_back(1.0);
-
-	vertices_.push_back(position_.x - size_.x / 2); // 3
-	vertices_.push_back(position_.y + size_.y / 2);
-	vertices_.push_back(position_.z - size_.z / 2);
-
-	if (color_.w != -1)
-	{
-		vertices_.push_back(color_.x);
-		vertices_.push_back(color_.y);
-		vertices_.push_back(color_.z);
-		vertices_.push_back(color_.w);
-	}
-	else
-		for (int i = 0; i < 4; ++i)
-			vertices_.push_back(0.0);
-
-	vertices_.push_back(0.0);
-	vertices_.push_back(1.0);
-
-	vertices_.push_back(position_.x - size_.x / 2); // 4
-	vertices_.push_back(position_.y - size_.y / 2);
-	vertices_.push_back(position_.z - size_.z / 2);
-
-	if (color_.w != -1)
-	{
-		vertices_.push_back(color_.x);
-		vertices_.push_back(color_.y);
-		vertices_.push_back(color_.z);
-		vertices_.push_back(color_.w);
-	}
-	else
-		for (int i = 0; i < 4; ++i)
-			vertices_.push_back(0.0);
-
-	vertices_.push_back(1.0);
-	vertices_.push_back(0.0);
-
-	vertices_.push_back(position_.x + size_.x / 2); // 5
-	vertices_.push_back(position_.y - size_.y / 2);
-	vertices_.push_back(position_.z - size_.z / 2);
-
-	if (color_.w != -1)
-	{
-		vertices_.push_back(color_.x);
-		vertices_.push_back(color_.y);
-		vertices_.push_back(color_.z);
-		vertices_.push_back(color_.w);
-	}
-	else
-		for (int i = 0; i < 4; ++i)
-			vertices_.push_back(0.0);
-
-	vertices_.push_back(0.0);
-	vertices_.push_back(0.0);
-
-	vertices_.push_back(position_.x + size_.x / 2); // 6
-	vertices_.push_back(position_.y + size_.y / 2);
-	vertices_.push_back(position_.z - size_.z / 2);
-
-	if (color_.w != -1)
-	{
-		vertices_.push_back(color_.x);
-		vertices_.push_back(color_.y);
-		vertices_.push_back(color_.z);
-		vertices_.push_back(color_.w);
-	}
-	else
-		for (int i = 0; i < 4; ++i)
-			vertices_.push_back(0.0);
-
-	vertices_.push_back(0.0);
-	vertices_.push_back(1.0);
-
-	vertices_.push_back(position_.x - size_.x / 2); // 7
-	vertices_.push_back(position_.y + size_.y / 2);
-	vertices_.push_back(position_.z - size_.z / 2);
-
-	
-	if (color_.w != -1)
-	{
-		vertices_.push_back(color_.x);
-		vertices_.push_back(color_.y);
-		vertices_.push_back(color_.z);
-		vertices_.push_back(color_.w);
-	}
-	else 
-		for (int i = 0; i < 4; ++i)
-			vertices_.push_back(0.0);
-
-	vertices_.push_back(1.0);
-	vertices_.push_back(1.0);
-
 }
 

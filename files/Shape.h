@@ -29,6 +29,7 @@ public:
 	void freeBuffers();
 	void draw();
 	void move(const glm::vec3& displacement) override;
+	void rotate(const glm::vec3& angle);
 	void rotate(const glm::vec3& angle, const glm::vec3& point) override;
 	void scale(const glm::vec3& factor);
 	bool isRotatable();

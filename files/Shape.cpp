@@ -4,7 +4,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <GL/glew.h>
 
-Shape::Shape(): rotatable_(false), color_(0.0f,0.0f,0.0f), size_(1), scale_factor_(1)   {
+Shape::Shape(): rotatable_(false), size_(1.0f,1.0f,1.0f)   {
 	//this->bindBuffers();
 }
 
@@ -32,8 +32,8 @@ void Shape::bindBuffers()
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), reinterpret_cast<GLvoid*>(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
 
-	//glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 9 * sizeof(GLfloat), reinterpret_cast<GLvoid*>(7 * sizeof(GLfloat)));
-	//glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 9 * sizeof(GLfloat), reinterpret_cast<GLvoid*>(7 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(2);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered VBO as the currently bound vertex buffer object so afterwards we can safely unbind
 
@@ -50,18 +50,12 @@ void Shape::freeBuffers()
 
 void Shape::draw()
 {
-	//const std::shared_ptr<Shader> shader
-	//glm::mat4 model = glm::scale(glm::mat4(1.0f), size_);
 
-	glm::mat4 model(1.0f);
-	if(parent_ != nullptr)
-	model = translate(model, parent_->position_);
-	else
-	model = translate(model, position_);
-	model = glm::rotate(model, glm::radians(rotation_.x), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(rotation_.y), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(rotation_.z), glm::vec3(0.0f, 0.0f, 1.0f));
+	glPushMatrix();
+	glm::mat4 model;
+	model = translate(model_, position_);
 	model = glm::scale(model, size_);
+
 
 	//texture_.useTexture(shader);
 	//shader->setTransformMatrix("model", model);
@@ -70,16 +64,31 @@ void Shape::draw()
 	glBindVertexArray(VAO_);
 	glDrawElements(GL_TRIANGLES, indices_.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
+	glPopMatrix();
 }
 
 void Shape::move(const glm::vec3& displacement)
 {
 	this->position_ += displacement;
 }
-void Shape::rotate(const glm::vec3& angle, const glm::vec3& point = glm::vec3(0.0f,0.0f,0.0f))
+void Shape::rotate(const glm::vec3& angle)
+{
+	this->rotate(angle, position_);
+}
+void Shape::rotate(const glm::vec3& angle, const glm::vec3& point)
 {
 	//if(isRotatable())
 		this->rotation_ += angle;
+		rotation_.x -= rotation_.x > 360.0f ? 0.0f : 360.0f;
+		rotation_.y -= rotation_.y > 360.0f ? 0.0f : 360.0f;
+		rotation_.z -= rotation_.z > 360.0f ? 0.0f : 360.0f;
+		glPushMatrix();
+		model_ = translate(glm::mat4(), point);
+		model_ = glm::rotate(model_, -glm::radians(rotation_.x), glm::vec3(1.0f, 0.0f, 0.0f));
+		model_ = glm::rotate(model_, -glm::radians(rotation_.y), glm::vec3(0.0f, 1.0f, 0.0f));
+		model_ = glm::rotate(model_, -glm::radians(rotation_.z), glm::vec3(0.0f, 0.0f, 1.0f));
+		model_ = translate(model_, -point);
+		glPopMatrix();
 }
 void Shape::scale(const glm::vec3& factor)
 {

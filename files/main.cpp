@@ -12,7 +12,7 @@ using namespace std;
 #include "Cuboid.h"
 #include "Composite.h"
 
-const GLuint WIDTH = 800, HEIGHT = 600;
+const GLuint WIDTH = 800, HEIGHT = 800;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
@@ -96,17 +96,20 @@ int main()
 		// Build, compile and link shader program
 		ShaderProgram theProgram("CubeShader.vert", "CubeShader.frag");
 
-		Cuboid Cube(glm::vec3(0.0f,0.0f,0.0f), glm::vec3(0.1f,0.1f,0.1f), glm::vec3(1.0f,0.0f,0.0f));
-		Cuboid Cube2(glm::vec3(0.2f, 0.0f, -0.5f), glm::vec3(0.1f, 0.2f,0.1f), glm::vec3(0.0f, 0.0f,1.0f));
+		Cuboid Cube(glm::vec3(0.0f,0.0f,0.0f), glm::vec3(0.5f,0.5f,0.5f), glm::vec3(1.0f,0.0f,0.0f));
+		Cuboid Cube2(glm::vec3(1.0f, -0.0f, -0.0f), glm::vec3(0.5f, 0.5f,0.5f), glm::vec3(0.0f, 0.0f,1.0f));
+		Cuboid Cube3(glm::vec3(0.5f, 0.0f, 0.0f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f));
 
 		Cube.shader_ = std::make_shared<ShaderProgram>(theProgram);
-		Cube2.shader_ = std::make_shared<ShaderProgram>(theProgram);
+		Cube2.shader_ = Cube.shader_;
+		Cube3.shader_ = Cube.shader_;
 
 		Composite cubes(glm::vec3(0.0f, 0.0f, 0.0f));
 		Shape* baseP = &Cube;
 		cubes.parent_ = baseP;
 		cubes.addElement(Cube);
 		cubes.addElement(Cube2);
+		cubes.addElement(Cube3);
 		
 	
 
@@ -133,7 +136,8 @@ int main()
 			//glBindTexture(GL_TEXTURE_2D, texture1);
 			//glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture1"), 1);
 			cubes.draw();
-			cubes.rotate(glm::vec3(0.0f, 0.0f, 0.1f), glm::vec3(0.0f, 0.0f, 0.0f));
+			cubes.rotate(glm::vec3(0.0f, 0.0f, 0.1f), glm::vec3(0.5f, 0.0f, 0.0f));
+			//cubes.move(glm::vec3(0.0001f, 0.0f, 0.0f));
 
 			// Swap the screen buffers
 			glfwSwapBuffers(window);

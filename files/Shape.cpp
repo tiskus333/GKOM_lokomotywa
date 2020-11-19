@@ -56,9 +56,10 @@ void Shape::draw()
 	model = translate(model_, position_);
 	model = glm::scale(model, size_);
 
-
+	
 	//texture_.useTexture(shader);
 	//shader->setTransformMatrix("model", model);
+	shader_->Use();
 	GLuint transformLoc = glGetUniformLocation(shader_->get_programID(), "transform");
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(model));
 	glBindVertexArray(VAO_);
@@ -79,9 +80,9 @@ void Shape::rotate(const glm::vec3& angle, const glm::vec3& point)
 {
 	//if(isRotatable())
 		this->rotation_ += angle;
-		rotation_.x -= rotation_.x > 360.0f ? 0.0f : 360.0f;
-		rotation_.y -= rotation_.y > 360.0f ? 0.0f : 360.0f;
-		rotation_.z -= rotation_.z > 360.0f ? 0.0f : 360.0f;
+		rotation_.x -= rotation_.x > 360.0f ? 360.0f : 0.0f;
+		rotation_.y -= rotation_.y > 360.0f ? 360.0f : 0.0f;
+		rotation_.z -= rotation_.z > 360.0f ? 360.0f : 0.0f;
 		glPushMatrix();
 		model_ = translate(glm::mat4(), point);
 		model_ = glm::rotate(model_, -glm::radians(rotation_.x), glm::vec3(1.0f, 0.0f, 0.0f));

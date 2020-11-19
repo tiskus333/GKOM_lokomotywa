@@ -12,6 +12,8 @@ Cuboid::Cuboid(glm::vec3 position, glm::vec3 size, glm::vec3 color = glm::vec3(0
 	this->scale_factor_ = glm::vec3(1.0f,1.0f,1.0f);
 	this->position_ = position;
 	this->color_ = color;
+	ShaderProgram cubeShader("CubeShader.vert", "CubeShader.frag");
+	shader_ = std::make_shared<ShaderProgram>(cubeShader);
 	generateVertices();
 	generateIndices();
 	Shape::bindBuffers();

@@ -4,9 +4,6 @@
 class Cuboid :
     public Shape
 {
-private:
-    glm::vec3 size_;
-
 public:
     Cuboid(glm::vec3 position, glm::vec3 size);
     Cuboid(glm::vec3 position, glm::vec3 size, glm::vec3 color);

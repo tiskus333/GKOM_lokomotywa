@@ -4,10 +4,10 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <GL/glew.h>
 
-Shape::Shape() {}
+
+Shape::Shape() {};
 
 Shape::~Shape() {
-	this->freeBuffers();
 }
 
 void Shape::bindBuffers()
@@ -54,11 +54,8 @@ void Shape::draw()
 	model = translate(model_, position_);
 	model = glm::scale(model, size_);
 
-	
-	//texture_.useTexture(shader);
-	//shader->setTransformMatrix("model", model);
-	shader_->Use();
-	GLuint transformLoc = glGetUniformLocation(shader_->get_programID(), "transform");
+	shader_.Use();
+	GLuint transformLoc = glGetUniformLocation(shader_.get_programID(), "transform");
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(model));
 	glBindVertexArray(VAO_);
 	glDrawElements(GL_TRIANGLES, indices_.size(), GL_UNSIGNED_INT, 0);

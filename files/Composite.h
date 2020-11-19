@@ -9,7 +9,7 @@ protected:
 	std::vector<std::unique_ptr<Shape>> elements;
 	bool rotatable_;
 public:
-	Composite(const glm::vec3& positon);
+	Composite(const glm::vec3& positon, bool rotatable);
 	~Composite();
 	void draw();
 	void move(const glm::vec3& displacement) override;

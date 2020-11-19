@@ -1,6 +1,6 @@
 #include "Composite.h"
 
-Composite::Composite(const glm::vec3& positon)
+Composite::Composite(const glm::vec3& positon, bool rotatable = true) : rotatable_(rotatable)
 {
 	this->position_ = position_;
 }
@@ -23,6 +23,7 @@ void Composite::move(const glm::vec3& displacement)
 
 void Composite::rotate(const glm::vec3& angle, const glm::vec3& point = glm::vec3(0, 0, 0))
 {
+	if(isRotatable())
 	for (const auto& element : elements)
 		element->rotate(angle, point);
 }

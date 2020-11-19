@@ -5,11 +5,12 @@ class Cuboid :
     public Shape
 {
 public:
-    Cuboid(glm::vec3 position, glm::vec3 size);
-    Cuboid(glm::vec3 position, glm::vec3 size, glm::vec3 color);
-    Cuboid(glm::vec3 position, glm::vec3 size, std::string texture_path);
+    Cuboid(const glm::vec3& position, const glm::vec3& size);
+    Cuboid(const glm::vec3& position, const glm::vec3& size, const glm::vec3& color);
+    Cuboid(const glm::vec3& position, const glm::vec3& size, const std::string& texture_path);
     void generateIndices();
-    ~Cuboid() = default;
+    ~Cuboid();
+    void init();
 
     void generateVertices();
 

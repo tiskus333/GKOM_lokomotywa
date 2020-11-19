@@ -11,7 +11,7 @@ public:
 	glm::vec3 color_;
 	glm::vec3 size_;
 	glm::mat4 model_;
-	std::shared_ptr<ShaderProgram> shader_;
+	ShaderProgram shader_;
 
 
 	std::vector<GLfloat> vertices_;
@@ -19,7 +19,6 @@ public:
 	GLuint VAO_, VBO_, EBO_;
 
 	std::string texture_path_;
-
 	Shape();
 	~Shape();
 	void bindBuffers();

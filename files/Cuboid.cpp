@@ -1,30 +1,36 @@
 #include "Cuboid.h"
 
-Cuboid::Cuboid(glm::vec3 position, glm::vec3 size)
+Cuboid::Cuboid(const glm::vec3& position,const  glm::vec3& size) 
 {
 	this->position_ = position;
-	generateVertices();
+	this->size_ = size;
+	this->color_ = glm::vec3(1.0f, 1.0f, 1.0f);
+	this->texture_path_ = "";
 }
 
-Cuboid::Cuboid(glm::vec3 position, glm::vec3 size, glm::vec3 color = glm::vec3(0, 0, 0))
+
+Cuboid::Cuboid(const glm::vec3& position, const glm::vec3&size, const glm::vec3& color): Cuboid(position, size)
 {
-	this->size_ = size;
-	this->position_ = position;
 	this->color_ = color;
-	ShaderProgram cubeShader("CubeShader.vert", "CubeShader.frag");
-	shader_ = std::make_shared<ShaderProgram>(cubeShader);
+	init();
+}
+
+Cuboid::Cuboid(const glm::vec3& position, const glm::vec3& size, const std::string& texture_path): Cuboid(position, size)
+{
+	texture_path_ = texture_path;
+	init();
+}
+Cuboid::~Cuboid()
+{
+	Shape::freeBuffers();
+}
+void Cuboid::init()
+{
+	this->shader_ = ShaderProgram("CubeShader.vert", "CubeShader.frag");
 	generateVertices();
 	generateIndices();
 	Shape::bindBuffers();
 }
-
-Cuboid::Cuboid(glm::vec3 position, glm::vec3 size, std::string texture_path = "")
-{
-	
-	this->texture_path_ = texture_path;
-	generateVertices();
-}
-
 void Cuboid::generateIndices()
 {
 	indices_ = { 
@@ -40,7 +46,6 @@ void Cuboid::generateIndices()
 		1,6,2,
 		0,4,7,
 		0,7,3
-
 	};
 
 }
@@ -57,7 +62,7 @@ void Cuboid::generateVertices()
 				0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
 				-0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f };
 
-	for (int i = 3; i < vertices_.size(); i += 8)
+	for (uint32_t i = 3; i < vertices_.size(); i += 8)
 	{
 		vertices_.at(i) = color_.x;
 		vertices_.at(i+1) = color_.y;

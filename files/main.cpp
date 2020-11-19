@@ -11,6 +11,7 @@ using namespace std;
 
 #include "Cuboid.h"
 #include "Composite.h"
+#include "Cylinder.h"
 
 const GLuint WIDTH = 800, HEIGHT = 800;
 
@@ -94,13 +95,15 @@ int main()
 		cout << "Max texture coords allowed: " << nrAttributes << std::endl;
 
 
-		Cuboid Cube(glm::vec3(0.0f,0.0f,0.0f), glm::vec3(0.5f,0.5f,0.5f), glm::vec3(1.0f,0.0f,0.0f));
+		Cuboid Cube1(glm::vec3(0.0f,0.0f,0.0f), glm::vec3(0.5f,0.5f,0.5f), glm::vec3(1.0f,0.0f,0.0f));
 		Cuboid Cube2(glm::vec3(1.0f, -0.0f, -0.0f), glm::vec3(0.5f, 0.5f,0.5f), glm::vec3(0.0f, 0.0f,1.0f));
 		Cuboid Cube3(glm::vec3(0.5f, 0.0f, 0.0f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f));
 
+		Cylinder Cylinder1(glm::vec3(0.0f, 0.5f, 0.0f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.4f, 0.3f, 1.0f));
+
 
 		Composite cubes(glm::vec3(0.0f, 0.0f, 0.0f),true);
-		cubes.addElement(Cube);
+		cubes.addElement(Cube1);
 		cubes.addElement(Cube2);
 		cubes.addElement(Cube3);
 		
@@ -127,6 +130,8 @@ int main()
 			//glActiveTexture(GL_TEXTURE1);
 			//glBindTexture(GL_TEXTURE_2D, texture1);
 			//glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture1"), 1);
+			Cylinder1.draw();
+			Cylinder1.rotate(glm::vec3(0.0f, 0.1f, 0.1f), glm::vec3(0.0f, 0.0f, 0.0f));
 			cubes.draw();
 			cubes.rotate(glm::vec3(0.0f, 0.1f, 0.1f), glm::vec3(0.0f, 0.0f, 0.0f));
 			//cubes.move(glm::vec3(0.0001f, 0.0f, 0.0f));

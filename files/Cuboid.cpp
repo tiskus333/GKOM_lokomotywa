@@ -1,11 +1,7 @@
 #include "Cuboid.h"
 
-Cuboid::Cuboid(const glm::vec3& position,const  glm::vec3& size) 
+Cuboid::Cuboid(const glm::vec3& position,const  glm::vec3& size) : Shape(position, size, glm::vec3(1.0f, 1.0f, 1.0f), "")
 {
-	this->position_ = position;
-	this->size_ = size;
-	this->color_ = glm::vec3(1.0f, 1.0f, 1.0f);
-	this->texture_path_ = "";
 }
 
 
@@ -22,7 +18,6 @@ Cuboid::Cuboid(const glm::vec3& position, const glm::vec3& size, const std::stri
 }
 Cuboid::~Cuboid()
 {
-	Shape::freeBuffers();
 }
 void Cuboid::init()
 {

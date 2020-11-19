@@ -7,9 +7,8 @@ class Composite : public Object
 {
 protected:
 	std::vector<std::unique_ptr<Shape>> elements;
-	const std::shared_ptr<Shader> shader_;
+	bool rotatable_;
 public:
-	Shape* parent_ = nullptr;
 	Composite(const glm::vec3& positon);
 	~Composite();
 	void draw();
@@ -18,6 +17,7 @@ public:
 	void addElement( Shape& object);
 	void removeElement(uint32_t index);
 	std::unique_ptr<Shape>& getElement(int index);
+	bool isRotatable();
 
 };
 

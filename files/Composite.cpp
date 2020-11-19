@@ -29,7 +29,6 @@ void Composite::rotate(const glm::vec3& angle, const glm::vec3& point = glm::vec
 
 void Composite::addElement( Shape& shape)
 {
-	shape.parent_ = this->parent_;
 	elements.push_back(std::make_unique<Shape>(shape));
 }
 
@@ -45,4 +44,9 @@ void Composite::removeElement(uint32_t index)
 std::unique_ptr<Shape>& Composite::getElement(int index)
 {
 	return elements.at(index);
+}
+
+bool Composite::isRotatable()
+{
+	return rotatable_;
 }

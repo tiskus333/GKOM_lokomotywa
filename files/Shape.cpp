@@ -4,9 +4,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <GL/glew.h>
 
-Shape::Shape(): rotatable_(false), size_(1.0f,1.0f,1.0f)   {
-	//this->bindBuffers();
-}
+Shape::Shape() {}
 
 Shape::~Shape() {
 	this->freeBuffers();
@@ -93,10 +91,5 @@ void Shape::rotate(const glm::vec3& angle, const glm::vec3& point)
 }
 void Shape::scale(const glm::vec3& factor)
 {
-	this->scale_factor_ += factor;
-}
-
-bool Shape::isRotatable()
-{
-	return rotatable_;
+	this->size_ *= factor;
 }

@@ -19,7 +19,7 @@ public:
 	GLuint VAO_, VBO_, EBO_;
 
 	std::string texture_path_;
-	Shape();
+	Shape(const glm::vec3& position, const glm::vec3& size, const glm::vec3& color, const std::string& texture_path);
 	~Shape();
 	void bindBuffers();
 	void freeBuffers();

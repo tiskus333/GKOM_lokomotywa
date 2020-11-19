@@ -5,9 +5,17 @@
 #include <GL/glew.h>
 
 
-Shape::Shape() {};
+
+Shape::Shape(const glm::vec3& position, const glm::vec3& size, const glm::vec3& color, const std::string& texture_path)
+{
+	this->position_ = position;
+	this->size_ = size;
+	this->color_ = color;
+	this->texture_path_ = texture_path;
+}
 
 Shape::~Shape() {
+	freeBuffers();
 }
 
 void Shape::bindBuffers()

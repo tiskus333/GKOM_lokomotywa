@@ -6,8 +6,10 @@ Cuboid::Cuboid(glm::vec3 position, glm::vec3 size)
 	generateVertices();
 }
 
-Cuboid::Cuboid(glm::vec3 position, glm::vec3 size, glm::vec3 color = glm::vec3(0,0,0)) : size_(size)
+Cuboid::Cuboid(glm::vec3 position, glm::vec3 size, glm::vec3 color = glm::vec3(0, 0, 0))
 {
+	this->size_ = size;
+	this->scale_factor_ = glm::vec3(1.0f,1.0f,1.0f);
 	this->position_ = position;
 	this->color_ = color;
 	generateVertices();
@@ -15,7 +17,7 @@ Cuboid::Cuboid(glm::vec3 position, glm::vec3 size, glm::vec3 color = glm::vec3(0
 	Shape::bindBuffers();
 }
 
-Cuboid::Cuboid(glm::vec3 position, glm::vec3 size, std::string texture_path = "") : size_(size)
+Cuboid::Cuboid(glm::vec3 position, glm::vec3 size, std::string texture_path = "")
 {
 	
 	this->texture_path_ = texture_path;
@@ -45,14 +47,14 @@ void Cuboid::generateIndices()
 //adding vertivces counterclockwise from nearest to furthest
 void Cuboid::generateVertices()
 {
-	vertices_ = { -1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-				1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-				1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-				-1.0f, 1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-				-1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-				1.0f, -1.0f,1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-				1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-				-1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f };
+	vertices_ = { -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+				0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+				0.5f, 0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+				-0.5f, 0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+				-0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+				0.5f, -0.5f,0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+				0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+				-0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f };
 
 	for (int i = 3; i < vertices_.size(); i += 8)
 	{

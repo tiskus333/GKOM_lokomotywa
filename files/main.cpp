@@ -93,20 +93,13 @@ int main()
 		glGetIntegerv(GL_MAX_TEXTURE_COORDS, &nrAttributes);
 		cout << "Max texture coords allowed: " << nrAttributes << std::endl;
 
-		// Build, compile and link shader program
-		ShaderProgram theProgram("CubeShader.vert", "CubeShader.frag");
 
 		Cuboid Cube(glm::vec3(0.0f,0.0f,0.0f), glm::vec3(0.5f,0.5f,0.5f), glm::vec3(1.0f,0.0f,0.0f));
 		Cuboid Cube2(glm::vec3(1.0f, -0.0f, -0.0f), glm::vec3(0.5f, 0.5f,0.5f), glm::vec3(0.0f, 0.0f,1.0f));
 		Cuboid Cube3(glm::vec3(0.5f, 0.0f, 0.0f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f));
 
-		Cube.shader_ = std::make_shared<ShaderProgram>(theProgram);
-		Cube2.shader_ = Cube.shader_;
-		Cube3.shader_ = Cube.shader_;
 
 		Composite cubes(glm::vec3(0.0f, 0.0f, 0.0f));
-		Shape* baseP = &Cube;
-		cubes.parent_ = baseP;
 		cubes.addElement(Cube);
 		cubes.addElement(Cube2);
 		cubes.addElement(Cube3);
@@ -127,16 +120,15 @@ int main()
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			theProgram.Use();
 			// Bind Textures using texture units
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, texture0);
-			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture0"), 0);
+			//glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture0"), 0);
 			//glActiveTexture(GL_TEXTURE1);
 			//glBindTexture(GL_TEXTURE_2D, texture1);
 			//glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture1"), 1);
 			cubes.draw();
-			cubes.rotate(glm::vec3(0.0f, 0.0f, 0.1f), glm::vec3(0.5f, 0.0f, 0.0f));
+			cubes.rotate(glm::vec3(0.0f, 0.1f, 0.1f), glm::vec3(0.0f, 0.0f, 0.0f));
 			//cubes.move(glm::vec3(0.0001f, 0.0f, 0.0f));
 
 			// Swap the screen buffers

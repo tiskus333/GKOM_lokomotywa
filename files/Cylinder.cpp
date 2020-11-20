@@ -23,6 +23,7 @@ Cylinder::~Cylinder()
 
 void Cylinder::generateIndices()
 {
+	indices_.reserve((3 * 2 + 2) * SEGMENTS);
 	for (uint32_t i = 1; i <= SEGMENTS; ++i)
 	{
 		indices_.push_back(0); //top triangle
@@ -61,7 +62,8 @@ void Cylinder::generateIndices()
 void Cylinder::generateVertices()
 {
 	float theta = 0.0;
-	float step = 2 * 3.1415f / static_cast<float>(SEGMENTS);
+	float step = 2 * 3.14159265f / static_cast<float>(SEGMENTS);
+	vertices_.reserve((2 * SEGMENTS + 2) * 8);
 	vertices_.push_back(0.0f);  //0 top middle
 	vertices_.push_back(size_.y );
 	vertices_.push_back(0.0f);

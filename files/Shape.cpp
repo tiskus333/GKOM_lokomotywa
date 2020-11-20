@@ -25,7 +25,6 @@ void Shape::bindBuffers()
 	glGenBuffers(1, &EBO_);
 	// Bind the Vertex Array Object first, then bind and set vertex buffer(s) and attribute pointer(s).
 	glBindVertexArray(VAO_);
-	//static_cast<void*>(&vertices)
 	glBindBuffer(GL_ARRAY_BUFFER, VBO_);
 	glBufferData(GL_ARRAY_BUFFER, vertices_.size() * sizeof(GLfloat), &vertices_[0], GL_STATIC_DRAW);
 
@@ -59,10 +58,9 @@ void Shape::draw()
 
 	glPushMatrix();
 	glm::mat4 model;
-	model = translate(model_, position_);
+	model = glm::translate(model_, position_);
 	model = glm::scale(model, size_);
 
-	shader_.Use();
 	GLuint transformLoc = glGetUniformLocation(shader_.get_programID(), "transform");
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(model));
 	glBindVertexArray(VAO_);
@@ -81,13 +79,12 @@ void Shape::rotate(const glm::vec3& angle)
 }
 void Shape::rotate(const glm::vec3& angle, const glm::vec3& point)
 {
-	//if(isRotatable())
 		this->rotation_ += angle;
 		rotation_.x -= rotation_.x > 360.0f ? 360.0f : 0.0f;
 		rotation_.y -= rotation_.y > 360.0f ? 360.0f : 0.0f;
 		rotation_.z -= rotation_.z > 360.0f ? 360.0f : 0.0f;
 		glPushMatrix();
-		model_ = translate(glm::mat4(), point);
+		model_ = glm::translate(glm::mat4(), point);
 		model_ = glm::rotate(model_, -glm::radians(rotation_.x), glm::vec3(1.0f, 0.0f, 0.0f));
 		model_ = glm::rotate(model_, -glm::radians(rotation_.y), glm::vec3(0.0f, 1.0f, 0.0f));
 		model_ = glm::rotate(model_, -glm::radians(rotation_.z), glm::vec3(0.0f, 0.0f, 1.0f));

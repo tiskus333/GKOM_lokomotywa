@@ -15,17 +15,47 @@ using namespace std;
 #include "Camera.h"
 const GLuint WIDTH = 800, HEIGHT = 800;
 
-static Camera camera;
+static Camera camera(glm::vec3(0.f,0.f,-3.f), glm::vec3(0.f, 1.f, 0.f));
+float current_time = 0.0, delta_time = 0.0f, last_frame = 0.0f;
+double lastX = WIDTH/2;
+double lastY = HEIGHT/2;
+bool firstMouse = true;
+
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
-	cout << key << endl;
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, GL_TRUE);
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, true);
+
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+		camera.ProcessKeyboard(Camera_Movement::FORWARD, delta_time);
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		camera.ProcessKeyboard(Camera_Movement::BACKWARD, delta_time);
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+		camera.ProcessKeyboard(Camera_Movement::LEFT, delta_time);
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+		camera.ProcessKeyboard(Camera_Movement::RIGHT, delta_time);
 }
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+void scroll_callback(GLFWwindow* window, double xpos, double ypos)
 {
-	camera.ProcessMouseScroll(yoffset);
+	camera.ProcessMouseScroll(ypos);
+}
+void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+{
+	if (firstMouse)
+	{
+		lastX = xpos;
+		lastY = ypos;
+		firstMouse = false;
+	}
+
+	float xoffset = xpos - lastX;
+	float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+
+	lastX = xpos;
+	lastY = ypos;
+
+	camera.ProcessMouseMovement(xoffset, yoffset);
 }
 
 GLuint LoadMipmapTexture(GLuint texId, const char* fname)
@@ -47,25 +77,8 @@ GLuint LoadMipmapTexture(GLuint texId, const char* fname)
 	return texture;
 }
 
-ostream& operator<<(ostream& os, const glm::mat4& mx)
-{
-	for (int row = 0; row < 4; ++row)
-	{
-		for (int col = 0; col < 4; ++col)
-			cout << mx[row][col] << ' ';
-		cout << endl;
-	}
-	return os;
-}
-
 int main()
 {
-	{
-		glm::mat4 trans;
-		cout << trans << endl;
-		trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
-		cout << trans << endl;
-	}
 	if (glfwInit() != GL_TRUE)
 	{
 		cout << "GLFW initialization failed" << endl;
@@ -85,20 +98,15 @@ int main()
 			throw exception("GLFW window not created");
 		glfwMakeContextCurrent(window);
 		glfwSetKeyCallback(window, key_callback);
-
+		glfwSetCursorPosCallback(window, mouse_callback);
+		glfwSetScrollCallback(window, scroll_callback);
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		glewExperimental = GL_TRUE;
 		if (glewInit() != GLEW_OK)
 			throw exception("GLEW Initialization failed");
 
 		glViewport(0, 0, WIDTH, HEIGHT);
 		glEnable(GL_DEPTH_TEST);
-
-		// Let's check what are maximum parameters counts
-		GLint nrAttributes;
-		glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
-		cout << "Max vertex attributes allowed: " << nrAttributes << std::endl;
-		glGetIntegerv(GL_MAX_TEXTURE_COORDS, &nrAttributes);
-		cout << "Max texture coords allowed: " << nrAttributes << std::endl;
 
 
 		Cuboid Cube1(glm::vec3(0.0f,0.0f,0.0f), glm::vec3(0.5f,0.5f,0.5f), glm::vec3(1.0f,0.0f,0.0f));
@@ -113,20 +121,39 @@ int main()
 		cubes.addElement(Cube2);
 		cubes.addElement(Cube3);
 		
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// prepare textures
 		GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "piesek.png");
 		// GLuint texture1 = LoadMipmapTexture(GL_TEXTURE1, "weiti.png");
 
+		ShaderProgram shader("CubeShader.vert", "CubeShader.frag");
+
 		// main event loop
 		while (!glfwWindowShouldClose(window))
 		{
-			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
-			glfwPollEvents();
 
+			current_time = glfwGetTime();
+			delta_time = current_time - last_frame;
+			last_frame = current_time;
 			// Clear the colorbuffer
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+			shader.Use();
+			glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 0.1f, 100.0f);
+			GLuint projectionView = glGetUniformLocation(shader.get_programID(), "projection");
+			glUniformMatrix4fv(projectionView, 1, GL_FALSE, glm::value_ptr(projection));
+			glm::mat4 view = camera.GetViewMatrix();
+			GLuint transformView = glGetUniformLocation(shader.get_programID(), "view");
+			glUniformMatrix4fv(transformView, 1, GL_FALSE, glm::value_ptr(view));
+
+			cubes.draw();
+			cubes.rotate(glm::vec3(0.0f, 0.1f, 0.1f), glm::vec3(0.0f, 0.0f, 0.0f));
+			Cylinder1.draw();
+			Cylinder1.rotate(glm::vec3(0.0f, 0.1f, 0.1f), glm::vec3(0.0f, 0.0f, 0.0f));
+			
+
+
 
 			// Bind Textures using texture units
 			glActiveTexture(GL_TEXTURE0);
@@ -135,12 +162,11 @@ int main()
 			//glActiveTexture(GL_TEXTURE1);
 			//glBindTexture(GL_TEXTURE_2D, texture1);
 			//glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture1"), 1);
-			Cylinder1.draw();
-			Cylinder1.rotate(glm::vec3(0.0f, 0.1f, 0.1f), glm::vec3(0.0f, 0.0f, 0.0f));
-			cubes.draw();
-			cubes.rotate(glm::vec3(0.0f, 0.1f, 0.1f), glm::vec3(0.0f, 0.0f, 0.0f));
+			
 			//cubes.move(glm::vec3(0.0001f, 0.0f, 0.0f));
 
+			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
+			glfwPollEvents();
 			// Swap the screen buffers
 			glfwSwapBuffers(window);
 		}

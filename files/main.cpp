@@ -12,14 +12,20 @@ using namespace std;
 #include "Cuboid.h"
 #include "Composite.h"
 #include "Cylinder.h"
-
+#include "Camera.h"
 const GLuint WIDTH = 800, HEIGHT = 800;
+
+static Camera camera;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
 	cout << key << endl;
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
+}
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	camera.ProcessMouseScroll(yoffset);
 }
 
 GLuint LoadMipmapTexture(GLuint texId, const char* fname)
@@ -107,8 +113,7 @@ int main()
 		cubes.addElement(Cube2);
 		cubes.addElement(Cube3);
 		
-	
-
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// prepare textures
 		GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "piesek.png");
 		// GLuint texture1 = LoadMipmapTexture(GL_TEXTURE1, "weiti.png");

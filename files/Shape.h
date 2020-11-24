@@ -28,6 +28,9 @@ public:
 	void rotate(const glm::vec3& angle);
 	void rotate(const glm::vec3& angle, const glm::vec3& point) override;
 	void scale(const glm::vec3& factor);
+	void setSize(const glm::vec3& size);
+	void setColor(const float r, const float g, const float b);
+	void setColor(const uint32_t r, uint32_t g, const uint32_t b);
 
 
 };

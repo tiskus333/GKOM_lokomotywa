@@ -57,7 +57,10 @@ void Shape::draw()
 	glPushMatrix();
 	model_ = glm::mat4();
 	if (parent_ != nullptr)
-		model_ = parent_->rotation_matrix_;
+	{
+		model_ = glm::translate(model_, parent_->position_);
+		model_ *= parent_->rotation_matrix_;
+	}
 	model_ *= rotation_matrix_;
 	model_ = glm::translate(model_, position_);
 	model_ = glm::scale(model_, size_);

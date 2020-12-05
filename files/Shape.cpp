@@ -58,7 +58,7 @@ void Shape::draw()
 	model_ = glm::mat4();
 	if (parent_ != nullptr)
 	{
-		model_ = glm::translate(model_, parent_->position_);
+		model_ = glm::translate(model_, parent_->position_); 
 		model_ *= parent_->rotation_matrix_;
 	}
 	model_ *= rotation_matrix_;

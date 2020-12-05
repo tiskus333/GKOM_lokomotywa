@@ -9,6 +9,11 @@ void Object::rotate(const glm::vec3& angle, const glm::vec3& point)
 {
 	glPushMatrix();
 	glm::mat4 rotation;
+	/*if (parent_ != nullptr)
+	{
+		rotation = parent_->rotation_matrix_;
+		rotation = glm::translate(rotation, parent_->position_);
+	}*/
 	rotation = glm::translate(rotation, point);
 	rotation = glm::rotate(rotation, glm::radians(angle.x), glm::vec3(1.0f, 0.0f, 0.0f));
 	rotation = glm::rotate(rotation, glm::radians(angle.y), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -27,9 +32,9 @@ void Object::rotate(const glm::vec3& angle)
 	rotation = glm::rotate(rotation, glm::radians(angle.z), glm::vec3(0.0f, 0.0f, 1.0f));
 	rotation_matrix_ = rotation_matrix_* rotation;
 	glPopMatrix();*/
-	if (parent_ != nullptr)
-		this->rotate(angle, parent_->position_ + position_ );
-	else
+	/*if (parent_ != nullptr)
+		this->rotate(angle, parent_->position_);
+	else*/
 		this->rotate(angle, position_);
 }
 

@@ -108,7 +108,6 @@ int main()
 		glViewport(0, 0, WIDTH, HEIGHT);
 		glEnable(GL_DEPTH_TEST);
 
-
 		Cuboid Cube1({ 0, 0, 0 }, { 0.5, 1.5, 0.5 }, glm::vec3( 1, 0, 0 ));
 		Cuboid Cube2({ 1, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3( 0, 0, 1 ));
 		Cuboid Cube3({ 0.5, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3( 0, 1, 0 ));
@@ -117,10 +116,14 @@ int main()
 		Cylinder1.rotate({ 90, 0, 0 });
 
 		Composite cubes({ 0,0,0 });
+
 		cubes.addElement(Cube1);
 		cubes.addElement(Cube2);
 		cubes.addElement(Cube3);
 		cubes.addElement(Cylinder1);
+		cubes.rotate({ 90,0,0 });
+		cubes.move({ 0,0,-3 });
+		//WORLD.addElement(cubes);
 		
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// prepare textures
@@ -128,7 +131,6 @@ int main()
 		// GLuint texture1 = LoadMipmapTexture(GL_TEXTURE1, "weiti.png");
 
 		ShaderProgram shader("CubeShader.vert", "CubeShader.frag");
-		cubes.rotate({ 90,0,0 });
 		// main event loop
 		while (!glfwWindowShouldClose(window))
 		{
@@ -150,10 +152,10 @@ int main()
 
 			cubes.draw();
 			//roataing around (0,0,0) ensures no spirals when moving
-			cubes.rotate({ 0.0, 0.0, 0.1 }, { 0,0,0 });
-			cubes.move({ 0, -0.001, 0 });
+			cubes.rotate({ 0, 2, 0 });
+			cubes.move({ 0, 0, -0.001 });
 			//Cylinder1.draw();
-			//Cylinder1.rotate(glm::vec3(0.0f, 0.0f, 0.1f), glm::vec3(0.0f, 0.0f, 0.0f));
+			//Cylinder1.rotate(glm::vec3(0.0f, 0.0f, 0.1f));
 			
 
 

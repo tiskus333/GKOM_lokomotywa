@@ -4,6 +4,7 @@
 class Object
 {
 public:
+	Object* parent_ = nullptr;
 	glm::vec3 position_;
 	glm::vec3 rotation_;
 

@@ -17,19 +17,43 @@ void Composite::draw()
 
 void Composite::move(const glm::vec3& displacement)
 {
-	for (const auto& element : elements)
-		element->move(displacement);
+	position_ += displacement;
+	/*for (const auto& element : elements)
+		element->move(displacement);*/
 }
 
-void Composite::rotate(const glm::vec3& angle, const glm::vec3& point )
+void Composite::rotate(const glm::vec3& angle, const glm::vec3& point)
 {
-	if(isRotatable())
-	for (const auto& element : elements)
-		element->rotate(angle, point);
+	if (isRotatable())
+	{
+		this->rotation_ += angle;
+		rotation_.x -= rotation_.x > 360.0f ? 360.0f : 0.0f;
+		rotation_.y -= rotation_.y > 360.0f ? 360.0f : 0.0f;
+		rotation_.z -= rotation_.z > 360.0f ? 360.0f : 0.0f;
+	}
+	//if (isRotatable())
+	//	for (const auto& element : elements)
+	//	{
+	//		element->rotate(angle, point);
+	//		//element->rotate(angle);
+	//	}
+}
+
+void Composite::rotate(const glm::vec3& angle)
+{
+	this->rotate(angle, position_);
+
+	//if(isRotatable())
+	//	for (const auto& element : elements)
+	//	{
+	//		element->rotate(angle,position_);
+	//		//element->rotate(angle);
+	//	}
 }
 
 void Composite::addElement( Shape& shape)
 {
+	shape.parent_ = this;
 	elements.push_back(std::make_unique<Shape>(shape));
 }
 

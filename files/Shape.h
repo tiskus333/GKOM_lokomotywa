@@ -11,6 +11,7 @@ public:
 	glm::vec3 color_;
 	glm::vec3 size_;
 	glm::mat4 model_;
+	glm::mat4 rotation_matrix_;
 	ShaderProgram shader_;
 
 

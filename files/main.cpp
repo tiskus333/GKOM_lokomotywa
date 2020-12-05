@@ -109,17 +109,18 @@ int main()
 		glEnable(GL_DEPTH_TEST);
 
 
-		Cuboid Cube1(glm::vec3(0.0f,0.0f,0.0f), glm::vec3(0.5f,0.5f,0.5f), glm::vec3(1.0f,0.0f,0.0f));
-		Cuboid Cube2(glm::vec3(1.0f, -0.0f, -0.0f), glm::vec3(0.5f, 0.5f,0.5f), glm::vec3(0.0f, 0.0f,1.0f));
+		Cuboid Cube1(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.5f, 1.5f, 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
+		Cuboid Cube2(glm::vec3(1.0f, -0.0f, -0.0f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.0f, 0.0f, 1.0f));
 		Cuboid Cube3(glm::vec3(0.5f, 0.0f, 0.0f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f));
 
-		Cylinder Cylinder1(glm::vec3(0.0f, 0.5f, 0.0f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.4f, 0.3f, 1.0f));
+		Cylinder Cylinder1(glm::vec3(0.0f, 0.0f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.4f, 0.3f, 1.0f));
+		Cylinder1.rotate({ 90.0f, 0.0f, 0.0f });
 
-
-		Composite cubes(glm::vec3(0.0f, 0.0f, 0.0f),true);
+		Composite cubes({ 0,0,0 });
 		cubes.addElement(Cube1);
 		cubes.addElement(Cube2);
 		cubes.addElement(Cube3);
+		cubes.addElement(Cylinder1);
 		
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// prepare textures
@@ -127,7 +128,7 @@ int main()
 		// GLuint texture1 = LoadMipmapTexture(GL_TEXTURE1, "weiti.png");
 
 		ShaderProgram shader("CubeShader.vert", "CubeShader.frag");
-
+		cubes.rotate({ 90,0,0 });
 		// main event loop
 		while (!glfwWindowShouldClose(window))
 		{
@@ -148,9 +149,9 @@ int main()
 			glUniformMatrix4fv(transformView, 1, GL_FALSE, glm::value_ptr(view));
 
 			cubes.draw();
-			cubes.rotate(glm::vec3(0.0f, 0.1f, 0.1f), glm::vec3(0.0f, 0.0f, 0.0f));
-			Cylinder1.draw();
-			Cylinder1.rotate(glm::vec3(0.0f, 0.1f, 0.1f), glm::vec3(0.0f, 0.0f, 0.0f));
+			cubes.rotate(glm::vec3(0.0f, 0.0f, 0.1f), { 0,0.5,0 });
+			//Cylinder1.draw();
+			//Cylinder1.rotate(glm::vec3(0.0f, 0.0f, 0.1f), glm::vec3(0.0f, 0.0f, 0.0f));
 			
 
 
@@ -163,7 +164,7 @@ int main()
 			//glBindTexture(GL_TEXTURE_2D, texture1);
 			//glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture1"), 1);
 			
-			//cubes.move(glm::vec3(0.0001f, 0.0f, 0.0f));
+			//cubes.move(glm::vec3(0.0f, 0.001f, 0.0f));
 
 			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 			glfwPollEvents();

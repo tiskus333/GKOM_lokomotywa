@@ -15,7 +15,7 @@ using namespace std;
 #include "Camera.h"
 const GLuint WIDTH = 800, HEIGHT = 800;
 
-static Camera camera(glm::vec3(0.f,0.f,-3.f), glm::vec3(0.f, 1.f, 0.f));
+static Camera camera(glm::vec3(0.f,0.f,3.f), glm::vec3(0.f, 1.f, 0.f));
 float current_time = 0.0, delta_time = 0.0f, last_frame = 0.0f;
 double lastX = WIDTH/2;
 double lastY = HEIGHT/2;
@@ -113,7 +113,7 @@ int main()
 		Cuboid Cube2(glm::vec3(1.0f, -0.0f, -0.0f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.0f, 0.0f, 1.0f));
 		Cuboid Cube3(glm::vec3(0.5f, 0.0f, 0.0f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f));
 
-		Cylinder Cylinder1(glm::vec3(0.0f, 0.0f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.4f, 0.3f, 1.0f));
+		Cylinder Cylinder1(glm::vec3(0.0f, 0.0f, 0.5f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.4f, 0.3f, 1.0f));
 		Cylinder1.rotate({ 90.0f, 0.0f, 0.0f });
 
 		Composite cubes({ 0,0,0 });
@@ -149,7 +149,7 @@ int main()
 			glUniformMatrix4fv(transformView, 1, GL_FALSE, glm::value_ptr(view));
 
 			cubes.draw();
-			cubes.rotate(glm::vec3(0.0f, 0.0f, 0.1f), { 0,0.5,0 });
+			cubes.rotate(glm::vec3(0.0f, 0.0f, 0.1f), { 1,0,0 });
 			//Cylinder1.draw();
 			//Cylinder1.rotate(glm::vec3(0.0f, 0.0f, 0.1f), glm::vec3(0.0f, 0.0f, 0.0f));
 			

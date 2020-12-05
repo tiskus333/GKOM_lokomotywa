@@ -3,7 +3,7 @@
 #include "Shader.h"
 #include "shprogram.h"
 #include <vector>
-#include <GL/glew.h>
+
 
 class Shape : public Object
 {
@@ -11,7 +11,6 @@ public:
 	glm::vec3 color_;
 	glm::vec3 size_;
 	glm::mat4 model_;
-	glm::mat4 rotation_matrix_;
 	ShaderProgram shader_;
 
 
@@ -25,9 +24,6 @@ public:
 	void bindBuffers();
 	void freeBuffers();
 	void draw();
-	void move(const glm::vec3& displacement) override;
-	void rotate(const glm::vec3& angle);
-	void rotate(const glm::vec3& angle, const glm::vec3& point) override;
 	void scale(const glm::vec3& factor);
 	void setSize(const glm::vec3& size);
 	void setColor(const float r, const float g, const float b);

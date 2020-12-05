@@ -1,6 +1,5 @@
 #include "Shape.h"
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <GL/glew.h>
 
@@ -55,27 +54,13 @@ void Shape::freeBuffers()
 
 void Shape::draw()
 {
-
 	glPushMatrix();
 	model_ = glm::mat4();
 	if (parent_ != nullptr)
-	{
-		model_ = glm::translate(model_, parent_->position_);
-		model_ = glm::rotate(model_, glm::radians(parent_->rotation_.y), glm::vec3(0.0f, 1.0f, 0.0f));
-		model_ = glm::rotate(model_, glm::radians(parent_->rotation_.z), glm::vec3(0.0f, 0.0f, 1.0f));
-		model_ = glm::rotate(model_, glm::radians(parent_->rotation_.x), glm::vec3(1.0f, 0.0f, 0.0f));
-		//model_ = glm::translate(model_, -parent_->position_);
-	}
+		model_ = parent_->rotation_matrix_;
 	model_ *= rotation_matrix_;
 	model_ = glm::translate(model_, position_);
-	/*model_ = glm::rotate(model_, glm::radians(rotation_.y), glm::vec3(0.0f, 1.0f, 0.0f));
-	model_ = glm::rotate(model_, glm::radians(rotation_.z), glm::vec3(0.0f, 0.0f, 1.0f));
-	model_ = glm::rotate(model_, glm::radians(rotation_.x), glm::vec3(1.0f, 0.0f, 0.0f));*/
-
 	model_ = glm::scale(model_, size_);
-	//glm::translate(model_, position_);
-	//model_ *= rotation_matrix_;
-	
 
 	GLuint transformLoc = glGetUniformLocation(shader_.get_programID(), "transform");
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(model_));
@@ -85,50 +70,6 @@ void Shape::draw()
 	glPopMatrix();
 }
 
-void Shape::move(const glm::vec3& displacement)
-{
-	/*this->position_.x += sin(glm::radians(rotation_.y)) * displacement.y + sin(glm::radians(rotation_.z)) * displacement.z + cos(glm::radians(rotation_.x)) * displacement.x;
-	this->position_.y += cos(glm::radians(rotation_.y)) * displacement.y + sin(glm::radians(rotation_.z)) * displacement.z + sin(glm::radians(rotation_.x)) * displacement.x;
-	this->position_.z += sin(glm::radians(rotation_.y)) * displacement.y + cos(glm::radians(rotation_.z)) * displacement.z + sin(glm::radians(rotation_.x)) * displacement.x;*/
-	//this->position_ += glm::vec3(sin(glm::radians(rotation_.x)) * displacement.x, cos(glm::radians(rotation_.y)) * displacement.y, sin(glm::radians(rotation_.z)) * displacement.z );
-	this->position_ += displacement;
-}
-void Shape::rotate(const glm::vec3& angle)
-{
-	/*this->rotation_ += angle;
-	rotation_.x -= rotation_.x > 360.0f ? 360.0f : 0.0f;
-	rotation_.y -= rotation_.y > 360.0f ? 360.0f : 0.0f;
-	rotation_.z -= rotation_.z > 360.0f ? 360.0f : 0.0f;*/
-	/*glPushMatrix();
-	rotation_matrix_ = glm::translate(glm::mat4(), position_);
-	rotation_matrix_ = glm::rotate(rotation_matrix_, -glm::radians(angle.x), glm::vec3(1.0f, 0.0f, 0.0f));
-	rotation_matrix_ = glm::rotate(rotation_matrix_, -glm::radians(angle.y), glm::vec3(0.0f, 1.0f, 0.0f));
-	rotation_matrix_ = glm::rotate(rotation_matrix_, -glm::radians(angle.z), glm::vec3(0.0f, 0.0f, 1.0f));
-	rotation_matrix_ = translate(rotation_matrix_, -position_);
-	glPopMatrix();*/
-	this->rotate(angle, position_);
-}
-void Shape::rotate(const glm::vec3& angle, const glm::vec3& point)
-{
-		this->rotation_ += angle;
-		rotation_.x -= rotation_.x > 360.0f ? 360.0f : 0.0f;
-		rotation_.y -= rotation_.y > 360.0f ? 360.0f : 0.0f;
-		rotation_.z -= rotation_.z > 360.0f ? 360.0f : 0.0f;
-		glPushMatrix();
-		rotation_matrix_ = glm::translate(glm::mat4(), position_);
-		rotation_matrix_ = glm::rotate(rotation_matrix_, -glm::radians(rotation_.y), glm::vec3(0.0f, 1.0f, 0.0f));
-		rotation_matrix_ = glm::rotate(rotation_matrix_, -glm::radians(rotation_.z), glm::vec3(0.0f, 0.0f, 1.0f));
-		rotation_matrix_ = glm::rotate(rotation_matrix_, -glm::radians(rotation_.x), glm::vec3(1.0f, 0.0f, 0.0f));
-		rotation_matrix_ = translate(rotation_matrix_, -position_);
-		glPopMatrix();
-		/*glPushMatrix();
-		model_ = glm::translate(glm::mat4(), point);
-		model_ = glm::rotate(model_, -glm::radians(rotation_.y), glm::vec3(0.0f, 1.0f, 0.0f));
-		model_ = glm::rotate(model_, -glm::radians(rotation_.z), glm::vec3(0.0f, 0.0f, 1.0f));
-		model_ = glm::rotate(model_, -glm::radians(rotation_.x), glm::vec3(1.0f, 0.0f, 0.0f));
-		model_ = translate(model_, -point);
-		glPopMatrix();*/
-}
 void Shape::scale(const glm::vec3& factor)
 {
 	this->size_ *= factor;

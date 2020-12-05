@@ -109,12 +109,12 @@ int main()
 		glEnable(GL_DEPTH_TEST);
 
 
-		Cuboid Cube1(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.5f, 1.5f, 0.5f), glm::vec3(1.0f, 0.0f, 0.0f));
-		Cuboid Cube2(glm::vec3(1.0f, -0.0f, -0.0f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.0f, 0.0f, 1.0f));
-		Cuboid Cube3(glm::vec3(0.5f, 0.0f, 0.0f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f));
+		Cuboid Cube1({ 0, 0, 0 }, { 0.5, 1.5, 0.5 }, glm::vec3( 1, 0, 0 ));
+		Cuboid Cube2({ 1, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3( 0, 0, 1 ));
+		Cuboid Cube3({ 0.5, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3( 0, 1, 0 ));
 
-		Cylinder Cylinder1(glm::vec3(0.0f, 0.0f, 0.5f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.4f, 0.3f, 1.0f));
-		Cylinder1.rotate({ 90.0f, 0.0f, 0.0f });
+		Cylinder Cylinder1({ 0, 0, 0.5 }, { 0.5, 0.5, 0.5 }, glm::vec3(0.4f, 0.3f, 1.0f));
+		Cylinder1.rotate({ 90, 0, 0 });
 
 		Composite cubes({ 0,0,0 });
 		cubes.addElement(Cube1);
@@ -149,7 +149,9 @@ int main()
 			glUniformMatrix4fv(transformView, 1, GL_FALSE, glm::value_ptr(view));
 
 			cubes.draw();
-			cubes.rotate(glm::vec3(0.0f, 0.0f, 0.1f), { 1,0,0 });
+			//roataing around (0,0,0) ensures no spirals when moving
+			cubes.rotate({ 0.0, 0.0, 0.1 }, { 0,0,0 });
+			cubes.move({ 0, -0.001, 0 });
 			//Cylinder1.draw();
 			//Cylinder1.rotate(glm::vec3(0.0f, 0.0f, 0.1f), glm::vec3(0.0f, 0.0f, 0.0f));
 			
@@ -164,7 +166,6 @@ int main()
 			//glBindTexture(GL_TEXTURE_2D, texture1);
 			//glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture1"), 1);
 			
-			//cubes.move(glm::vec3(0.0f, 0.001f, 0.0f));
 
 			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 			glfwPollEvents();

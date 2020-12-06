@@ -12,8 +12,9 @@ Composite::~Composite()
 
 void Composite::draw()
 {
+	const glm::mat4 model = glm::translate(dynamic_rotation_matrix_, position_) * static_rotation_matrix_;
 	for (auto& el : elements)
-		el->draw();
+		el->draw(model);
 }
 
 void Composite::addElement( Shape& shape)

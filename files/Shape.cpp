@@ -52,17 +52,10 @@ void Shape::freeBuffers()
 	glDeleteBuffers(1, &EBO_);
 }
 
-void Shape::draw()
+void Shape::draw(const glm::mat4& parent_model)
 {
 	glPushMatrix();
-	model_ = glm::mat4();
-	if (parent_ != nullptr)
-	{
-		model_ = glm::translate(model_, parent_->position_); 
-		model_ *= parent_->rotation_matrix_;
-	}
-	model_ *= rotation_matrix_;
-	model_ = glm::translate(model_, position_);
+	model_ = parent_model * glm::translate(dynamic_rotation_matrix_, position_) * static_rotation_matrix_;
 	model_ = glm::scale(model_, size_);
 
 	GLuint transformLoc = glGetUniformLocation(shader_.get_programID(), "transform");

@@ -111,9 +111,12 @@ int main()
 		Cuboid Cube1({ 0, 0, 0 }, { 0.5, 1.5, 0.5 }, glm::vec3( 1, 0, 0 ));
 		Cuboid Cube2({ 1, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3( 0, 0, 1 ));
 		Cuboid Cube3({ 0.5, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3( 0, 1, 0 ));
+		Cuboid world({ 0,0,0 }, { 1,1,1 });
 
 		Cylinder Cylinder1({ 0, 0, 0.5 }, { 0.5, 0.5, 0.5 }, glm::vec3(0.4f, 0.3f, 1.0f));
 		Cylinder1.rotate({ 90, 0, 0 });
+		Cylinder Cylinder2({ -0.5, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3(0.2f, 0.1f, 1.0f));
+		Cylinder2.rotate({ 0,0,90 });
 
 		Composite cubes({ 0,0,0 });
 
@@ -121,8 +124,9 @@ int main()
 		cubes.addElement(Cube2);
 		cubes.addElement(Cube3);
 		cubes.addElement(Cylinder1);
+		cubes.addElement(Cylinder2);
 		cubes.rotate({ 90,0,0 });
-		cubes.move({ 0,0,-3 });
+		//cubes.move({ 0,0,-3 });
 		//WORLD.addElement(cubes);
 		
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -150,16 +154,10 @@ int main()
 			GLuint transformView = glGetUniformLocation(shader.get_programID(), "view");
 			glUniformMatrix4fv(transformView, 1, GL_FALSE, glm::value_ptr(view));
 
+			cubes.move({ 0,0, -0.001 });
+			cubes.rotate({ 0,1, 0 }/*, { 0,0,0 }*/);
 			cubes.draw();
-			//roataing around (0,0,0) ensures no spirals when moving
-			cubes.rotate({ 0, 2, 0 });
-			cubes.move({ 0, 0, -0.001 });
-			//Cylinder1.draw();
-			//Cylinder1.rotate(glm::vec3(0.0f, 0.0f, 0.1f));
-			
-
-
-
+	
 			// Bind Textures using texture units
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, texture0);

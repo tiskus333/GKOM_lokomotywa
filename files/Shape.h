@@ -23,7 +23,7 @@ public:
 	~Shape();
 	void bindBuffers();
 	void freeBuffers();
-	void draw();
+	void draw(const glm::mat4& parent_model = glm::mat4(1.f));
 	void scale(const glm::vec3& factor);
 	void setSize(const glm::vec3& size);
 	void setColor(const float r, const float g, const float b);

@@ -31,3 +31,8 @@ void Object::setPosition(const glm::vec3& position)
 {
 	position_ = position;
 }
+
+void Object::setParent( Object* parent)
+{
+	parent_ = parent;
+}

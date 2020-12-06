@@ -111,7 +111,6 @@ int main()
 		Cuboid Cube1({ 0, 0, 0 }, { 0.5, 1.5, 0.5 }, glm::vec3( 1, 0, 0 ));
 		Cuboid Cube2({ 1, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3( 0, 0, 1 ));
 		Cuboid Cube3({ 0.5, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3( 0, 1, 0 ));
-		Cuboid world({ 0,0,0 }, { 1,1,1 });
 
 		Cylinder Cylinder1({ 0, 0, 0.5 }, { 0.5, 0.5, 0.5 }, glm::vec3(0.4f, 0.3f, 1.0f));
 		Cylinder1.rotate({ 90, 0, 0 });
@@ -126,8 +125,6 @@ int main()
 		cubes.addElement(Cylinder1);
 		cubes.addElement(Cylinder2);
 		cubes.rotate({ 90,0,0 });
-		//cubes.move({ 0,0,-3 });
-		//WORLD.addElement(cubes);
 		
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// prepare textures

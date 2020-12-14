@@ -93,7 +93,7 @@ int main()
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 	try
 	{
-		GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "GKOM - OpenGL 05", nullptr, nullptr);
+		GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "GKOM - OpenGL 206.z Lokomotywa", nullptr, nullptr);
 		if (window == nullptr)
 			throw exception("GLFW window not created");
 		glfwMakeContextCurrent(window);
@@ -128,7 +128,7 @@ int main()
 		
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// prepare textures
-		GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "piesek.png");
+		//GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "piesek.png");
 		// GLuint texture1 = LoadMipmapTexture(GL_TEXTURE1, "weiti.png");
 
 		ShaderProgram shader("CubeShader.vert", "CubeShader.frag");
@@ -156,8 +156,8 @@ int main()
 			cubes.draw();
 	
 			// Bind Textures using texture units
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, texture0);
+			//glActiveTexture(GL_TEXTURE0);
+			//glBindTexture(GL_TEXTURE_2D, texture0);
 			//glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture0"), 0);
 			//glActiveTexture(GL_TEXTURE1);
 			//glBindTexture(GL_TEXTURE_2D, texture1);

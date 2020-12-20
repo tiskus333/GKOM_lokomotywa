@@ -1,4 +1,5 @@
 #pragma once
+#include <GL/glew.h>
 
 class ShaderProgram
 {
@@ -6,6 +7,7 @@ class ShaderProgram
 public:
 	// Constructor reads and builds the shader
 	ShaderProgram(const GLchar* vertexPath, const GLchar* fragmentPath);
+	ShaderProgram();
 
 	// Use the program
 	void Use() const

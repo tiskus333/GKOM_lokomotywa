@@ -1,31 +1,48 @@
 #pragma once
 #include "Object.h"
+#include "Shader.h"
+#include "shprogram.h"
 #include <vector>
-#include <GL/glew.h>
+
 
 class Shape : public Object
 {
-public:
-	bool rotatable_;
-	glm::vec4 color_;
+protected:
+	glm::vec3 color_;
 	glm::vec3 size_;
-	glm::vec3 rotation_;
-	glm::vec3 scale_factor_;
 	glm::mat4 model_;
-
-
-	std::vector<GLfloat> verticies_;
-	std::vector<GLfloat> indicies_;
+	std::vector<GLfloat> vertices_;
+	std::vector<GLuint> indices_;
 	GLuint VAO_, VBO_, EBO_;
+	ShaderProgram shader_;
+	std::string texture_path_;
 
-	GLuint texture_;
+	/* creating openGL buffers */
+	void bindBuffers();
+	/* deleting openGL buffers */
+	void freeBuffers();
 
-	Shape();
+	/* internaly construct shape with provided parameters */
+	Shape(const glm::vec3& position, const glm::vec3& size, const glm::vec3& color, const std::string& texture_path);
+public:
+	/* free buffers and delete shape */
 	~Shape();
-	void move(const glm::vec3& displacement) override;
-	void rotate(const glm::vec3& angle) override;
-	void scale(const glm::vec3& factor) override;
-	bool isRotatable();
+
+	/* draw shape in relation to parent object, if no parent leave empty */
+	void draw(const glm::mat4& parent_model = glm::mat4(1.f));
+	
+	/* scale shape by given scale factor in each direction */
+	void scale(const glm::vec3& factor);
+
+	/* set object's size */
+	void setSize(const glm::vec3& size);
+
+	/* set object color using float range 0.0->1.0*/
+	void setColor(const float r, const float g, const float b);
+
+	/* set shape color using standard 0-255 range */
+	void setColor(const uint32_t r, uint32_t g, const uint32_t b);
+
 
 };
 

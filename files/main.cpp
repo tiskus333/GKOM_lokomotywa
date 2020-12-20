@@ -9,13 +9,53 @@ using namespace std;
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-const GLuint WIDTH = 800, HEIGHT = 600;
+#include "Cuboid.h"
+#include "Composite.h"
+#include "Cylinder.h"
+#include "Camera.h"
+const GLuint WIDTH = 800, HEIGHT = 800;
+
+static Camera camera(glm::vec3(0.f,0.f,3.f), glm::vec3(0.f, 1.f, 0.f));
+float current_time = 0.0, delta_time = 0.0f, last_frame = 0.0f;
+double lastX = WIDTH/2;
+double lastY = HEIGHT/2;
+bool firstMouse = true;
+
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
-	cout << key << endl;
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, GL_TRUE);
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, true);
+
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+		camera.ProcessKeyboard(Camera_Movement::FORWARD, delta_time);
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		camera.ProcessKeyboard(Camera_Movement::BACKWARD, delta_time);
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+		camera.ProcessKeyboard(Camera_Movement::LEFT, delta_time);
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+		camera.ProcessKeyboard(Camera_Movement::RIGHT, delta_time);
+}
+void scroll_callback(GLFWwindow* window, double xpos, double ypos)
+{
+	camera.ProcessMouseScroll(ypos);
+}
+void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+{
+	if (firstMouse)
+	{
+		lastX = xpos;
+		lastY = ypos;
+		firstMouse = false;
+	}
+
+	float xoffset = xpos - lastX;
+	float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+
+	lastX = xpos;
+	lastY = ypos;
+
+	camera.ProcessMouseMovement(xoffset, yoffset);
 }
 
 GLuint LoadMipmapTexture(GLuint texId, const char* fname)
@@ -37,25 +77,8 @@ GLuint LoadMipmapTexture(GLuint texId, const char* fname)
 	return texture;
 }
 
-ostream& operator<<(ostream& os, const glm::mat4& mx)
-{
-	for (int row = 0; row < 4; ++row)
-	{
-		for (int col = 0; col < 4; ++col)
-			cout << mx[row][col] << ' ';
-		cout << endl;
-	}
-	return os;
-}
-
 int main()
 {
-	{
-		glm::mat4 trans;
-		cout << trans << endl;
-		trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
-		cout << trans << endl;
-	}
 	if (glfwInit() != GL_TRUE)
 	{
 		cout << "GLFW initialization failed" << endl;
@@ -70,12 +93,14 @@ int main()
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 	try
 	{
-		GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "GKOM - OpenGL 05", nullptr, nullptr);
+		GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "GKOM - OpenGL 206.z Lokomotywa", nullptr, nullptr);
 		if (window == nullptr)
 			throw exception("GLFW window not created");
 		glfwMakeContextCurrent(window);
 		glfwSetKeyCallback(window, key_callback);
-
+		glfwSetCursorPosCallback(window, mouse_callback);
+		glfwSetScrollCallback(window, scroll_callback);
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		glewExperimental = GL_TRUE;
 		if (glewInit() != GLEW_OK)
 			throw exception("GLEW Initialization failed");
@@ -83,148 +108,68 @@ int main()
 		glViewport(0, 0, WIDTH, HEIGHT);
 		glEnable(GL_DEPTH_TEST);
 
-		// Let's check what are maximum parameters counts
-		GLint nrAttributes;
-		glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
-		cout << "Max vertex attributes allowed: " << nrAttributes << std::endl;
-		glGetIntegerv(GL_MAX_TEXTURE_COORDS, &nrAttributes);
-		cout << "Max texture coords allowed: " << nrAttributes << std::endl;
+		Cuboid Cube1({ 0, 0, 0 }, { 0.5, 1.5, 0.5 }, glm::vec3( 1, 0, 0 ));
+		Cuboid Cube2({ 1, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3( 0, 0, 1 ));
+		Cuboid Cube3({ 0.5, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3( 0, 1, 0 ));
 
-		// Build, compile and link shader program
-		ShaderProgram theProgram("gl_05.vert", "gl_05.frag");
+		Cylinder Cylinder1({ 0, 0, 0.5 }, { 0.5, 0.5, 0.5 }, glm::vec3(0.4f, 0.3f, 1.0f));
+		Cylinder1.rotate({ 90, 0, 0 });
+		Cylinder Cylinder2({ -0.5, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3(0.2f, 0.1f, 1.0f));
+		Cylinder2.rotate({ 0,0,90 });
 
-		// Set up vertex data 
-		// Set up vertex data 
-		GLfloat vertices[] = {
-			// coordinates			// color			// texture
-			0.25f,  0.5f,  -0.5f,	1.0f, 0.0f, 0.0f,	0.0f,  0.0f,	//0
-			-0.75f,  0.5f,  -0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  1.0f,	//1
-			-0.25f, -0.5f,  -0.5f,	0.0f, 0.0f, 1.0f,	1.0f,  1.0f,	//2
-			0.75f, -0.5f,  -0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//3
+		Composite cubes({ 0,0,0 });
 
-			-0.25f, -0.5f,  0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//4
-			-0.75f,  0.5f,  0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  1.0f,	//5
-			0.25f,  0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  1.0f,	//6
-			0.75f, -0.5f,  0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//7
-
-			-0.25f, -0.5f,  -0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//8
-			-0.25f, -0.5f,  0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  1.0f,	//9
-			0.75f, -0.5f,  0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  1.0f,	//10
-			0.75f, -0.5f,  -0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//11
-
-			-0.75f,  0.5f,  0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  0.0f,	//12
-			-0.75f,  0.5f,  -0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  1.0f,	//13
-			0.25f,  0.5f,  -0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  1.0f,	//14
-			0.25f,  0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  0.0f,	//15
-
-			-0.25f, -0.5f,  -0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//16
-			-0.75f,  0.5f,  -0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  1.0f,	//17
-			-0.25f, -0.5f,  0.5f,	0.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//18
-			-0.75f,  0.5f,  0.5f,	0.0f, 1.0f, 0.0f,	1.0f,  1.0f,	//19
-
-			0.75f, -0.5f,  -0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//20
-			0.75f, -0.5f,  0.5f,	1.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//21
-			0.25f,  0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	0.0f,  1.0f,	//22
-			0.25f,  0.5f,  -0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  1.0f		//23
-		};
-
-		GLuint indices[] = {
-			0, 1, 2,
-			0, 2, 3,
-			4, 5, 6,
-			4, 6, 7,
-			8, 9, 10,
-			8, 10, 11,
-			12, 13, 14,
-			12, 14, 15,
-			16, 17, 18,
-			18, 17, 19,
-			20, 21, 22,
-			20, 22, 23
-		};
-
-
-		GLuint VBO, EBO, VAO;
-		glGenVertexArrays(1, &VAO);
-		glGenBuffers(1, &VBO);
-		glGenBuffers(1, &EBO);
-
-		// Bind the Vertex Array Object first, then bind and set vertex buffer(s) and attribute pointer(s).
-		glBindVertexArray(VAO);
-
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-		// vertex geometry data
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
-		glEnableVertexAttribArray(0);
-
-		// vertex color data
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-		glEnableVertexAttribArray(1);
-
-		// vertex texture coordinates
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
-		glEnableVertexAttribArray(2);
-
-		glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered VBO as the currently bound vertex buffer object so afterwards we can safely unbind
-
-		glBindVertexArray(0); // Unbind VAO (it's always a good thing to unbind any buffer/array to prevent strange bugs)
-
-							  // Set the texture wrapping parameters
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT (usually basic wrapping method)
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		// Set texture filtering parameters
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
+		cubes.addElement(Cube1);
+		cubes.addElement(Cube2);
+		cubes.addElement(Cube3);
+		cubes.addElement(Cylinder1);
+		cubes.addElement(Cylinder2);
+		cubes.rotate({ 90,0,0 });
+		
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// prepare textures
-		GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "piesek.png");
+		//GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "piesek.png");
 		// GLuint texture1 = LoadMipmapTexture(GL_TEXTURE1, "weiti.png");
 
+		ShaderProgram shader("CubeShader.vert", "CubeShader.frag");
 		// main event loop
 		while (!glfwWindowShouldClose(window))
 		{
-			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
-			glfwPollEvents();
 
+			current_time = glfwGetTime();
+			delta_time = current_time - last_frame;
+			last_frame = current_time;
 			// Clear the colorbuffer
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+			shader.Use();
+			glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 0.1f, 100.0f);
+			GLuint projectionView = glGetUniformLocation(shader.get_programID(), "projection");
+			glUniformMatrix4fv(projectionView, 1, GL_FALSE, glm::value_ptr(projection));
+			glm::mat4 view = camera.GetViewMatrix();
+			GLuint transformView = glGetUniformLocation(shader.get_programID(), "view");
+			glUniformMatrix4fv(transformView, 1, GL_FALSE, glm::value_ptr(view));
+
+			cubes.move({ 0,0, -0.001 });
+			cubes.rotate({ 0,1, 0 }/*, { 0,0,0 }*/);
+			cubes.draw();
+	
 			// Bind Textures using texture units
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, texture0);
-			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture0"), 0);
+			//glActiveTexture(GL_TEXTURE0);
+			//glBindTexture(GL_TEXTURE_2D, texture0);
+			//glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture0"), 0);
 			//glActiveTexture(GL_TEXTURE1);
 			//glBindTexture(GL_TEXTURE_2D, texture1);
 			//glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture1"), 1);
+			
 
-			glm::mat4 trans;
-			static GLfloat rot_angle = 0.0f;
-			trans = glm::rotate(trans, -glm::radians(rot_angle), glm::vec3(1.0, 0.0, 0.0));
-			rot_angle += 0.05f;
-			if (rot_angle >= 360.0f)
-				rot_angle -= 360.0f;
-			GLuint transformLoc = glGetUniformLocation(theProgram.get_programID(), "transform");
-			glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
-
-			// Draw our first triangle
-			theProgram.Use();
-
-			glBindVertexArray(VAO);
-			glDrawElements(GL_TRIANGLES, _countof(indices), GL_UNSIGNED_INT, 0);
-			glBindVertexArray(0);
-
+			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
+			glfwPollEvents();
 			// Swap the screen buffers
 			glfwSwapBuffers(window);
 		}
-		glDeleteVertexArrays(1, &VAO);
-		glDeleteBuffers(1, &VBO);
-		glDeleteBuffers(1, &EBO);
+
 	}
 	catch (exception ex)
 	{

@@ -1,12 +1,12 @@
 # Projekt GKOM - Pociąg
 
 ## Autorzy
-|Imię Nazwisko|
-|-|
-|Paweł Kotiuk|
-|Maciej Kowalski|
-|Mateusz Chruściel|
-|Michał Sobieraj|
+| Imię Nazwisko     |
+| ----------------- |
+| Paweł Kotiuk      |
+| Maciej Kowalski   |
+| Mateusz Chruściel |
+| Michał Sobieraj   |
 
 ## Wstępny szkic
 ![Szkic](./szkic.png)
@@ -31,11 +31,11 @@
 Lista zazdań w formie oddzielnych issues [tutaj](http://gitlab.ii.pw.edu.pl/gkom.20z/206.-pociag/-/issues?scope=all&utf8=%E2%9C%93&state=all)
 - [x] Przygotowanie środowiska pracy
 - [x] Zaplanowanie zadań w ramach narzędzi na GitLabie (stworzenie oraz podział issue-ów, stworzenie metazadań)
-- [ ] Stworzenie klas bazowych (pustych interfejsów) dla renderowanych obiektów
-- [ ] Zapoznanie się z dokumentacją biblioteki
-- [ ] Przygotowanie interfejsów oraz klas do pracy z openGL-em
-    - [ ] Ustalenie zakresu zadań, które mają być realizowane za pomocą tych wrapperów
-    - [ ] Nakładanie więzów na obiekty oraz ich grupowanie
+- [x] Stworzenie klas bazowych (pustych interfejsów) dla renderowanych obiektów
+- [x] Zapoznanie się z dokumentacją biblioteki
+- [x] Przygotowanie interfejsów oraz klas do pracy z openGL-em
+    - [x] Ustalenie zakresu zadań, które mają być realizowane za pomocą tych wrapperów
+    - [x] Nakładanie więzów na obiekty oraz ich grupowanie
 - [ ] Przygotowanie CI
 - [ ] Przygotowanie modelu lokomotywy
     - [ ] Podział na figury
@@ -50,7 +50,7 @@ Lista zazdań w formie oddzielnych issues [tutaj](http://gitlab.ii.pw.edu.pl/gko
     - [ ] Połączenie figur
     - [ ] Nadanie koloru lub tekstur
 - [ ] Przygotowanie tekstur
-- [ ] Implementacja ruchomej kamery
+- [x] Implementacja ruchomej kamery
 - [ ] Dodanie obsługi oświetlenia
 - [ ] Dodanie elementów świecących
 - [ ] Obsługa wejść użytkownika

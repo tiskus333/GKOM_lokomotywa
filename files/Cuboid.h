@@ -1,15 +1,18 @@
 #pragma once
 #include "Shape.h"
+
 class Cuboid :
     public Shape
 {
-private:
-    glm::vec3 size_;
-
 public:
-    Cuboid(glm::vec3 position, glm::vec3 size, glm::vec4 color);
-    Cuboid(glm::vec3 position, glm::vec3 size, GLuint texture);
-    ~Cuboid() = default;
+    Cuboid(const glm::vec3& position, const glm::vec3& size);
+    Cuboid(const glm::vec3& position, const glm::vec3& size, const glm::vec3& color);
+    Cuboid(const glm::vec3& position, const glm::vec3& size, const std::string& texture_path);
+    void generateIndices();
+    ~Cuboid();
+    void init();
+
+    void generateVertices();
 
 };
 

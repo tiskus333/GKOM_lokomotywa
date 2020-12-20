@@ -7,8 +7,9 @@ out vec3 ourColor; // Output a color to the fragment shader
 uniform mat4 transform;
 uniform mat4 view;
 uniform mat4 projection;
+uniform float ambientStrength;
 void main()
 {
     gl_Position = projection*view*transform * vec4(position, 1.0);
-    ourColor = color; // Set ourColor to the input color we got from the vertex data
+    ourColor = color*ambientStrength; // Set ourColor to the input color we got from the vertex data
 } 

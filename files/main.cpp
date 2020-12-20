@@ -13,6 +13,8 @@ using namespace std;
 #include "Composite.h"
 #include "Cylinder.h"
 #include "Camera.h"
+#include "Scene.h"
+
 const GLuint WIDTH = 800, HEIGHT = 800;
 
 static Camera camera(glm::vec3(0.f,0.f,3.f), glm::vec3(0.f, 1.f, 0.f));
@@ -124,7 +126,7 @@ int main()
 		cubes.addElement(Cube3);
 		cubes.addElement(Cylinder1);
 		cubes.addElement(Cylinder2);
-		cubes.rotate({ 90,0,0 });
+		cubes.rotate({ 80,0,0 });
 		
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// prepare textures
@@ -133,9 +135,9 @@ int main()
 
 		ShaderProgram shader("CubeShader.vert", "CubeShader.frag");
 		// main event loop
+		float num = 1;
 		while (!glfwWindowShouldClose(window))
 		{
-
 			current_time = glfwGetTime();
 			delta_time = current_time - last_frame;
 			last_frame = current_time;
@@ -148,6 +150,8 @@ int main()
 			shader.setMatrix4fv("projection", projection);
 			shader.setMatrix4fv("view", camera.GetViewMatrix());
 
+			//set ambient lighting
+			glUniform1f(glGetUniformLocation(shader.get_programID(), "ambientStrength"), Scene::getScene().ambient_light);
 			cubes.move({ 0,0, -0.001 });
 			cubes.rotate({ 0,1, 0 }/*, { 0,0,0 }*/);
 			cubes.draw();

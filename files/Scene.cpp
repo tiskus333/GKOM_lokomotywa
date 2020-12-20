@@ -1,7 +1,7 @@
 
 #include "Scene.h"
 
-Scene::Scene(/* args */) : ambient_light(0.5)
+Scene::Scene(/* args */) : ambient_light(0.3)
 {
 }
 

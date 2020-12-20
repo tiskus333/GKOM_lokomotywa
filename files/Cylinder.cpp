@@ -70,6 +70,12 @@ void Cylinder::generateVertices()
 	vertices_.push_back(color_.x);
 	vertices_.push_back(color_.y);
 	vertices_.push_back(color_.z);
+
+	vertices_.push_back(1.0f);//Normal vec tmp TODO remove it
+	vertices_.push_back(0.0f);
+	vertices_.push_back(0.0f);
+
+
 	vertices_.push_back(0.0f);
 	vertices_.push_back(0.0f);
 	vertices_.push_back(0.0f);  //1 bottom middle
@@ -78,6 +84,11 @@ void Cylinder::generateVertices()
 	vertices_.push_back(color_.x);
 	vertices_.push_back(color_.y);
 	vertices_.push_back(color_.z);
+
+	vertices_.push_back(1.0f);//Normal vec tmp TODO remove it
+	vertices_.push_back(0.0f);
+	vertices_.push_back(0.0f);
+
 	vertices_.push_back(0.0f);
 	vertices_.push_back(0.0f);
 	for (uint32_t i = 0; i < SEGMENTS; ++i)
@@ -88,6 +99,11 @@ void Cylinder::generateVertices()
 		vertices_.push_back(color_.x);
 		vertices_.push_back(color_.y);
 		vertices_.push_back(color_.z);
+
+		vertices_.push_back(1.0f);//Normal vec tmp TODO remove it
+		vertices_.push_back(0.0f);//
+		vertices_.push_back(0.0f);//
+
 		vertices_.push_back(0.0f);
 		vertices_.push_back(0.0f);
 
@@ -97,6 +113,11 @@ void Cylinder::generateVertices()
 		vertices_.push_back(color_.x);
 		vertices_.push_back(color_.y);
 		vertices_.push_back(color_.z);
+
+		vertices_.push_back(0.0f);
+		vertices_.push_back(1.0f);//Normal vec tmp TODO remove it
+		vertices_.push_back(0.0f);
+
 		vertices_.push_back(0.0f);
 		vertices_.push_back(0.0f);
 		theta += step;

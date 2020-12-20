@@ -48,16 +48,22 @@ void Cuboid::generateIndices()
 //adding vertivces counterclockwise from nearest to furthest
 void Cuboid::generateVertices()
 {
-	vertices_ = { -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-				0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-				0.5f, 0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-				-0.5f, 0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-				-0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-				0.5f, -0.5f,0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-				0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-				-0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f };
+	glm::vec3 normalVec;
+	normalVec.x =1;
+	normalVec.y = 0;
+	normalVec.z=0;
+	//normalVec = glm::normalize(normalVec);
+	vertices_ = {
+		-0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, -normalVec.x, -normalVec.y, -normalVec.z, 0.0f, 0.0f,
+		0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, normalVec.x, -normalVec.y, -normalVec.z, 1.0f, 0.0f,
+		0.5f, 0.5f, -0.5f, 0.0f, 0.0f, 0.0f, normalVec.x, normalVec.y, -normalVec.z, 1.0f, 1.0f,
+		-0.5f, 0.5f, -0.5f, 0.0f, 0.0f, 0.0f, -normalVec.x, normalVec.y, -normalVec.z, 0.0f, 1.0f,
+		-0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 0.0f, -normalVec.x, -normalVec.y, normalVec.z, 0.0f, 0.0f,
+		0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 0.0f, normalVec.x, -normalVec.y, normalVec.z, 1.0f, 0.0f,
+		0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 0.0f, normalVec.x, normalVec.y, normalVec.z, 1.0f, 1.0f,
+		-0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 0.0f, -normalVec.x, normalVec.y, normalVec.z, 0.0f, 1.0f};
 
-	for (uint32_t i = 3; i < vertices_.size(); i += 8)
+	for (uint32_t i = 3; i < vertices_.size(); i += 11)
 	{
 		vertices_.at(i) = color_.x;
 		vertices_.at(i+1) = color_.y;

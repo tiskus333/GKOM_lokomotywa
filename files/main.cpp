@@ -150,12 +150,16 @@ int main()
 			shader.setMatrix4fv("projection", projection);
 			shader.setMatrix4fv("view", camera.GetViewMatrix());
 
+			
 			//set ambient lighting
-			glUniform1f(glGetUniformLocation(shader.get_programID(), "ambientStrength"), Scene::getScene().ambient_light);
-			cubes.move({ 0,0, -0.001 });
-			cubes.rotate({ 0,0.1, 0 }/*, { 0,0,0 }*/);
+			shader.setFloat("ambientStrength", Scene::getScene().ambient_light);
+
+			//movement
+			cubes.move({0, 0, -0.001});
+			cubes.rotate({0, 0.1, 0} /*, { 0,0,0 }*/);
+
 			cubes.draw();
-	
+
 			// Bind Textures using texture units
 			//glActiveTexture(GL_TEXTURE0);
 			//glBindTexture(GL_TEXTURE_2D, texture0);

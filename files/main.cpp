@@ -126,7 +126,7 @@ int main()
 		cubes.addElement(Cube3);
 		cubes.addElement(Cylinder1);
 		cubes.addElement(Cylinder2);
-		cubes.rotate({ 80,0,0 });
+		cubes.rotate({ 75,0,0 });
 		
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// prepare textures
@@ -153,7 +153,7 @@ int main()
 			//set ambient lighting
 			glUniform1f(glGetUniformLocation(shader.get_programID(), "ambientStrength"), Scene::getScene().ambient_light);
 			cubes.move({ 0,0, -0.001 });
-			cubes.rotate({ 0,1, 0 }/*, { 0,0,0 }*/);
+			cubes.rotate({ 0,0.1, 0 }/*, { 0,0,0 }*/);
 			cubes.draw();
 	
 			// Bind Textures using texture units

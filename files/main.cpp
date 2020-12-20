@@ -145,11 +145,8 @@ int main()
 
 			shader.Use();
 			glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 0.1f, 100.0f);
-			GLuint projectionView = glGetUniformLocation(shader.get_programID(), "projection");
-			glUniformMatrix4fv(projectionView, 1, GL_FALSE, glm::value_ptr(projection));
-			glm::mat4 view = camera.GetViewMatrix();
-			GLuint transformView = glGetUniformLocation(shader.get_programID(), "view");
-			glUniformMatrix4fv(transformView, 1, GL_FALSE, glm::value_ptr(view));
+			shader.setMatrix4fv("projection", projection);
+			shader.setMatrix4fv("view", camera.GetViewMatrix());
 
 			cubes.move({ 0,0, -0.001 });
 			cubes.rotate({ 0,1, 0 }/*, { 0,0,0 }*/);

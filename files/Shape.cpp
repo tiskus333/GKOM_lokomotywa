@@ -58,8 +58,7 @@ void Shape::draw(const glm::mat4& parent_model)
 	model_ = parent_model * glm::translate(dynamic_rotation_matrix_, position_) * static_rotation_matrix_;
 	model_ = glm::scale(model_, size_);
 
-	GLuint transformLoc = glGetUniformLocation(shader_.get_programID(), "transform");
-	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(model_));
+	shader_.setMatrix4fv("transform",model_);
 	glBindVertexArray(VAO_);
 	glDrawElements(GL_TRIANGLES, indices_.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);

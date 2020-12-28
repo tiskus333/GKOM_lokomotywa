@@ -115,9 +115,9 @@ int main()
 		Cuboid Cube3({ 0.5, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3( 0, 1, 0 ));
 
 		Cylinder Cylinder1({ 0, 0, 0.5 }, { 0.5, 0.5, 0.5 }, glm::vec3(0.4f, 0.3f, 1.0f));
-		Cylinder1.rotate({ 90, 0, 0 });
+		//Cylinder1.rotate({ 90, 0, 0 });
 		Cylinder Cylinder2({ -0.5, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3(0.2f, 0.1f, 1.0f));
-		Cylinder2.rotate({ 0,0,90 });
+		//Cylinder2.rotate({ 0,0,90 });
 
 		Composite cubes({ 0,0,0 });
 
@@ -126,7 +126,7 @@ int main()
 		cubes.addElement(Cube3);
 		cubes.addElement(Cylinder1);
 		cubes.addElement(Cylinder2);
-		cubes.rotate({ 75,0,0 });
+		//cubes.rotate({ 75,0,0 });
 		
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// prepare textures
@@ -149,14 +149,15 @@ int main()
 			glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 0.1f, 100.0f);
 			shader.setMatrix4fv("projection", projection);
 			shader.setMatrix4fv("view", camera.GetViewMatrix());
+			shader.setVec3("lightPos", glm::vec3(10.0,0,10.0));
 
 			
 			//set ambient lighting
 			shader.setFloat("ambientStrength", Scene::getScene().ambient_light);
 
 			//movement
-			cubes.move({0, 0, -0.001});
-			cubes.rotate({0, 0.1, 0} /*, { 0,0,0 }*/);
+			//cubes.move({0, 0, -0.001});
+			//cubes.rotate({0, 0.1, 0} /*, { 0,0,0 }*/);
 
 			cubes.draw();
 

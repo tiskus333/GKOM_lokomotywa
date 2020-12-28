@@ -28,7 +28,7 @@ void Cuboid::init()
 }
 void Cuboid::generateIndices()
 {
-	indices_ = { 
+	/*indices_ = { 
 		0,1,2,
 		0,2,3,
 		4,5,6,
@@ -41,19 +41,21 @@ void Cuboid::generateIndices()
 		1,6,2,
 		0,4,7,
 		0,7,3
-	};
+	};*/
+	for (int i = 0; i < 36; ++i)
+		indices_.push_back(i);
 
 }
 
 //adding vertivces counterclockwise from nearest to furthest
 void Cuboid::generateVertices()
 {
-	glm::vec3 normalVec;
+	/*glm::vec3 normalVec;
 	normalVec.x =1;
 	normalVec.y = 0;
 	normalVec.z=0;
-	//normalVec = glm::normalize(normalVec);
-	vertices_ = {
+	normalVec = glm::normalize(normalVec);
+	vertices_ = { 
 		-0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, -normalVec.x, -normalVec.y, -normalVec.z, 0.0f, 0.0f,
 		0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, normalVec.x, -normalVec.y, -normalVec.z, 1.0f, 0.0f,
 		0.5f, 0.5f, -0.5f, 0.0f, 0.0f, 0.0f, normalVec.x, normalVec.y, -normalVec.z, 1.0f, 1.0f,
@@ -61,8 +63,52 @@ void Cuboid::generateVertices()
 		-0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 0.0f, -normalVec.x, -normalVec.y, normalVec.z, 0.0f, 0.0f,
 		0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 0.0f, normalVec.x, -normalVec.y, normalVec.z, 1.0f, 0.0f,
 		0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 0.0f, normalVec.x, normalVec.y, normalVec.z, 1.0f, 1.0f,
-		-0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 0.0f, -normalVec.x, normalVec.y, normalVec.z, 0.0f, 1.0f};
+		-0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 0.0f, -normalVec.x, normalVec.y, normalVec.z, 0.0f, 1.0f};*/
+	vertices_ = {//TODO proper texture values
+	//position(x,y,z), color(rgb),vecNorm(x,y,z), texture(x,y)
+	//wall
+	-0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,  0.0f,  0.0f, -1.0f, 0.0f, 0.0f,
+	 0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,  0.0f,  0.0f, -1.0f, 0.0f, 0.0f,
+	 0.5f,  0.5f, -0.5f, 0.0f, 0.0f, 0.0f,  0.0f,  0.0f, -1.0f, 0.0f, 0.0f,
+	 0.5f,  0.5f, -0.5f, 0.0f, 0.0f, 0.0f,  0.0f,  0.0f, -1.0f, 0.0f, 0.0f,
+	-0.5f,  0.5f, -0.5f, 0.0f, 0.0f, 0.0f,  0.0f,  0.0f, -1.0f, 0.0f, 0.0f,
+	-0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,  0.0f,  0.0f, -1.0f, 0.0f, 0.0f,
 
+	-0.5f, -0.5f,  0.5f, 0.0f, 0.0f, 0.0f,  0.0f,  0.0f, 1.0f, 0.0f, 0.0f,
+	 0.5f, -0.5f,  0.5f, 0.0f, 0.0f, 0.0f,  0.0f,  0.0f, 1.0f, 0.0f, 0.0f,
+	 0.5f,  0.5f,  0.5f, 0.0f, 0.0f, 0.0f,  0.0f,  0.0f, 1.0f, 0.0f, 0.0f,
+	 0.5f,  0.5f,  0.5f, 0.0f, 0.0f, 0.0f,  0.0f,  0.0f, 1.0f, 0.0f, 0.0f,
+	-0.5f,  0.5f,  0.5f, 0.0f, 0.0f, 0.0f,  0.0f,  0.0f, 1.0f, 0.0f, 0.0f,
+	-0.5f, -0.5f,  0.5f, 0.0f, 0.0f, 0.0f,  0.0f,  0.0f, 1.0f, 0.0f, 0.0f,
+
+	-0.5f,  0.5f,  0.5f, 0.0f, 0.0f, 0.0f, -1.0f,  0.0f,  0.0f, 0.0f, 0.0f,
+	-0.5f,  0.5f, -0.5f, 0.0f, 0.0f, 0.0f, -1.0f,  0.0f,  0.0f, 0.0f, 0.0f,
+	-0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, -1.0f,  0.0f,  0.0f, 0.0f, 0.0f,
+	-0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, -1.0f,  0.0f,  0.0f, 0.0f, 0.0f,
+	-0.5f, -0.5f,  0.5f, 0.0f, 0.0f, 0.0f, -1.0f,  0.0f,  0.0f, 0.0f, 0.0f,
+	-0.5f,  0.5f,  0.5f, 0.0f, 0.0f, 0.0f, -1.0f,  0.0f,  0.0f, 0.0f, 0.0f,
+
+	 0.5f,  0.5f,  0.5f, 0.0f, 0.0f, 0.0f,  1.0f,  0.0f,  0.0f, 0.0f, 0.0f,
+	 0.5f,  0.5f, -0.5f, 0.0f, 0.0f, 0.0f,  1.0f,  0.0f,  0.0f, 0.0f, 0.0f,
+	 0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,  1.0f,  0.0f,  0.0f, 0.0f, 0.0f,
+	 0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,  1.0f,  0.0f,  0.0f, 0.0f, 0.0f,
+	 0.5f, -0.5f,  0.5f, 0.0f, 0.0f, 0.0f,  1.0f,  0.0f,  0.0f, 0.0f, 0.0f,
+	 0.5f,  0.5f,  0.5f, 0.0f, 0.0f, 0.0f,  1.0f,  0.0f,  0.0f, 0.0f, 0.0f,
+
+	-0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,  0.0f, -1.0f,  0.0f, 0.0f, 0.0f,
+	 0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,  0.0f, -1.0f,  0.0f, 0.0f, 0.0f,
+	 0.5f, -0.5f,  0.5f, 0.0f, 0.0f, 0.0f,  0.0f, -1.0f,  0.0f, 0.0f, 0.0f,
+	 0.5f, -0.5f,  0.5f, 0.0f, 0.0f, 0.0f,  0.0f, -1.0f,  0.0f, 0.0f, 0.0f,
+	-0.5f, -0.5f,  0.5f, 0.0f, 0.0f, 0.0f,  0.0f, -1.0f,  0.0f, 0.0f, 0.0f,
+	-0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,  0.0f, -1.0f,  0.0f, 0.0f, 0.0f,
+
+	-0.5f,  0.5f, -0.5f, 0.0f, 0.0f, 0.0f,  0.0f,  1.0f,  0.0f, 0.0f, 0.0f,
+	 0.5f,  0.5f, -0.5f, 0.0f, 0.0f, 0.0f,  0.0f,  1.0f,  0.0f, 0.0f, 0.0f,
+	 0.5f,  0.5f,  0.5f, 0.0f, 0.0f, 0.0f,  0.0f,  1.0f,  0.0f, 0.0f, 0.0f,
+	 0.5f,  0.5f,  0.5f, 0.0f, 0.0f, 0.0f,  0.0f,  1.0f,  0.0f, 0.0f, 0.0f,
+	-0.5f,  0.5f,  0.5f, 0.0f, 0.0f, 0.0f,  0.0f,  1.0f,  0.0f, 0.0f, 0.0f,
+	-0.5f,  0.5f, -0.5f, 0.0f, 0.0f, 0.0f,  0.0f,  1.0f,  0.0f, 0.0f, 0.0f,
+};
 	for (uint32_t i = 3; i < vertices_.size(); i += 11)
 	{
 		vertices_.at(i) = color_.x;

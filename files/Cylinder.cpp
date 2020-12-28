@@ -63,6 +63,7 @@ void Cylinder::generateVertices()
 {
 	float theta = 0.0;
 	float step = 2 * 3.14159265f / static_cast<float>(SEGMENTS);
+	glm::vec3 normal = { 1,0,0 };
 	vertices_.reserve((2 * SEGMENTS + 2) * 8);
 	vertices_.push_back(0.0f);  //0 top middle
 	vertices_.push_back(size_.y );
@@ -85,14 +86,15 @@ void Cylinder::generateVertices()
 	vertices_.push_back(color_.y);
 	vertices_.push_back(color_.z);
 
-	vertices_.push_back(1.0f);//Normal vec tmp TODO remove it
-	vertices_.push_back(0.0f);
-	vertices_.push_back(0.0f);
+	vertices_.push_back(normal.x);//Normal vec tmp TODO remove it
+	vertices_.push_back(normal.y);
+	vertices_.push_back(normal.z);
 
 	vertices_.push_back(0.0f);
 	vertices_.push_back(0.0f);
 	for (uint32_t i = 0; i < SEGMENTS; ++i)
 	{
+		//glm::rotate(normal, theta);
 		vertices_.push_back(size_.x * cos(theta)); // top vertice
 		vertices_.push_back(size_.y );
 		vertices_.push_back(size_.z * sin(theta));

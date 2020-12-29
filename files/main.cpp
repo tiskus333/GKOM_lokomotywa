@@ -153,7 +153,7 @@ int main()
 
 			
 			//set ambient lighting
-			shader.setFloat("ambientStrength", Scene::getScene().ambient_light);
+			shader.setVec3("ambientColor", Scene::getScene().ambient_light);
 
 			//movement
 			//cubes.move({0, 0, -0.001});

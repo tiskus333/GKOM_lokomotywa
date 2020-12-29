@@ -11,7 +11,7 @@ private:
     ~Scene();
 
 public:
-    float ambient_light;
+    glm::vec3 ambient_light;
     static Scene& getScene();
 
     void operator=(const Scene &) = delete;

@@ -50,20 +50,6 @@ void Cuboid::generateIndices()
 //adding vertivces counterclockwise from nearest to furthest
 void Cuboid::generateVertices()
 {
-	/*glm::vec3 normalVec;
-	normalVec.x =1;
-	normalVec.y = 0;
-	normalVec.z=0;
-	normalVec = glm::normalize(normalVec);
-	vertices_ = { 
-		-0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, -normalVec.x, -normalVec.y, -normalVec.z, 0.0f, 0.0f,
-		0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, normalVec.x, -normalVec.y, -normalVec.z, 1.0f, 0.0f,
-		0.5f, 0.5f, -0.5f, 0.0f, 0.0f, 0.0f, normalVec.x, normalVec.y, -normalVec.z, 1.0f, 1.0f,
-		-0.5f, 0.5f, -0.5f, 0.0f, 0.0f, 0.0f, -normalVec.x, normalVec.y, -normalVec.z, 0.0f, 1.0f,
-		-0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 0.0f, -normalVec.x, -normalVec.y, normalVec.z, 0.0f, 0.0f,
-		0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 0.0f, normalVec.x, -normalVec.y, normalVec.z, 1.0f, 0.0f,
-		0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 0.0f, normalVec.x, normalVec.y, normalVec.z, 1.0f, 1.0f,
-		-0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 0.0f, -normalVec.x, normalVec.y, normalVec.z, 0.0f, 1.0f};*/
 	vertices_ = {//TODO proper texture values
 	//position(x,y,z), color(rgb),vecNorm(x,y,z), texture(x,y)
 	//wall

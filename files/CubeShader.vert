@@ -14,7 +14,7 @@ uniform mat4 projection;
 void main()
 {
     gl_Position = projection*view*transform * vec4(position, 1.0);
-    ourColor = color; // Set ourColor to the input color we got from the vertex data
-    Normal = aNormal;
-    FragPos = vec3(view*transform * vec4(position, 1.0));
+    ourColor = color;
+    Normal = mat3(transpose(inverse(transform))) * aNormal;
+    FragPos = vec3(transform * vec4(position, 1.0));
 } 

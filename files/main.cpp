@@ -149,15 +149,16 @@ int main()
 			glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 0.1f, 100.0f);
 			shader.setMatrix4fv("projection", projection);
 			shader.setMatrix4fv("view", camera.GetViewMatrix());
-			shader.setVec3("lightPos", glm::vec3(10.0,0,10.0));
+			shader.setVec3("lightPos", glm::vec3(10.0,10.0,10.0));
 
 			
 			//set ambient lighting
 			shader.setFloat("ambientStrength", Scene::getScene().ambient_light);
-
+			shader.setVec3("viewPos", camera.Position);
+			shader.setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f ));
 			//movement
 			//cubes.move({0, 0, -0.001});
-			//cubes.rotate({0, 0.1, 0} /*, { 0,0,0 }*/);
+			cubes.rotate({0, 0.1, 0} /*, { 0,0,0 }*/);
 
 			cubes.draw();
 

@@ -28,28 +28,14 @@ void Cuboid::init()
 }
 void Cuboid::generateIndices()
 {
-	/*indices_ = { 
-		0,1,2,
-		0,2,3,
-		4,5,6,
-		4,6,7,
-		3,2,6,
-		3,6,7,
-		0,1,5,
-		0,5,4,
-		1,5,6,
-		1,6,2,
-		0,4,7,
-		0,7,3
-	};*/
 	for (int i = 0; i < 36; ++i)
 		indices_.push_back(i);
-
 }
 
 //adding vertivces counterclockwise from nearest to furthest
 void Cuboid::generateVertices()
 {
+
 	vertices_ = {//TODO proper texture values
 	//position(x,y,z), color(rgb),vecNorm(x,y,z), texture(x,y)
 	//wall

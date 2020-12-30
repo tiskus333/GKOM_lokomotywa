@@ -115,9 +115,9 @@ int main()
 		Cuboid Cube3({ 0.5, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3( 0, 1, 0 ));
 
 		Cylinder Cylinder1({ 0, 0, 0.5 }, { 0.5, 0.5, 0.5 }, glm::vec3(0.4f, 0.3f, 1.0f));
-		//Cylinder1.rotate({ 90, 0, 0 });
+		Cylinder1.rotate({ 90, 0, 0 });
 		Cylinder Cylinder2({ -0.5, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3(0.2f, 0.1f, 1.0f));
-		//Cylinder2.rotate({ 0,0,90 });
+		Cylinder2.rotate({ 0,0,90 });
 
 		Composite cubes({ 0,0,0 });
 

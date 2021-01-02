@@ -17,89 +17,114 @@ Cylinder::Cylinder(const glm::vec3& position, const glm::vec3& size, const std::
 	init();
 }
 
-Cylinder::~Cylinder()
-{
-}
-
 void Cylinder::generateIndices()
 {
 	indices_.reserve((3 * 2 + 2) * SEGMENTS);
-	for (uint32_t i = 1; i <= SEGMENTS; ++i)
+	int segmod = 4 * SEGMENTS;
+	int tmp_ind;
+	for (uint32_t i = 0; i < SEGMENTS; ++i)
 	{
-		indices_.push_back(0); //top triangle
-		indices_.push_back(2 * i);
-		indices_.push_back(2 * i + 2);
+		indices_.push_back((4 * i + 2) % segmod); //right side triangle
+		indices_.push_back((4 * (i + 1) + 2) % segmod);
+		indices_.push_back((4 * i + 3) % segmod);
 
-		indices_.push_back(1); //bottom triangle
-		indices_.push_back(2 * i + 1);
-		indices_.push_back(2 * i + 3);
+		indices_.push_back((4 * (i + 1) + 2) % segmod); //left side triangle
+		indices_.push_back((4 * (i + 1) + 3) % segmod);
+		indices_.push_back((4 * i + 3) % segmod);
 
-		indices_.push_back(2 * i); //right side triangle
-		indices_.push_back(2 * i + 3);
-		indices_.push_back(2 * i + 1);
-		
-		indices_.push_back(2 * i); //left side triangle
-		indices_.push_back(2 * i + 2);
-		indices_.push_back(2 * i + 3);
 	}
-	indices_.push_back(0); //top triangle
-	indices_.push_back(2 * SEGMENTS);
-	indices_.push_back(2);
+	for (uint32_t i = 0; i < SEGMENTS - 1; ++i)
+	{
 
-	indices_.push_back(1); //bottom triangle
-	indices_.push_back(2 * SEGMENTS + 1);
-	indices_.push_back(3);
+		//top lid
+		tmp_ind = (4 * (i + 1)) % (segmod + 1);
+		indices_.push_back(0);
+		indices_.push_back(tmp_ind);
+		indices_.push_back(tmp_ind + 4);
 
-	indices_.push_back(2 * SEGMENTS); //right side triangle
-	indices_.push_back(3);
-	indices_.push_back(2*SEGMENTS + 1);
+		//botom lid
+		++tmp_ind;
+		indices_.push_back(1);
+		indices_.push_back(tmp_ind);
+		indices_.push_back(tmp_ind+4);
+	}
+	tmp_ind = (4 * (SEGMENTS)) % (segmod + 1);
+	indices_.push_back(0);
+	indices_.push_back(tmp_ind);
+	indices_.push_back((tmp_ind + 4)%segmod);
 
-	indices_.push_back(2 * SEGMENTS); //left side triangle
-	indices_.push_back(2);
-	indices_.push_back(3);
+	//botom lid
+	++tmp_ind;
+	indices_.push_back(1);
+	indices_.push_back(tmp_ind);
+	indices_.push_back((tmp_ind + 4)%segmod);
 }
 
 void Cylinder::generateVertices()
 {
 	float theta = 0.0;
 	float step = 2 * 3.14159265f / static_cast<float>(SEGMENTS);
-	vertices_.reserve((2 * SEGMENTS + 2) * 8);
+
+	//lids
 	vertices_.push_back(0.0f);  //0 top middle
-	vertices_.push_back(size_.y );
+	vertices_.push_back(size_.y);
 	vertices_.push_back(0.0f);
 	vertices_.push_back(color_.x);
 	vertices_.push_back(color_.y);
 	vertices_.push_back(color_.z);
+
+	vertices_.push_back(0.0f);//Normal vec tmp TODO remove it
+	vertices_.push_back(1.0f);
 	vertices_.push_back(0.0f);
-	vertices_.push_back(0.0f);
+
+	vertices_.push_back(0.5f);
+	vertices_.push_back(0.5f);
+
 	vertices_.push_back(0.0f);  //1 bottom middle
-	vertices_.push_back(-size_.y );
+	vertices_.push_back(-size_.y);
 	vertices_.push_back(0.0f);
 	vertices_.push_back(color_.x);
 	vertices_.push_back(color_.y);
 	vertices_.push_back(color_.z);
-	vertices_.push_back(0.0f);
-	vertices_.push_back(0.0f);
+
+	vertices_.push_back(0);//Normal vec tmp TODO remove it
+	vertices_.push_back(-1);
+	vertices_.push_back(0);
+
+	vertices_.push_back(0.5f);
+	vertices_.push_back(0.5f);
+	
+	//sides
 	for (uint32_t i = 0; i < SEGMENTS; ++i)
 	{
-		vertices_.push_back(size_.x * cos(theta)); // top vertice
-		vertices_.push_back(size_.y );
-		vertices_.push_back(size_.z * sin(theta));
-		vertices_.push_back(color_.x);
-		vertices_.push_back(color_.y);
-		vertices_.push_back(color_.z);
-		vertices_.push_back(0.0f);
-		vertices_.push_back(0.0f);
+		float y_mul = 1.0;
+		theta = i * step;
+		for (int j = 0; j < 4; ++j)
+		{
+			y_mul = j % 2 ? -1.0 : 1.0;
+			vertices_.push_back(size_.x * cos(theta));
+			vertices_.push_back(y_mul*size_.y );
+			vertices_.push_back(size_.z * sin(theta));
+			vertices_.push_back(color_.x);
+			vertices_.push_back(color_.y);
+			vertices_.push_back(color_.z);
 
-		vertices_.push_back(size_.x * cos(theta)); // bottom vertice
-		vertices_.push_back(-size_.y);
-		vertices_.push_back(size_.z * sin(theta));
-		vertices_.push_back(color_.x);
-		vertices_.push_back(color_.y);
-		vertices_.push_back(color_.z);
-		vertices_.push_back(0.0f);
-		vertices_.push_back(0.0f);
-		theta += step;
+			if (j < 2)
+			{
+				vertices_.push_back(cos(theta));
+				vertices_.push_back(0);
+				vertices_.push_back(sin(theta));
+			}
+			else
+			{
+				vertices_.push_back(0);
+				vertices_.push_back(y_mul);
+				vertices_.push_back(0);
+			}
+			
+			vertices_.push_back(-cos(theta) * 0.5f + 0.5f);
+			vertices_.push_back(-sin(theta) * 0.5f + 0.5f);
+		}
 	}
 }
 
@@ -110,3 +135,4 @@ void Cylinder::init()
 	generateIndices();
 	Shape::bindBuffers();
 }
+

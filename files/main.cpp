@@ -13,6 +13,8 @@ using namespace std;
 #include "Composite.h"
 #include "Cylinder.h"
 #include "Camera.h"
+#include "Scene.h"
+
 const GLuint WIDTH = 800, HEIGHT = 800;
 
 static Camera camera(glm::vec3(0.f,0.f,3.f), glm::vec3(0.f, 1.f, 0.f));
@@ -124,7 +126,7 @@ int main()
 		cubes.addElement(Cube3);
 		cubes.addElement(Cylinder1);
 		cubes.addElement(Cylinder2);
-		cubes.rotate({ 90,0,0 });
+		//cubes.rotate({ 75,0,0 });
 		
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// prepare textures
@@ -133,9 +135,9 @@ int main()
 
 		ShaderProgram shader("CubeShader.vert", "CubeShader.frag");
 		// main event loop
+		float num = 1;
 		while (!glfwWindowShouldClose(window))
 		{
-
 			current_time = glfwGetTime();
 			delta_time = current_time - last_frame;
 			last_frame = current_time;
@@ -147,11 +149,21 @@ int main()
 			glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 0.1f, 100.0f);
 			shader.setMatrix4fv("projection", projection);
 			shader.setMatrix4fv("view", camera.GetViewMatrix());
+			shader.setVec3("point_lights[0].lightPos", glm::vec3(10.0,10.0,10.0));
 
-			cubes.move({ 0,0, -0.001 });
-			cubes.rotate({ 0,1, 0 }/*, { 0,0,0 }*/);
+			
+			//set ambient lighting
+			shader.setVec3("ambientColor", Scene::getScene().ambient_light);
+			shader.setVec3("viewPos", camera.Position);
+			shader.setVec3("point_lights[0].lightColor", glm::vec3(1.0f, 1.0f, 1.0f ));
+			shader.setInt("num_of_lights", 1);
+
+			//movement
+			//cubes.move({0, 0, -0.001});
+			cubes.rotate({0, 0.1, 0} /*, { 0,0,0 }*/);
+
 			cubes.draw();
-	
+
 			// Bind Textures using texture units
 			//glActiveTexture(GL_TEXTURE0);
 			//glBindTexture(GL_TEXTURE_2D, texture0);

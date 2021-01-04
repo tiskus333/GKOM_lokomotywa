@@ -52,7 +52,15 @@ void Scene::addPointLightSource(glm::vec3 lightPos, glm::vec3 lightColor)
 
 void Scene::updatePointLightSource(unsigned int number, glm::vec3 lightPos, glm::vec3 lightColor)
 {
-
+    if (is_light_used[number])
+    {
+        light_positions[number] = lightPos;
+        light_colors[number] = lightPos;
+    }
+    else
+    {
+        throw std::exception("Tried to update unused light source");
+    }
 }
 
 void Scene::removePointLightSource(unsigned int number)

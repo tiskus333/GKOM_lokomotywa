@@ -44,7 +44,7 @@ void Scene::addPointLightSource(glm::vec3 lightPos, glm::vec3 lightColor)
         {
             is_light_used[i] = true;
             light_positions[i] = lightPos;
-            light_colors[i] = lightPos;
+            light_colors[i] = lightColor;
             number_of_lights++;
             return;
         }
@@ -57,7 +57,7 @@ void Scene::updatePointLightSource(unsigned int number, glm::vec3 lightPos, glm:
     if (is_light_used[number])
     {
         light_positions[number] = lightPos;
-        light_colors[number] = lightPos;
+        light_colors[number] = lightColor;
     }
     else
     {

@@ -45,6 +45,7 @@ void Scene::addPointLightSource(glm::vec3 lightPos, glm::vec3 lightColor)
             is_light_used[i] = true;
             light_positions[i] = lightPos;
             light_colors[i] = lightPos;
+            number_of_lights++;
         }
     }
     throw std::exception("No free light found");
@@ -65,5 +66,9 @@ void Scene::updatePointLightSource(unsigned int number, glm::vec3 lightPos, glm:
 
 void Scene::removePointLightSource(unsigned int number)
 {
-
+    if (is_light_used[number])
+    {
+        is_light_used[number]=false;
+        number_of_lights--;
+    }
 }

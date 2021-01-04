@@ -36,7 +36,18 @@ void Scene::setMatrix4fvInShaders(const std::string &name, glm::mat4 &matrix)
 
 void Scene::addPointLightSource(glm::vec3 lightPos, glm::vec3 lightColor)
 {
-
+    if (number_of_lights == MAX_NUM_OF_POINT_LIGHTS)
+        throw std::exception("All of lights already used");
+    for (int i = 0; i < MAX_NUM_OF_POINT_LIGHTS; i++)
+    {
+        if (!is_light_used[i])
+        {
+            is_light_used[i] = true;
+            light_positions[i] = lightPos;
+            light_colors[i] = lightPos;
+        }
+    }
+    throw std::exception("No free light found");
 }
 
 void Scene::updatePointLightSource(unsigned int number, glm::vec3 lightPos, glm::vec3 lightColor)

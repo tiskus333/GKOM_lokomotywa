@@ -46,6 +46,7 @@ void Scene::addPointLightSource(glm::vec3 lightPos, glm::vec3 lightColor)
             light_positions[i] = lightPos;
             light_colors[i] = lightPos;
             number_of_lights++;
+            return;
         }
     }
     throw std::exception("No free light found");

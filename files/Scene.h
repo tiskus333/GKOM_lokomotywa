@@ -13,8 +13,11 @@ private:
 
 public:
     glm::vec3 ambient_light;
+
     ShaderProgram shape_shader;
-    static Scene& getScene();
+    ShaderProgram light_shader;
+
+    static Scene &getScene();
 
     void operator=(const Scene &) = delete;
 };

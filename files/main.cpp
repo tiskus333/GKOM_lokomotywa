@@ -133,7 +133,6 @@ int main()
 		//GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "piesek.png");
 		// GLuint texture1 = LoadMipmapTexture(GL_TEXTURE1, "weiti.png");
 
-		ShaderProgram shader("CubeShader.vert", "CubeShader.frag");
 		// main event loop
 		float num = 1;
 		while (!glfwWindowShouldClose(window))
@@ -145,18 +144,18 @@ int main()
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			shader.Use();
+			Scene::getScene().shape_shader.Use();
 			glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 0.1f, 100.0f);
-			shader.setMatrix4fv("projection", projection);
-			shader.setMatrix4fv("view", camera.GetViewMatrix());
-			shader.setVec3("point_lights[0].lightPos", glm::vec3(10.0,10.0,10.0));
+			Scene::getScene().shape_shader.setMatrix4fv("projection", projection);
+			Scene::getScene().shape_shader.setMatrix4fv("view", camera.GetViewMatrix());
+			Scene::getScene().shape_shader.setVec3("point_lights[0].lightPos", glm::vec3(10.0,10.0,10.0));
 
 			
 			//set ambient lighting
-			shader.setVec3("ambientColor", Scene::getScene().ambient_light);
-			shader.setVec3("viewPos", camera.Position);
-			shader.setVec3("point_lights[0].lightColor", glm::vec3(1.0f, 1.0f, 1.0f ));
-			shader.setInt("num_of_lights", 1);
+			Scene::getScene().shape_shader.setVec3("ambientColor", Scene::getScene().ambient_light);
+			Scene::getScene().shape_shader.setVec3("viewPos", camera.Position);
+			Scene::getScene().shape_shader.setVec3("point_lights[0].lightColor", glm::vec3(1.0f, 1.0f, 1.0f ));
+			Scene::getScene().shape_shader.setInt("num_of_lights", 1);
 
 			//movement
 			//cubes.move({0, 0, -0.001});

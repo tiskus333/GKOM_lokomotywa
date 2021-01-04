@@ -130,7 +130,7 @@ void Cylinder::generateVertices()
 
 void Cylinder::init()
 {
-	this->shader_ = ShaderProgram("CubeShader.vert", "CubeShader.frag");
+	this->shader_ =Scene::getScene().shape_shader;
 	generateVertices();
 	generateIndices();
 	Shape::bindBuffers();

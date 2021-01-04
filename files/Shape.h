@@ -1,5 +1,6 @@
 #pragma once
 #include "Object.h"
+#include "Scene.h"
 #include "Shader.h"
 #include "shprogram.h"
 #include <vector>

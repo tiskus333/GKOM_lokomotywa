@@ -20,4 +20,7 @@ public:
     static Scene &getScene();
 
     void operator=(const Scene &) = delete;
+
+    void setVec3InShaders(const std::string &name, glm::vec3 &value);
+    void setMatrix4fvInShaders(const std::string &name, glm::mat4 &matrix);
 };

@@ -58,6 +58,7 @@ void Shape::freeBuffers()
 
 void Shape::draw(const glm::mat4& parent_model)
 {
+	this->shader_.Use();
 	glPushMatrix();
 	model_ = parent_model * glm::translate(dynamic_rotation_matrix_, position_) * static_rotation_matrix_;
 	model_ = glm::scale(model_, size_);

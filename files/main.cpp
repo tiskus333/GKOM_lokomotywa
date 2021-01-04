@@ -144,16 +144,15 @@ int main()
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			Scene::getScene().shape_shader.Use();
 			glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 0.1f, 100.0f);
-			Scene::getScene().shape_shader.setMatrix4fv("projection", projection);
-			Scene::getScene().shape_shader.setMatrix4fv("view", camera.GetViewMatrix());
-			Scene::getScene().shape_shader.setVec3("point_lights[0].lightPos", glm::vec3(10.0,10.0,10.0));
+			Scene::getScene().setMatrix4fvInShaders("projection", projection);
+			Scene::getScene().setMatrix4fvInShaders("view", camera.GetViewMatrix());
+			Scene::getScene().setVec3InShaders("viewPos", camera.Position);
 
 			
 			//set ambient lighting
+			Scene::getScene().shape_shader.setVec3("point_lights[0].lightPos", glm::vec3(10.0,10.0,10.0));
 			Scene::getScene().shape_shader.setVec3("ambientColor", Scene::getScene().ambient_light);
-			Scene::getScene().shape_shader.setVec3("viewPos", camera.Position);
 			Scene::getScene().shape_shader.setVec3("point_lights[0].lightColor", glm::vec3(1.0f, 1.0f, 1.0f ));
 			Scene::getScene().shape_shader.setInt("num_of_lights", 1);
 

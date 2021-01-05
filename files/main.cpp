@@ -135,6 +135,11 @@ int main()
 
 		// main event loop
 		float num = 1;
+		
+		//add light source without object
+		Scene::getScene().addPointLightSource(glm::vec3(10.0,10.0,10.0),glm::vec3(1.0f, 1.0f, 1.0f ));
+		Scene::getScene().updateLights();
+
 		while (!glfwWindowShouldClose(window))
 		{
 			current_time = glfwGetTime();
@@ -150,11 +155,6 @@ int main()
 			Scene::getScene().setVec3InShaders("viewPos", camera.Position);
 
 			
-			//set ambient lighting
-			Scene::getScene().shape_shader.setVec3("point_lights[0].lightPos", glm::vec3(10.0,10.0,10.0));
-			Scene::getScene().shape_shader.setVec3("ambientColor", Scene::getScene().ambient_light);
-			Scene::getScene().shape_shader.setVec3("point_lights[0].lightColor", glm::vec3(1.0f, 1.0f, 1.0f ));
-			Scene::getScene().shape_shader.setInt("num_of_lights", 1);
 
 			//movement
 			//cubes.move({0, 0, -0.001});

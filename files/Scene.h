@@ -36,4 +36,5 @@ public:
     void updatePointLightSource(unsigned int number, glm::vec3 lightPos,glm::vec3 lightColor);
     void removePointLightSource(unsigned int number);
     unsigned int getNUmberOfLights() { return number_of_lights; }
+    void updateLights();
 };

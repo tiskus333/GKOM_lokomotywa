@@ -69,7 +69,31 @@ void Scene::removePointLightSource(unsigned int number)
 {
     if (is_light_used[number])
     {
-        is_light_used[number]=false;
+        is_light_used[number] = false;
         number_of_lights--;
+    }
+}
+
+/**
+ * Update light sources stored in shaders
+**/
+void Scene::updateLights()
+{
+    shape_shader.setVec3("ambientColor", ambient_light);
+    int found_lights = 0;
+    for (int i = 0; i < MAX_NUM_OF_POINT_LIGHTS; i++)
+    {
+        if (is_light_used[i])
+        {
+            std::string light = "point_lights[" + std::to_string(found_lights) + "]";
+            shape_shader.setVec3(light + ".lightPos", light_positions[found_lights]);
+            shape_shader.setVec3(light + ".lightColor", light_colors[found_lights]);
+            found_lights++;
+        }
+    }
+    shape_shader.setInt("num_of_lights", found_lights);
+    if (found_lights != number_of_lights)
+    {
+        throw std::exception("Something went wrong during counting ligts");
     }
 }

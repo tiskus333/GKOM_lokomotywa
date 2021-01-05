@@ -32,7 +32,7 @@ public:
     void setVec3InShaders(const std::string &name, glm::vec3 &value);
     void setMatrix4fvInShaders(const std::string &name, glm::mat4 &matrix);
 
-    void addPointLightSource(glm::vec3 lightPos,glm::vec3 lightColor);
+    unsigned int addPointLightSource(glm::vec3 lightPos,glm::vec3 lightColor);
     void updatePointLightSource(unsigned int number, glm::vec3 lightPos,glm::vec3 lightColor);
     void removePointLightSource(unsigned int number);
     unsigned int getNUmberOfLights() { return number_of_lights; }

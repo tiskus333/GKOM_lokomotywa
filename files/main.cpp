@@ -110,22 +110,53 @@ int main()
 		glViewport(0, 0, WIDTH, HEIGHT);
 		glEnable(GL_DEPTH_TEST);
 
-		Cuboid Cube1({ 0, 0, 0 }, { 0.5, 1.5, 0.5 }, glm::vec3( 1, 0, 0 ));
+		/*Cuboid Cube1({ 0, 0, 0 }, { 0.5, 1.5, 0.5 }, glm::vec3( 1, 0, 0 ));
 		Cuboid Cube2({ 1, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3( 0, 0, 1 ));
 		Cuboid Cube3({ 0.5, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3( 0, 1, 0 ));
+		Cuboid Cube4({ -1,0,0 }, { 1.5, 1.5, 1.5 }, glm::vec3(0, 0, 1));
+		Cube4.rotate({ 45,0,0 });
 
 		Cylinder Cylinder1({ 0, 0, 0.5 }, { 0.5, 0.5, 0.5 }, glm::vec3(0.4f, 0.3f, 1.0f));
 		Cylinder1.rotate({ 90, 0, 0 });
 		Cylinder Cylinder2({ -0.5, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3(0.2f, 0.1f, 1.0f));
-		Cylinder2.rotate({ 0,0,90 });
+		Cylinder2.rotate({ 0,0,90 });*/
+		Cuboid CompartmentBody({ 0,0,0 }, { 1,1,2 }, glm::vec3(1, 0.5, 1));
+		Cylinder CompartmentRoof({ 0,0.5,0 }, { 0.707106,0.999,0.5 }, glm::vec3(0, 0, 1));
+		Cylinder CompartmentWheel1({ 0.3,-0.65,0.4 }, { 0.42,0.42,0.42 }, glm::vec3(0, 0, 1));
+		Cylinder CompartmentWheel2({ 0.3,-0.65,0.8 }, { 0.42,0.42,0.42 }, glm::vec3(0, 0, 1));
+		Cylinder CompartmentWheel3({ 0.3,-0.65,-0.4 }, { 0.42,0.42,0.42 }, glm::vec3(0, 0, 1));
+		Cylinder CompartmentWheel4({ 0.3,-0.65,-0.8 }, { 0.42,0.42,0.42 }, glm::vec3(0, 0, 1));
 
+		Cylinder CompartmentWheel5({ -0.3,-0.65,0.4 }, { 0.42,0.42,0.42 }, glm::vec3(0, 0, 1));
+		Cylinder CompartmentWheel6({ -0.3,-0.65,0.8 }, { 0.42,0.42,0.42 }, glm::vec3(0, 0, 1));
+		Cylinder CompartmentWheel7({ -0.3,-0.65,-0.4 }, { 0.42,0.42,0.42 }, glm::vec3(0, 0, 1));
+		Cylinder CompartmentWheel8({ -0.3,-0.65,-0.8 }, { 0.42,0.42,0.42 }, glm::vec3(0, 0, 1));
+		CompartmentRoof.rotate({ 90,0,0 });
+		CompartmentWheel1.rotate({ 0,0,90 });
+		CompartmentWheel2.rotate({ 0,0,90 });
+		CompartmentWheel3.rotate({ 0,0,90 });
+		CompartmentWheel4.rotate({ 0,0,90 });
+		CompartmentWheel5.rotate({ 0,0,90 });
+		CompartmentWheel6.rotate({ 0,0,90 });
+		CompartmentWheel7.rotate({ 0,0,90 });
+		CompartmentWheel8.rotate({ 0,0,90 });
 		Composite cubes({ 0,0,0 });
-
-		cubes.addElement(Cube1);
+		cubes.addElement(CompartmentBody);
+		cubes.addElement(CompartmentRoof);
+		cubes.addElement(CompartmentWheel1);
+		cubes.addElement(CompartmentWheel2);
+		cubes.addElement(CompartmentWheel3);
+		cubes.addElement(CompartmentWheel4);
+		cubes.addElement(CompartmentWheel5);
+		cubes.addElement(CompartmentWheel6);
+		cubes.addElement(CompartmentWheel7);
+		cubes.addElement(CompartmentWheel8);
+		/*cubes.addElement(Cube1);
 		cubes.addElement(Cube2);
 		cubes.addElement(Cube3);
+		cubes.addElement(Cube4);
 		cubes.addElement(Cylinder1);
-		cubes.addElement(Cylinder2);
+		cubes.addElement(Cylinder2);*/
 		//cubes.rotate({ 75,0,0 });
 		
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -160,7 +191,7 @@ int main()
 
 			//movement
 			//cubes.move({0, 0, -0.001});
-			cubes.rotate({0, 0.1, 0} /*, { 0,0,0 }*/);
+			//cubes.rotate({0, 0.1, 0} /*, { 0,0,0 }*/);
 
 			cubes.draw();
 

@@ -121,7 +121,7 @@ int main()
 		Cylinder Cylinder2({ -0.5, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3(0.2f, 0.1f, 1.0f));
 		Cylinder2.rotate({ 0,0,90 });*/
 		Cuboid CompartmentBody({ 0,0,0 }, { 1,1,2 }, glm::vec3(1, 0.5, 1));
-		Cylinder CompartmentRoof({ 0,0.5,0 }, { 0.707106,0.999,0.5 }, glm::vec3(0, 0, 1));
+		Cylinder CompartmentRoof({ 0,0.5,0 }, { 1,1.999,0.5 }, glm::vec3(0, 0, 1));
 		Cylinder CompartmentWheel1({ 0.3,-0.65,0.4 }, { 0.42,0.42,0.42 }, glm::vec3(0, 0, 1));
 		Cylinder CompartmentWheel2({ 0.3,-0.65,0.8 }, { 0.42,0.42,0.42 }, glm::vec3(0, 0, 1));
 		Cylinder CompartmentWheel3({ 0.3,-0.65,-0.4 }, { 0.42,0.42,0.42 }, glm::vec3(0, 0, 1));

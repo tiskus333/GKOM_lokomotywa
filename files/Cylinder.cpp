@@ -67,7 +67,7 @@ void Cylinder::generateVertices()
 
 	//lids
 	vertices_.push_back(0.0f);  //0 top middle
-	vertices_.push_back(size_.y);
+	vertices_.push_back(0.5f);
 	vertices_.push_back(0.0f);
 	vertices_.push_back(color_.x);
 	vertices_.push_back(color_.y);
@@ -81,7 +81,7 @@ void Cylinder::generateVertices()
 	vertices_.push_back(0.5f);
 
 	vertices_.push_back(0.0f);  //1 bottom middle
-	vertices_.push_back(-size_.y);
+	vertices_.push_back(-0.5f);
 	vertices_.push_back(0.0f);
 	vertices_.push_back(color_.x);
 	vertices_.push_back(color_.y);
@@ -102,9 +102,9 @@ void Cylinder::generateVertices()
 		for (int j = 0; j < 4; ++j)
 		{
 			y_mul = j % 2 ? -1.0 : 1.0;
-			vertices_.push_back(size_.x * cos(theta));
-			vertices_.push_back(y_mul*size_.y );
-			vertices_.push_back(size_.z * sin(theta));
+			vertices_.push_back(cos(theta)/2);
+			vertices_.push_back(y_mul/2 );
+			vertices_.push_back(sin(theta)/2);
 			vertices_.push_back(color_.x);
 			vertices_.push_back(color_.y);
 			vertices_.push_back(color_.z);

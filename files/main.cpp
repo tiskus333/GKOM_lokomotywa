@@ -9,9 +9,7 @@ using namespace std;
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "Cuboid.h"
-#include "Composite.h"
-#include "Cylinder.h"
+
 #include "Camera.h"
 #include "Scene.h"
 #include "Wagon.h"
@@ -111,49 +109,7 @@ int main()
 		glViewport(0, 0, WIDTH, HEIGHT);
 		glEnable(GL_DEPTH_TEST);
 
-		/*Cuboid Cube1({ 0, 0, 0 }, { 0.5, 1.5, 0.5 }, glm::vec3( 1, 0, 0 ));
-		Cuboid Cube2({ 1, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3( 0, 0, 1 ));
-		Cuboid Cube3({ 0.5, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3( 0, 1, 0 ));
-		Cuboid Cube4({ -1,0,0 }, { 1.5, 1.5, 1.5 }, glm::vec3(0, 0, 1));
-		Cube4.rotate({ 45,0,0 });
-
-		Cylinder Cylinder1({ 0, 0, 0.5 }, { 0.5, 0.5, 0.5 }, glm::vec3(0.4f, 0.3f, 1.0f));
-		Cylinder1.rotate({ 90, 0, 0 });
-		Cylinder Cylinder2({ -0.5, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3(0.2f, 0.1f, 1.0f));
-		Cylinder2.rotate({ 0,0,90 });*/
-		Cuboid CompartmentBody({ 0,0,0 }, { 1,1,3 }, glm::vec3(1, 0.5, 1));
-		Cylinder CompartmentRoof({ 0,0.5,0 }, { 1,2.999,0.5 }, glm::vec3(0, 0, 1));
-
 		
-		/*Cylinder CompartmentWheel1({ 0.45,-0.71,0.4 }, { 0.42,0.1,0.42 }, glm::vec3(0, 0, 1));
-		Cylinder CompartmentWheel2({ -0.45,-0.71,0.4 }, { 0.42,0.1,0.42 }, glm::vec3(0, 0, 1));
-		Cuboid Bar({ 0,-0.71,0.4 }, { 1.1,0.1,0.1 }, glm::vec3(1, 0, 1));*/
-
-		
-		CompartmentRoof.rotate({ 90,0,0 });
-		
-
-		WagonWheels FrontWheels( { 0,-0.71,1.1 } );
-		WagonWheels FrontWheels1({ 0,-0.71,0.65 });
-		WagonWheels BackWheels({ 0,-0.71,-0.65 });
-		WagonWheels BackWheels1({ 0,-0.71,-1.1 });
-		
-		Composite cubes({ 0,0,0 });
-	
-		cubes.addElement(CompartmentBody);
-		
-		//cubes.move({ 0,-0.71,0 });
-		cubes.addElement(CompartmentRoof);
-		
-
-
-		/*cubes.addElement(Cube1);
-		cubes.addElement(Cube2);
-		cubes.addElement(Cube3);
-		cubes.addElement(Cube4);
-		cubes.addElement(Cylinder1);
-		cubes.addElement(Cylinder2);*/
-		//cubes.rotate({ 75,0,0 });
 		
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// prepare textures
@@ -189,21 +145,10 @@ int main()
 			shader.setInt("num_of_lights", 1);
 
 			//movement
-			//cubes.move({0, 0, -0.001});
-			//cubes.rotate({-0.51, 0, 0} /*, { 0,-0.71,0.4 }*/);
-			//cubes.draw();
-			Wagon1.move({0,0,-0.01});
+			
+			//Wagon1.move({0,0,-0.01});
 			Wagon1.draw();
-			//wheels.move({ 0,0,0.001 });
-			/*FrontWheels.rotate({ 0.51,0,0 });
-			FrontWheels.draw();
-			BackWheels.rotate({ 0.51,0,0 });
-			BackWheels.draw();
-			FrontWheels1.rotate({ 0.51,0,0 });
-			FrontWheels1.draw();
-			BackWheels1.rotate({ 0.51,0,0 });
-			BackWheels1.draw();*/
-			//CompartmentBody.draw();
+			
 			// Bind Textures using texture units
 			//glActiveTexture(GL_TEXTURE0);
 			//glBindTexture(GL_TEXTURE_2D, texture0);

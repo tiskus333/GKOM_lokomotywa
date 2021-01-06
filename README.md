@@ -42,8 +42,8 @@ Lista zazdań w formie oddzielnych issues [tutaj](http://gitlab.ii.pw.edu.pl/gko
     - [ ] Połączenie figur
     - [ ] Nadanie koloru lub tekstur
 - [ ] Przygotowanie modelu wagonu
-    - [ ] Podział na figury
-    - [ ] Połączenie figur
+    - [x] Podział na figury
+    - [x] Połączenie figur
     - [ ] Nadanie koloru lub tekstur
 - [ ] Przygotowanie modelu otoczenia (tory, góry, łąka)
     - [ ] Podział na figury

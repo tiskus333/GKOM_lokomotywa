@@ -150,7 +150,7 @@ int main()
 		CompartmentWheel8.rotate({ 0,0,90 });
 
 		WagonWheels wheels;
-
+		
 		Composite cubes({ 0,-0.71,0 });
 		cubes.addElement(CompartmentWheel1);
 		cubes.addElement(CompartmentWheel2);

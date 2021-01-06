@@ -8,13 +8,14 @@ class Composite : public Object
 protected:
 	std::vector<std::unique_ptr<Shape>> elements;
 public:
+	Composite() = default;
 	/* create empty composite object at given location */
 	Composite(const glm::vec3& positon);
 	/* destroy composite */
 	~Composite();
 	/* draw composite elements in regard to it's position */
 	void draw();
-
+	
 	/* add element to composite */
 	void addElement( Shape& object);
 

@@ -99,6 +99,7 @@
     <ClCompile Include="shprogram.cpp" />
     <ClCompile Include="Locomotive.cpp" />
     <ClCompile Include="TrainTracks.cpp" />
+    <ClCompile Include="WagonWheels.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CubeShader.frag" />
@@ -124,6 +125,7 @@
     <ClInclude Include="shprogram.h" />
     <ClInclude Include="Locomotive.h" />
     <ClInclude Include="TrainTracks.h" />
+    <ClInclude Include="WagonWheels.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

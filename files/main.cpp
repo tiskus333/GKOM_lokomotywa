@@ -14,6 +14,7 @@ using namespace std;
 #include "Cylinder.h"
 #include "Camera.h"
 #include "Scene.h"
+#include "WagonWheels.h"
 
 const GLuint WIDTH = 800, HEIGHT = 800;
 
@@ -122,8 +123,15 @@ int main()
 		Cylinder2.rotate({ 0,0,90 });*/
 		Cuboid CompartmentBody({ 0,0,0 }, { 1,1,2 }, glm::vec3(1, 0.5, 1));
 		Cylinder CompartmentRoof({ 0,0.5,0 }, { 1,1.999,0.5 }, glm::vec3(0, 0, 1));
-		Cylinder CompartmentWheel1({ 0.3,-0.65,0.4 }, { 0.42,0.42,0.42 }, glm::vec3(0, 0, 1));
-		Cylinder CompartmentWheel2({ 0.3,-0.65,0.8 }, { 0.42,0.42,0.42 }, glm::vec3(0, 0, 1));
+
+		Cylinder CompartmentWheel1({ 0.45,-0,0 }, { 0.42,0.1,0.42 }, glm::vec3(0, 0, 1));
+		Cylinder CompartmentWheel2({ -0.45,-0,0 }, { 0.42,0.1,0.42 }, glm::vec3(0, 0, 1));
+		Cuboid Bar({ 0,0,0 }, { 1.1,0.1,0.1 }, glm::vec3(1, 0, 1));
+	
+		/*Cylinder CompartmentWheel1({ 0.45,-0.71,0.4 }, { 0.42,0.1,0.42 }, glm::vec3(0, 0, 1));
+		Cylinder CompartmentWheel2({ -0.45,-0.71,0.4 }, { 0.42,0.1,0.42 }, glm::vec3(0, 0, 1));
+		Cuboid Bar({ 0,-0.71,0.4 }, { 1.1,0.1,0.1 }, glm::vec3(1, 0, 1));*/
+
 		Cylinder CompartmentWheel3({ 0.3,-0.65,-0.4 }, { 0.42,0.42,0.42 }, glm::vec3(0, 0, 1));
 		Cylinder CompartmentWheel4({ 0.3,-0.65,-0.8 }, { 0.42,0.42,0.42 }, glm::vec3(0, 0, 1));
 
@@ -140,17 +148,24 @@ int main()
 		CompartmentWheel6.rotate({ 0,0,90 });
 		CompartmentWheel7.rotate({ 0,0,90 });
 		CompartmentWheel8.rotate({ 0,0,90 });
-		Composite cubes({ 0,0,0 });
-		cubes.addElement(CompartmentBody);
-		cubes.addElement(CompartmentRoof);
+
+		WagonWheels wheels;
+
+		Composite cubes({ 0,-0.71,0 });
 		cubes.addElement(CompartmentWheel1);
 		cubes.addElement(CompartmentWheel2);
+		//cubes.addElement(CompartmentBody);
+		cubes.addElement(Bar);
+		//cubes.move({ 0,-0.71,0 });
+		/*cubes.addElement(CompartmentRoof);
+		
 		cubes.addElement(CompartmentWheel3);
 		cubes.addElement(CompartmentWheel4);
 		cubes.addElement(CompartmentWheel5);
 		cubes.addElement(CompartmentWheel6);
 		cubes.addElement(CompartmentWheel7);
-		cubes.addElement(CompartmentWheel8);
+		cubes.addElement(CompartmentWheel8);*/
+
 		/*cubes.addElement(Cube1);
 		cubes.addElement(Cube2);
 		cubes.addElement(Cube3);
@@ -190,11 +205,14 @@ int main()
 			shader.setInt("num_of_lights", 1);
 
 			//movement
-			//cubes.move({0, 0, -0.001});
-			//cubes.rotate({0, 0.1, 0} /*, { 0,0,0 }*/);
-
+			cubes.move({0, 0, -0.001});
+			cubes.rotate({-0.51, 0, 0} /*, { 0,-0.71,0.4 }*/);
 			cubes.draw();
 
+			wheels.move({ 0,0,0.001 });
+			wheels.rotate({ 0.51,0,0 });
+			wheels.draw();
+			//CompartmentBody.draw();
 			// Bind Textures using texture units
 			//glActiveTexture(GL_TEXTURE0);
 			//glBindTexture(GL_TEXTURE_2D, texture0);

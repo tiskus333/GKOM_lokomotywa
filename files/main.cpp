@@ -14,7 +14,7 @@ using namespace std;
 #include "Cylinder.h"
 #include "Camera.h"
 #include "Scene.h"
-#include "WagonWheels.h"
+#include "Wagon.h"
 
 const GLuint WIDTH = 800, HEIGHT = 800;
 
@@ -121,50 +121,31 @@ int main()
 		Cylinder1.rotate({ 90, 0, 0 });
 		Cylinder Cylinder2({ -0.5, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3(0.2f, 0.1f, 1.0f));
 		Cylinder2.rotate({ 0,0,90 });*/
-		Cuboid CompartmentBody({ 0,0,0 }, { 1,1,2 }, glm::vec3(1, 0.5, 1));
-		Cylinder CompartmentRoof({ 0,0.5,0 }, { 1,1.999,0.5 }, glm::vec3(0, 0, 1));
+		Cuboid CompartmentBody({ 0,0,0 }, { 1,1,3 }, glm::vec3(1, 0.5, 1));
+		Cylinder CompartmentRoof({ 0,0.5,0 }, { 1,2.999,0.5 }, glm::vec3(0, 0, 1));
 
-		Cylinder CompartmentWheel1({ 0.45,-0,0 }, { 0.42,0.1,0.42 }, glm::vec3(0, 0, 1));
-		Cylinder CompartmentWheel2({ -0.45,-0,0 }, { 0.42,0.1,0.42 }, glm::vec3(0, 0, 1));
-		Cuboid Bar({ 0,0,0 }, { 1.1,0.1,0.1 }, glm::vec3(1, 0, 1));
-	
+		
 		/*Cylinder CompartmentWheel1({ 0.45,-0.71,0.4 }, { 0.42,0.1,0.42 }, glm::vec3(0, 0, 1));
 		Cylinder CompartmentWheel2({ -0.45,-0.71,0.4 }, { 0.42,0.1,0.42 }, glm::vec3(0, 0, 1));
 		Cuboid Bar({ 0,-0.71,0.4 }, { 1.1,0.1,0.1 }, glm::vec3(1, 0, 1));*/
 
-		Cylinder CompartmentWheel3({ 0.3,-0.65,-0.4 }, { 0.42,0.42,0.42 }, glm::vec3(0, 0, 1));
-		Cylinder CompartmentWheel4({ 0.3,-0.65,-0.8 }, { 0.42,0.42,0.42 }, glm::vec3(0, 0, 1));
-
-		Cylinder CompartmentWheel5({ -0.3,-0.65,0.4 }, { 0.42,0.42,0.42 }, glm::vec3(0, 0, 1));
-		Cylinder CompartmentWheel6({ -0.3,-0.65,0.8 }, { 0.42,0.42,0.42 }, glm::vec3(0, 0, 1));
-		Cylinder CompartmentWheel7({ -0.3,-0.65,-0.4 }, { 0.42,0.42,0.42 }, glm::vec3(0, 0, 1));
-		Cylinder CompartmentWheel8({ -0.3,-0.65,-0.8 }, { 0.42,0.42,0.42 }, glm::vec3(0, 0, 1));
+		
 		CompartmentRoof.rotate({ 90,0,0 });
-		CompartmentWheel1.rotate({ 0,0,90 });
-		CompartmentWheel2.rotate({ 0,0,90 });
-		CompartmentWheel3.rotate({ 0,0,90 });
-		CompartmentWheel4.rotate({ 0,0,90 });
-		CompartmentWheel5.rotate({ 0,0,90 });
-		CompartmentWheel6.rotate({ 0,0,90 });
-		CompartmentWheel7.rotate({ 0,0,90 });
-		CompartmentWheel8.rotate({ 0,0,90 });
+		
 
-		WagonWheels wheels( { 0,-0.71,0 } );
+		WagonWheels FrontWheels( { 0,-0.71,1.1 } );
+		WagonWheels FrontWheels1({ 0,-0.71,0.65 });
+		WagonWheels BackWheels({ 0,-0.71,-0.65 });
+		WagonWheels BackWheels1({ 0,-0.71,-1.1 });
 		
-		Composite cubes({ 0,-0.71,0 });
-		cubes.addElement(CompartmentWheel1);
-		cubes.addElement(CompartmentWheel2);
-		//cubes.addElement(CompartmentBody);
-		cubes.addElement(Bar);
+		Composite cubes({ 0,0,0 });
+	
+		cubes.addElement(CompartmentBody);
+		
 		//cubes.move({ 0,-0.71,0 });
-		/*cubes.addElement(CompartmentRoof);
+		cubes.addElement(CompartmentRoof);
 		
-		cubes.addElement(CompartmentWheel3);
-		cubes.addElement(CompartmentWheel4);
-		cubes.addElement(CompartmentWheel5);
-		cubes.addElement(CompartmentWheel6);
-		cubes.addElement(CompartmentWheel7);
-		cubes.addElement(CompartmentWheel8);*/
+
 
 		/*cubes.addElement(Cube1);
 		cubes.addElement(Cube2);
@@ -178,6 +159,9 @@ int main()
 		// prepare textures
 		//GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "piesek.png");
 		// GLuint texture1 = LoadMipmapTexture(GL_TEXTURE1, "weiti.png");
+
+
+		Wagon Wagon1; 
 
 		ShaderProgram shader("CubeShader.vert", "CubeShader.frag");
 		// main event loop
@@ -205,13 +189,20 @@ int main()
 			shader.setInt("num_of_lights", 1);
 
 			//movement
-			cubes.move({0, 0, -0.001});
-			cubes.rotate({-0.51, 0, 0} /*, { 0,-0.71,0.4 }*/);
-			cubes.draw();
-
-			wheels.move({ 0,0,0.001 });
-			wheels.rotate({ 0.51,0,0 });
-			wheels.draw();
+			//cubes.move({0, 0, -0.001});
+			//cubes.rotate({-0.51, 0, 0} /*, { 0,-0.71,0.4 }*/);
+			//cubes.draw();
+			Wagon1.move({0,0,-0.01});
+			Wagon1.draw();
+			//wheels.move({ 0,0,0.001 });
+			/*FrontWheels.rotate({ 0.51,0,0 });
+			FrontWheels.draw();
+			BackWheels.rotate({ 0.51,0,0 });
+			BackWheels.draw();
+			FrontWheels1.rotate({ 0.51,0,0 });
+			FrontWheels1.draw();
+			BackWheels1.rotate({ 0.51,0,0 });
+			BackWheels1.draw();*/
 			//CompartmentBody.draw();
 			// Bind Textures using texture units
 			//glActiveTexture(GL_TEXTURE0);

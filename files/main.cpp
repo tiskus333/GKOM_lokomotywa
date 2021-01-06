@@ -9,11 +9,10 @@ using namespace std;
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "Cuboid.h"
-#include "Composite.h"
-#include "Cylinder.h"
+
 #include "Camera.h"
 #include "Scene.h"
+#include "Wagon.h"
 
 const GLuint WIDTH = 800, HEIGHT = 800;
 
@@ -110,28 +109,15 @@ int main()
 		glViewport(0, 0, WIDTH, HEIGHT);
 		glEnable(GL_DEPTH_TEST);
 
-		Cuboid Cube1({ 0, 0, 0 }, { 0.5, 1.5, 0.5 }, glm::vec3( 1, 0, 0 ));
-		Cuboid Cube2({ 1, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3( 0, 0, 1 ));
-		Cuboid Cube3({ 0.5, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3( 0, 1, 0 ));
-
-		Cylinder Cylinder1({ 0, 0, 0.5 }, { 0.5, 0.5, 0.5 }, glm::vec3(0.4f, 0.3f, 1.0f));
-		Cylinder1.rotate({ 90, 0, 0 });
-		Cylinder Cylinder2({ -0.5, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3(0.2f, 0.1f, 1.0f));
-		Cylinder2.rotate({ 0,0,90 });
-
-		Composite cubes({ 0,0,0 });
-
-		cubes.addElement(Cube1);
-		cubes.addElement(Cube2);
-		cubes.addElement(Cube3);
-		cubes.addElement(Cylinder1);
-		cubes.addElement(Cylinder2);
-		//cubes.rotate({ 75,0,0 });
+		
 		
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// prepare textures
 		//GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "piesek.png");
 		// GLuint texture1 = LoadMipmapTexture(GL_TEXTURE1, "weiti.png");
+
+
+		Wagon Wagon1; 
 
 		ShaderProgram shader("CubeShader.vert", "CubeShader.frag");
 		// main event loop
@@ -159,11 +145,10 @@ int main()
 			shader.setInt("num_of_lights", 1);
 
 			//movement
-			//cubes.move({0, 0, -0.001});
-			cubes.rotate({0, 0.1, 0} /*, { 0,0,0 }*/);
-
-			cubes.draw();
-
+			
+			//Wagon1.move({0,0,-0.01});
+			Wagon1.draw();
+			
 			// Bind Textures using texture units
 			//glActiveTexture(GL_TEXTURE0);
 			//glBindTexture(GL_TEXTURE_2D, texture0);

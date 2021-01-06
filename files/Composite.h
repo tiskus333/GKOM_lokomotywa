@@ -10,11 +10,10 @@ protected:
 public:
 	/* create empty composite object at given location */
 	Composite(const glm::vec3& positon);
-	/* destroy composite */
-	~Composite();
+
 	/* draw composite elements in regard to it's position */
 	void draw();
-
+	
 	/* add element to composite */
 	void addElement( Shape& object);
 

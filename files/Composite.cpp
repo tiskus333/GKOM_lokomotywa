@@ -1,14 +1,11 @@
 #pragma once
 #include "Composite.h"
 
-Composite::Composite(const glm::vec3& positon)
+Composite::Composite(const glm::vec3& position)
 {
-	this->position_ = position_;
+	this->position_ = position;
 }
 
-Composite::~Composite()
-{
-}
 
 void Composite::draw()
 {

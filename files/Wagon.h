@@ -5,7 +5,7 @@
 #include "Composite.h"
 class Wagon
 {
-	std::vector<WagonWheels> wheelVector;
+	std::vector<WagonWheels*> wheelVector;
 	WagonWheels FrontWheels = WagonWheels({ 0,-0.71,1.1 });
 	WagonWheels FrontWheels1 = WagonWheels({ 0, -0.71, 0.65 });
 	WagonWheels BackWheels = WagonWheels({ 0, -0.71, -0.65 });

@@ -8,13 +8,15 @@ class Object
 {
 protected:
 	Object* parent_ = nullptr;
-	glm::vec3 position_;
 	/* used to rotate around center */
 	glm::mat4 static_rotation_matrix_;
 	/* used to rotate around point */
 	glm::mat4 dynamic_rotation_matrix_;
 
 public:
+
+	glm::vec3 position_;
+
 	/* move object by the given vector */
 	void move(const glm::vec3& displacement);
 

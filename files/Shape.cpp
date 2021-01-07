@@ -5,16 +5,23 @@
 
 
 
-Shape::Shape(const glm::vec3& position, const glm::vec3& size, const glm::vec3& color, const std::string& texture_path)
+Shape::Shape(const glm::vec3& position, const glm::vec3& size, const glm::vec3& color, const std::string& texture_path, bool is_light_source)
+: number_of_light_(-1)
 {
 	this->position_ = position;
 	this->size_ = size;
 	this->color_ = color;
 	this->texture_path_ = texture_path;
+	this->is_light_source_ = is_light_source;
 }
 
-Shape::~Shape() {
+Shape::~Shape()
+{
 	freeBuffers();
+	if (is_light_source_ && number_of_light_ != -1)
+	{
+		Scene::getScene().removePointLightSource((unsigned int)number_of_light_);
+	}
 }
 
 void Shape::bindBuffers()
@@ -58,6 +65,22 @@ void Shape::freeBuffers()
 
 void Shape::draw(const glm::mat4& parent_model)
 {
+	if (is_light_source_)
+	{
+		glm::vec3 placement = position_;
+		if (parent_ != nullptr)
+		{
+			placement += parent_->position_;
+		}
+		if (number_of_light_ == -1)
+		{
+			number_of_light_ = Scene::getScene().addPointLightSource(placement, color_);
+		}
+		else
+		{
+			Scene::getScene().updatePointLightSource(number_of_light_, placement, color_);
+		}
+	}
 	this->shader_.Use();
 	glPushMatrix();
 	model_ = parent_model * glm::translate(dynamic_rotation_matrix_, position_) * static_rotation_matrix_;

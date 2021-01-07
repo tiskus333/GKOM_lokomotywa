@@ -109,7 +109,9 @@ int main()
 		glViewport(0, 0, WIDTH, HEIGHT);
 		glEnable(GL_DEPTH_TEST);
 
+		Cuboid LightCube({ 3, 3, 3 }, { 0.5, 0.5, 0.5 }, glm::vec3( 1, 1, 1 ), true);
 		
+		Cylinder LightCylinder({ -1, 1, 1 }, { 0.5, 0.5, 0.5 }, glm::vec3( 1, 0, 0 ), true);
 		
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// prepare textures
@@ -131,22 +133,19 @@ int main()
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			shader.Use();
 			glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 0.1f, 100.0f);
-			shader.setMatrix4fv("projection", projection);
-			shader.setMatrix4fv("view", camera.GetViewMatrix());
-			shader.setVec3("point_lights[0].lightPos", glm::vec3(10.0,10.0,10.0));
+			Scene::getScene().setMatrix4fvInShaders("projection", projection);
+			Scene::getScene().setMatrix4fvInShaders("view", camera.GetViewMatrix());
+			Scene::getScene().setVec3InShaders("viewPos", camera.Position);
 
 			
-			//set ambient lighting
-			shader.setVec3("ambientColor", Scene::getScene().ambient_light);
-			shader.setVec3("viewPos", camera.Position);
-			shader.setVec3("point_lights[0].lightColor", glm::vec3(1.0f, 1.0f, 1.0f ));
-			shader.setInt("num_of_lights", 1);
 
 			//movement
+			Scene::getScene().updateLights();
 			
 			//Wagon1.move({0,0,-0.01});
+			LightCube.draw();
+			LightCylinder.draw();
 			Wagon1.draw();
 			
 			// Bind Textures using texture units

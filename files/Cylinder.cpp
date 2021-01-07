@@ -1,17 +1,17 @@
 #include "Cylinder.h"
 #include <math.h>
 
-Cylinder::Cylinder(const glm::vec3& position, const glm::vec3& size) : Shape(position, size, glm::vec3(1.0f, 1.0f, 1.0f), "")
+Cylinder::Cylinder(const glm::vec3& position, const glm::vec3& size, bool is_light_source) : Shape(position, size, glm::vec3(1.0f, 1.0f, 1.0f), "", is_light_source)
 {
 }
 
-Cylinder::Cylinder(const glm::vec3& position, const glm::vec3& size, const glm::vec3& color) : Cylinder(position, size)
+Cylinder::Cylinder(const glm::vec3& position, const glm::vec3& size, const glm::vec3& color, bool is_light_source) : Cylinder(position, size, is_light_source)
 {
 	this->color_ = color;
 	init();
 }
 
-Cylinder::Cylinder(const glm::vec3& position, const glm::vec3& size, const std::string& texture_path): Cylinder(position, size)
+Cylinder::Cylinder(const glm::vec3& position, const glm::vec3& size, const std::string& texture_path, bool is_light_source): Cylinder(position, size, is_light_source)
 {
 	texture_path_ = texture_path;
 	init();
@@ -130,7 +130,10 @@ void Cylinder::generateVertices()
 
 void Cylinder::init()
 {
-	this->shader_ = ShaderProgram("CubeShader.vert", "CubeShader.frag");
+	if(is_light_source_)
+		this->shader_ =Scene::getScene().light_shader;
+	else
+		this->shader_ =Scene::getScene().shape_shader;
 	generateVertices();
 	generateIndices();
 	Shape::bindBuffers();

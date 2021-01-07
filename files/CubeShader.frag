@@ -31,7 +31,7 @@ void main()
 
     vec3 lights_colors;
     for(int i = 0; i < num_of_lights; i++)
-        lights_colors += calculate_color_from_lightsource(point_lights[0], norm, viewDir);
+        lights_colors += calculate_color_from_lightsource(point_lights[i], norm, viewDir);
 
     vec3 result = (ambientColor + lights_colors) * ourColor;
     color = vec4(result, 1.0f);

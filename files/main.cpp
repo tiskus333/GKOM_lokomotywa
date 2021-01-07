@@ -110,7 +110,7 @@ int main()
 		glViewport(0, 0, WIDTH, HEIGHT);
 		glEnable(GL_DEPTH_TEST);
 
-		Cuboid Cube1({ 0, 0, 0 }, { 0.5, 1.5, 0.5 }, glm::vec3( 1, 0, 0 ));
+		Cuboid Cube1({ 0, 0, 0 }, { 0.5, 1.5, 0.5 }, glm::vec3( 1, 1, 1 ));
 		Cuboid Cube2({ 1, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3( 0, 0, 1 ));
 		Cuboid Cube3({ 0.5, 0, 0 }, { 0.5, 0.5, 0.5 }, glm::vec3( 0, 1, 0 ));
 
@@ -120,6 +120,9 @@ int main()
 		Cylinder2.rotate({ 0,0,90 });
 
 		Composite cubes({ 0,0,0 });
+
+		Cuboid LightCube({ 3, 3, 3 }, { 0.5, 0.5, 0.5 }, glm::vec3( 1, 0, 0 ), true);
+		Cylinder LightCylinder({ -3, 3, 3 }, { 0.5, 0.5, 0.5 }, glm::vec3( 0, 1, 0 ), true);
 
 		cubes.addElement(Cube1);
 		cubes.addElement(Cube2);
@@ -135,11 +138,6 @@ int main()
 
 		// main event loop
 		float num = 1;
-		
-		//add light source without object
-		Scene::getScene().addPointLightSource(glm::vec3(10.0,10.0,10.0),glm::vec3(1.0f, 1.0f, 1.0f ));
-		Scene::getScene().updateLights();
-
 		while (!glfwWindowShouldClose(window))
 		{
 			current_time = glfwGetTime();
@@ -157,9 +155,13 @@ int main()
 			
 
 			//movement
-			//cubes.move({0, 0, -0.001});
+			cubes.move({0, 0, -0.001});
 			cubes.rotate({0, 0.1, 0} /*, { 0,0,0 }*/);
+			
+			Scene::getScene().updateLights();
 
+			LightCube.draw();
+			LightCylinder.draw();
 			cubes.draw();
 
 			// Bind Textures using texture units

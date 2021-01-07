@@ -1,17 +1,16 @@
 #include "Cuboid.h"
 
-Cuboid::Cuboid(const glm::vec3& position,const  glm::vec3& size) : Shape(position, size, glm::vec3(1.0f, 1.0f, 1.0f), "")
+Cuboid::Cuboid(const glm::vec3 &position, const glm::vec3 &size, bool is_light_source) : Shape(position, size, glm::vec3(1.0f, 1.0f, 1.0f), "", is_light_source)
 {
 }
 
-
-Cuboid::Cuboid(const glm::vec3& position, const glm::vec3&size, const glm::vec3& color): Cuboid(position, size)
+Cuboid::Cuboid(const glm::vec3 &position, const glm::vec3 &size, const glm::vec3 &color, bool is_light_source) : Cuboid(position, size, is_light_source)
 {
 	this->color_ = color;
 	init();
 }
 
-Cuboid::Cuboid(const glm::vec3& position, const glm::vec3& size, const std::string& texture_path): Cuboid(position, size)
+Cuboid::Cuboid(const glm::vec3 &position, const glm::vec3 &size, const std::string &texture_path, bool is_light_source) : Cuboid(position, size, is_light_source)
 {
 	texture_path_ = texture_path;
 	init();
@@ -21,7 +20,10 @@ Cuboid::~Cuboid()
 }
 void Cuboid::init()
 {
-	this->shader_ = Scene::getScene().shape_shader;
+	if(is_light_source_)
+		this->shader_ = Scene::getScene().light_shader;
+	else
+		this->shader_ = Scene::getScene().shape_shader;
 	generateVertices();
 	generateIndices();
 	Shape::bindBuffers();

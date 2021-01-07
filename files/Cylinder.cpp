@@ -130,7 +130,10 @@ void Cylinder::generateVertices()
 
 void Cylinder::init()
 {
-	this->shader_ =Scene::getScene().shape_shader;
+	if(is_light_source_)
+		this->shader_ =Scene::getScene().light_shader;
+	else
+		this->shader_ =Scene::getScene().shape_shader;
 	generateVertices();
 	generateIndices();
 	Shape::bindBuffers();

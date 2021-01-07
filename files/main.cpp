@@ -109,7 +109,9 @@ int main()
 		glViewport(0, 0, WIDTH, HEIGHT);
 		glEnable(GL_DEPTH_TEST);
 
+		Cuboid LightCube({ 3, 3, 3 }, { 0.5, 0.5, 0.5 }, glm::vec3( 1, 1, 1 ), true);
 		
+		Cylinder LightCylinder({ -1, 1, 1 }, { 0.5, 0.5, 0.5 }, glm::vec3( 1, 0, 0 ), true);
 		
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// prepare textures
@@ -139,8 +141,11 @@ int main()
 			
 
 			//movement
+			Scene::getScene().updateLights();
 			
 			//Wagon1.move({0,0,-0.01});
+			LightCube.draw();
+			LightCylinder.draw();
 			Wagon1.draw();
 			
 			// Bind Textures using texture units

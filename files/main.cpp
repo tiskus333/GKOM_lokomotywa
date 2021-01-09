@@ -59,25 +59,6 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	camera.ProcessMouseMovement(xoffset, yoffset);
 }
 
-GLuint LoadMipmapTexture(GLuint texId, const char* fname)
-{
-	int width, height;
-	unsigned char* image = SOIL_load_image(fname, &width, &height, 0, SOIL_LOAD_RGB);
-	if (image == nullptr)
-		throw exception("Failed to load texture file");
-
-	GLuint texture;
-	glGenTextures(1, &texture);
-
-	glActiveTexture(texId);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	SOIL_free_image_data(image);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	return texture;
-}
-
 int main()
 {
 	if (glfwInit() != GL_TRUE)
@@ -113,6 +94,8 @@ int main()
 		
 		Cylinder LightCylinder({ -1, 1, 1 }, { 0.5, 0.5, 0.5 }, glm::vec3( 1, 0, 0 ), true);
 		
+		Cuboid TextureCube({ 1,1,1 }, { 1,1,1 }, "kolory.bmp");
+		Cylinder TextureCylinder({ 3,2,1 }, { 1,1,1 }, "uvtemplate.bmp",false);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// prepare textures
 		//GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "piesek.png");
@@ -147,7 +130,8 @@ int main()
 			LightCube.draw();
 			LightCylinder.draw();
 			Wagon1.draw();
-			
+			TextureCube.draw();
+			TextureCylinder.draw();
 			// Bind Textures using texture units
 			//glActiveTexture(GL_TEXTURE0);
 			//glBindTexture(GL_TEXTURE_2D, texture0);

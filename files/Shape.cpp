@@ -13,6 +13,8 @@ Shape::Shape(const glm::vec3& position, const glm::vec3& size, const glm::vec3& 
 	this->color_ = color;
 	this->texture_path_ = texture_path;
 	this->is_light_source_ = is_light_source;
+	if(texture_path_ != "")
+		this->texture_ = LoadMipmapTexture(GL_TEXTURE0, texture_path_.c_str());
 }
 
 Shape::~Shape()
@@ -22,6 +24,25 @@ Shape::~Shape()
 	{
 		Scene::getScene().removePointLightSource((unsigned int)number_of_light_);
 	}
+}
+
+GLuint Shape::LoadMipmapTexture(GLuint texId, const char* fname)
+{
+	int width, height;
+	unsigned char* image = SOIL_load_image(fname, &width, &height, 0, SOIL_LOAD_RGB);
+	if (image == nullptr)
+		throw std::exception("Failed to load texture file");
+
+	GLuint texture;
+	glGenTextures(1, &texture);
+
+	glActiveTexture(texId);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(image);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	return texture;
 }
 
 void Shape::bindBuffers()
@@ -82,6 +103,14 @@ void Shape::draw(const glm::mat4& parent_model)
 		}
 	}
 	this->shader_.Use();
+	bool hasTexture = texture_path_ != "";
+	shader_.setBool("hasTexture", hasTexture);
+	if (hasTexture)
+	{
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texture_);
+		glUniform1i(glGetUniformLocation(shader_.get_programID(), "Texture0"), 0);
+	}
 	glPushMatrix();
 	model_ = parent_model * glm::translate(dynamic_rotation_matrix_, position_) * static_rotation_matrix_;
 	model_ = glm::scale(model_, size_);

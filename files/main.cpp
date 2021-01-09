@@ -13,6 +13,7 @@ using namespace std;
 #include "Camera.h"
 #include "Scene.h"
 #include "Wagon.h"
+#include "Locomotive.h"
 
 const GLuint WIDTH = 800, HEIGHT = 800;
 
@@ -118,8 +119,19 @@ int main()
 		//GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "piesek.png");
 		// GLuint texture1 = LoadMipmapTexture(GL_TEXTURE1, "weiti.png");
 
+		
 
+		
+
+	
+
+		
 		Wagon Wagon1; 
+		Wagon1.move({ 0,0,3 });
+		Locomotive Loc1;
+
+		
+		//comp.addElement(LocomotiveHullRoof);
 
 		ShaderProgram shader("CubeShader.vert", "CubeShader.frag");
 		// main event loop
@@ -143,11 +155,15 @@ int main()
 			//movement
 			Scene::getScene().updateLights();
 			
-			//Wagon1.move({0,0,-0.01});
+			Wagon1.move({0,0,-0.01});
 			LightCube.draw();
 			LightCylinder.draw();
 			Wagon1.draw();
+			Loc1.move({ 0,0,-0.01 });
+			Loc1.draw();
 			
+
+
 			// Bind Textures using texture units
 			//glActiveTexture(GL_TEXTURE0);
 			//glBindTexture(GL_TEXTURE_2D, texture0);

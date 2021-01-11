@@ -13,6 +13,7 @@ using namespace std;
 #include "Camera.h"
 #include "Scene.h"
 #include "Wagon.h"
+#include "Locomotive.h"
 
 const GLuint WIDTH = 800, HEIGHT = 800;
 
@@ -118,22 +119,18 @@ int main()
 		//GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "piesek.png");
 		// GLuint texture1 = LoadMipmapTexture(GL_TEXTURE1, "weiti.png");
 
-		Cuboid cube1({ 0,-0.375, - 2.6 }, { 1.2,0.1,2 }, glm::vec3(0, 1, 0));
-		Cylinder WagonRoof = Cylinder({ 0,0.4,-2.1 }, { 0.75,0.5999,1.5 }, glm::vec3(0, 0, 1));
-		Cuboid WagonBody = Cuboid({ 0,0,-2.1}, { 0.75,0.8,0.6 }, glm::vec3(1, 0.5, 1));
-		Cylinder LocomotiveHullRoof= Cylinder({ 0,0.4,-2.6 }, { 1,0.3999,0.5 }, glm::vec3(0, 0, 1));
-		Cuboid LocomotiveHull = Cuboid({ 0,-0.17,-2.9 }, { 0.75,0.4,1.2 }, glm::vec3(1, 0.5, 1));
+		
 
+		
 
+	
 
-		WagonRoof.rotate({ 90,0,0 });
-		LocomotiveHullRoof.rotate({ 90,0,0 });
+		
 		Wagon Wagon1; 
-		Composite comp({ 0,0,0 });
-		comp.addElement(cube1);
-		comp.addElement(WagonBody);
-		comp.addElement(WagonRoof);
-		comp.addElement(LocomotiveHull);
+		Wagon1.move({ 0,0,3 });
+		Locomotive Loc1;
+
+		
 		//comp.addElement(LocomotiveHullRoof);
 
 		ShaderProgram shader("CubeShader.vert", "CubeShader.frag");
@@ -162,7 +159,11 @@ int main()
 			LightCube.draw();
 			LightCylinder.draw();
 			Wagon1.draw();
-			comp.draw();
+			Loc1.move({ 0,0,-0.01 });
+			Loc1.draw();
+			
+
+
 			// Bind Textures using texture units
 			//glActiveTexture(GL_TEXTURE0);
 			//glBindTexture(GL_TEXTURE_2D, texture0);

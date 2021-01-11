@@ -39,12 +39,12 @@ void Locomotive::move(const glm::vec3 moveVector)
 	for (auto w : wheelVector)
 	{
 		w->rotate({ angle,0,0 });
-		//w->move(moveVector);
+		w->move(moveVector);
 		
 	}
 
 	BailRight.rotate({ -angle,0,0 }, { 0.51,0.13,-0.05 });
 	BailLeft.rotate({ -angle,0,0 }, { -0.51,0.13,-0.05 });
 	
-	//Loc.move(moveVector);
+	Loc.move(moveVector);
 }

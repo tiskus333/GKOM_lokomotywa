@@ -155,7 +155,7 @@ int main()
 			//movement
 			Scene::getScene().updateLights();
 			
-			//Wagon1.move({0,0,-0.01});
+			Wagon1.move({0,0,-0.01});
 			LightCube.draw();
 			LightCylinder.draw();
 			Wagon1.draw();

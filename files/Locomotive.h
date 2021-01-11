@@ -20,8 +20,8 @@ class Locomotive
 	WagonWheels BackWheels2 = WagonWheels({ 0, -0.71, -1.0 });
 	Cuboid LocomotiveSuspension = Cuboid({ 0,-0.6,0 }, { 0.75,0.2,2.4 }, glm::vec3(0, 2, 1));
 	Cylinder LocomotiveHeadlight = Cylinder({ 0,-0.2,-1.3 }, { 0.3,0.1,0.3 }, glm::vec3( 10,10,1 ), true);
-	Cuboid BailRight = Cuboid({ 0.51,0.13,- 1 }, { 0.02,0.07,2.1 }, glm::vec3(1, 1, 1));
-	Cuboid BailLeft = Cuboid({ -0.51,0.13,- 1 }, { 0.02,0.07,2.1 }, glm::vec3(1, 1, 1));
+	Cuboid BailRight = Cuboid({ 0.51,0.13,- 1.05 }, { 0.02,0.07,2.05 }, glm::vec3(1, 1, 1));
+	Cuboid BailLeft = Cuboid({ -0.51,0.13,- 1.05 }, { 0.02,0.07,2.05 }, glm::vec3(1, 1, 1));
 	
 	Composite Loc = Composite({ 0,0,0 });
 public:

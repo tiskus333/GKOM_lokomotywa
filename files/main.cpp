@@ -14,7 +14,7 @@ using namespace std;
 #include "Scene.h"
 #include "Wagon.h"
 
-const GLuint WIDTH = 800, HEIGHT = 800;
+const GLuint WIDTH = 1920, HEIGHT = 1080;
 
 static Camera camera(glm::vec3(0.f,0.f,3.f), glm::vec3(0.f, 1.f, 0.f));
 float current_time = 0.0, delta_time = 0.0f, last_frame = 0.0f;
@@ -94,8 +94,8 @@ int main()
 		
 		Cylinder LightCylinder({ -1, 1, 1 }, { 0.5, 0.5, 0.5 }, glm::vec3( 1, 0, 0 ), true);
 		
-		Cuboid TextureCube({ 1,1,1 }, { 1,1,1 }, "kolory.bmp");
-		Cylinder TextureCylinder({ 3,2,1 }, { 1,1,1 }, "uvtemplate.bmp",false);
+		Cuboid TextureCube({ 1,1,1 }, { 1,1,1 }, "kolory_inv.png");
+		Cylinder TextureCylinder({ 3,2,1 }, { 1,1,1 }, "kolo2.bmp",false);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// prepare textures
 		//GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "piesek.png");
@@ -112,6 +112,7 @@ int main()
 			current_time = glfwGetTime();
 			delta_time = current_time - last_frame;
 			last_frame = current_time;
+			glfwPollEvents();
 			// Clear the colorbuffer
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -142,7 +143,6 @@ int main()
 			
 
 			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
-			glfwPollEvents();
 			// Swap the screen buffers
 			glfwSwapBuffers(window);
 		}

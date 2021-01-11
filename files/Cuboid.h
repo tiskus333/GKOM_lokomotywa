@@ -10,8 +10,6 @@ public:
     Cuboid(const glm::vec3 &position, const glm::vec3 &size, const std::string &texture_path, bool is_light_source = false);
     Cuboid(const glm::vec3& position, const glm::vec3& size);
     void generateIndices();
-    void init();
-
     void generateVertices();
 
 };

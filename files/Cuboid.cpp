@@ -22,17 +22,6 @@ Cuboid::Cuboid(const glm::vec3 &position, const glm::vec3 &size, const std::stri
 Cuboid::Cuboid(const glm::vec3& position, const glm::vec3& size): Cuboid(position, size, glm::vec3(1.0f, 1.0f, 1.0f), "", false)
 {
 }
-
-void Cuboid::init()
-{
-	if(is_light_source_)
-		this->shader_ = Scene::getScene().light_shader;
-	else
-		this->shader_ = Scene::getScene().shape_shader;
-	generateVertices();
-	generateIndices();
-	Shape::bindBuffers();
-}
 void Cuboid::generateIndices()
 {
 	for (int i = 0; i < 36; ++i)

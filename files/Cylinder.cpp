@@ -11,15 +11,16 @@ Cylinder::Cylinder(const glm::vec3& position, const glm::vec3& size, const glm::
 	generateIndices();
 	Shape::bindBuffers();
 }
-Cylinder::Cylinder(const glm::vec3& position, const glm::vec3& size, bool is_light_source) : Shape(position, size, glm::vec3(1.0f, 1.0f, 1.0f), "", is_light_source)
-{
-}
 
 Cylinder::Cylinder(const glm::vec3& position, const glm::vec3& size, const glm::vec3& color, bool is_light_source) : Cylinder(position, size,color,"", is_light_source)
 {
 }
 
 Cylinder::Cylinder(const glm::vec3& position, const glm::vec3& size, const std::string& texture_path, bool is_light_source): Cylinder(position, size, glm::vec3(1.0f,1.0f,1.0f),texture_path, is_light_source)
+{
+}
+
+Cylinder::Cylinder(const glm::vec3& position, const glm::vec3& size) : Cylinder(position, size, glm::vec3(1.0f, 1.0f, 1.0f), "", false)
 {
 }
 

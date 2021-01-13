@@ -17,7 +17,7 @@ void Composite::draw()
 void Composite::addElement( Shape& shape)
 {
 	shape.setParent(this);
-	elements.push_back(std::make_unique<Shape>(shape));
+	elements.push_back(&shape);
 }
 
 void Composite::removeElement(uint32_t index)
@@ -29,7 +29,7 @@ void Composite::removeElement(uint32_t index)
 	}
 }
 
-std::vector<std::unique_ptr<Shape>>::iterator Composite::getElement(int index)
+Shape* Composite::getElement(int index)
 {
-	return index < elements.size() ? elements.begin() + index : elements.end();
+	return index < elements.size() ? elements.at(index) : nullptr;
 }

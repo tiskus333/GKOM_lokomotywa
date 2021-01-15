@@ -92,8 +92,8 @@ int main()
 		glEnable(GL_DEPTH_TEST);
 
 		Cuboid LightCube({ 0, 99, 0 }, { 0.1, 0.1, 0.1 }, glm::vec3( 1, 1, 1 ), true);
-		Cuboid TextureCube({ 0,0,0 }, { 1, 1, 1 }, "skybox2.png");
-		TextureCube.setShader(Scene::getScene().skybox_shader);
+		Cuboid SkyBox({ 0,0,0 }, { 1, 1, 1 }, "skybox2.png");
+		SkyBox.setShader(Scene::getScene().skybox_shader);
 		Cuboid Floor({ 0,-1.5,0 }, { 100,1,100 }, "floor.png");	
 		Wagon Wagon1;
 		Wagon1.move({ 0,0,3 });
@@ -115,14 +115,14 @@ int main()
 			glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 0.1f, 100.0f);
 			Scene::getScene().setMatrix4fvInShaders("projection", projection);
 			Scene::getScene().setMatrix4fvInShaders("view", camera.GetViewMatrix());
-			Scene::getScene().setVec3InShaders("viewPos", camera.position_);
+			Scene::getScene().setVec3InShaders("viewPos", camera.Position);
 
 			
 
 			//movement
 			Scene::getScene().updateLights();
 
-			TextureCube.setPosition(camera.position_);
+			SkyBox.setPosition(camera.Position);
 			//Wagon1.move({0,0,-0.01});
 			LightCube.draw();
 			//LightCylinder.draw();
@@ -132,7 +132,7 @@ int main()
 			//glDepthMask(GL_TRUE);
 			//LightCube.draw();
 			glDepthMask(GL_FALSE);
-			TextureCube.draw();
+			SkyBox.draw();
 			glDepthMask(GL_TRUE);
 			Floor.draw();
 			Loc1.draw();

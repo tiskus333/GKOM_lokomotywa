@@ -60,6 +60,9 @@
     <ClCompile Include="Wagon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Tracks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="gl_05.frag" />
@@ -123,6 +126,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Wagon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tracks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

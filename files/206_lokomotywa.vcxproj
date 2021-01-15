@@ -103,6 +103,7 @@
     <ClCompile Include="WagonWheels.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\README.md" />
     <None Include="CubeShader.frag" />
     <None Include="CubeShader.vert" />
     <None Include="gl_05.frag" />
@@ -111,6 +112,7 @@
     <None Include="SkyBox.vert" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\screenshot.png" />
     <Image Include="iipw.png" />
     <Image Include="piesek.png" />
     <Image Include="skybox.png" />

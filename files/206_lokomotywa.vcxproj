@@ -107,6 +107,8 @@
     <None Include="CubeShader.vert" />
     <None Include="gl_05.frag" />
     <None Include="gl_05.vert" />
+    <None Include="SkyBox.frag" />
+    <None Include="SkyBox.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="iipw.png" />

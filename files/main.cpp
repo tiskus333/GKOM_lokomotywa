@@ -17,7 +17,7 @@ using namespace std;
 
 const GLuint WIDTH = 1920, HEIGHT = 1080;
 
-static Camera camera(glm::vec3(0.f,0.f,3.f), glm::vec3(0.f, 1.f, 0.f));
+static Camera camera(glm::vec3(0.f,0.f,0.f), glm::vec3(0.f, 1.f, 0.f));
 float current_time = 0.0, delta_time = 0.0f, last_frame = 0.0f;
 double lastX = WIDTH/2;
 double lastY = HEIGHT/2;
@@ -91,27 +91,20 @@ int main()
 		glViewport(0, 0, WIDTH, HEIGHT);
 		glEnable(GL_DEPTH_TEST);
 
-		Cuboid LightCube({ 0, 0, 0 }, { 0.1, 0.1, 0.1 }, glm::vec3( 1, 1, 1 ), true);
+		//Cuboid LightCube({ 0, 0, 0 }, { 0.1, 0.1, 0.1 }, glm::vec3( 1, 1, 1 ), true);
 		
-		Cylinder LightCylinder({ -1, 1, 1 }, { 0.5, 0.5, 0.5 }, glm::vec3( 1, 0, 0 ), true);
-		
-		Cuboid TextureCube({ 0,0,0 }, { 100,100,100 }, "skybox2.png");
-		Cylinder TextureCylinder({ 3,2,1 }, { 1,1,1 }, "kolo2.bmp",false);
+		//Cuboid TextureCube({ 0,0,0 }, { 100, 100, 100 }, "skybox2.png");
+
+		Cuboid Floor({ 0,-1.5,0 }, { 100,1,100 }, "floor.png");
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// prepare textures
 		//GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "piesek.png");
 		// GLuint texture1 = LoadMipmapTexture(GL_TEXTURE1, "weiti.png");
 
-		
-
-		
-
 	
-
-		
-		//Wagon Wagon1; 
-		//Wagon1.move({ 0,0,3 });
-		//Locomotive Loc1;
+		Wagon Wagon1; 
+		Wagon1.move({ 0,0,3 });
+		Locomotive Loc1;
 
 		
 		//comp.addElement(LocomotiveHullRoof);
@@ -132,21 +125,25 @@ int main()
 			glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 0.1f, 100.0f);
 			Scene::getScene().setMatrix4fvInShaders("projection", projection);
 			Scene::getScene().setMatrix4fvInShaders("view", camera.GetViewMatrix());
-			Scene::getScene().setVec3InShaders("viewPos", camera.Position);
+			Scene::getScene().setVec3InShaders("viewPos", camera.position_);
 
 			
 
 			//movement
 			Scene::getScene().updateLights();
-			
+
+			//TextureCube.position_ = camera.position_;
 			//Wagon1.move({0,0,-0.01});
 			//LightCube.draw();
 			//LightCylinder.draw();
-			//Wagon1.draw();
+			Wagon1.draw();
 			//Loc1.move({ 0,0,-0.01 });
-			//Loc1.draw();
-			TextureCube.draw();
-			LightCube.draw();
+			Loc1.draw();
+			//glDepthMask(GL_FALSE);
+			//TextureCube.draw();
+			//glDepthMask(GL_TRUE);
+			//LightCube.draw();
+			Floor.draw();
 			
 
 

@@ -91,23 +91,13 @@ int main()
 		glViewport(0, 0, WIDTH, HEIGHT);
 		glEnable(GL_DEPTH_TEST);
 
-		//Cuboid LightCube({ 0, 0, 0 }, { 0.1, 0.1, 0.1 }, glm::vec3( 1, 1, 1 ), true);
-		
-		//Cuboid TextureCube({ 0,0,0 }, { 100, 100, 100 }, "skybox2.png");
-
-		Cuboid Floor({ 0,-1.5,0 }, { 100,1,100 }, "floor.png");
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		// prepare textures
-		//GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "piesek.png");
-		// GLuint texture1 = LoadMipmapTexture(GL_TEXTURE1, "weiti.png");
-
-	
-		Wagon Wagon1; 
+		Cuboid LightCube({ 0, 99, 0 }, { 0.1, 0.1, 0.1 }, glm::vec3( 1, 1, 1 ), true);
+		Cuboid TextureCube({ 0,0,0 }, { 1, 1, 1 }, "skybox2.png");
+		TextureCube.setShader(Scene::getScene().skybox_shader);
+		Cuboid Floor({ 0,-1.5,0 }, { 100,1,100 }, "floor.png");	
+		Wagon Wagon1;
 		Wagon1.move({ 0,0,3 });
 		Locomotive Loc1;
-
-		
-		//comp.addElement(LocomotiveHullRoof);
 
 		ShaderProgram shader("CubeShader.vert", "CubeShader.frag");
 		// main event loop
@@ -132,19 +122,21 @@ int main()
 			//movement
 			Scene::getScene().updateLights();
 
-			//TextureCube.position_ = camera.position_;
+			TextureCube.setPosition(camera.position_);
 			//Wagon1.move({0,0,-0.01});
-			//LightCube.draw();
+			LightCube.draw();
 			//LightCylinder.draw();
-			Wagon1.draw();
 			//Loc1.move({ 0,0,-0.01 });
-			Loc1.draw();
 			//glDepthMask(GL_FALSE);
-			//TextureCube.draw();
+			//skybox.draw();
 			//glDepthMask(GL_TRUE);
 			//LightCube.draw();
+			glDepthMask(GL_FALSE);
+			TextureCube.draw();
+			glDepthMask(GL_TRUE);
 			Floor.draw();
-			
+			Loc1.draw();
+			Wagon1.draw();
 
 
 			// Bind Textures using texture units

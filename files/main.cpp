@@ -95,7 +95,7 @@ int main()
 		
 		Cylinder LightCylinder({ -1, 1, 1 }, { 0.5, 0.5, 0.5 }, glm::vec3( 1, 0, 0 ), true);
 		
-		Cuboid TextureCube({ 0,0,0 }, { 10,10,10 }, "skybox.png");
+		Cuboid TextureCube({ 0,0,0 }, { 100,100,100 }, "skybox2.png");
 		Cylinder TextureCylinder({ 3,2,1 }, { 1,1,1 }, "kolo2.bmp",false);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// prepare textures

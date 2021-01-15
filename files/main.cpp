@@ -14,10 +14,11 @@ using namespace std;
 #include "Scene.h"
 #include "Wagon.h"
 #include "Locomotive.h"
+#include "Tracks.h"
 
 const GLuint WIDTH = 1920, HEIGHT = 1080;
 
-static Camera camera(glm::vec3(0.f,0.f,0.f), glm::vec3(0.f, 1.f, 0.f));
+static Camera camera(glm::vec3(0.f,0.f,3.f), glm::vec3(0.f, 1.f, 0.f));
 float current_time = 0.0, delta_time = 0.0f, last_frame = 0.0f;
 double lastX = WIDTH/2;
 double lastY = HEIGHT/2;
@@ -94,10 +95,14 @@ int main()
 		Cuboid LightCube({ 0, 99, 0 }, { 0.1, 0.1, 0.1 }, glm::vec3( 1, 1, 1 ), true);
 		Cuboid SkyBox({ 0,0,0 }, { 1, 1, 1 }, "skybox2.png");
 		SkyBox.setShader(Scene::getScene().skybox_shader);
-		Cuboid Floor({ 0,-1.5,0 }, { 100,1,100 }, "floor.png");	
-		Wagon Wagon1;
-		Wagon1.move({ 0,0,3 });
+		Cuboid Floor({ 0,-.5,0 }, { 1000,1,1000 }, "floor.png");	
+		Tracks TrainTracks;
+			
+		Wagon Wagon1; 
+		Wagon1.move({ 0,1.02,3 });
 		Locomotive Loc1;
+		Loc1.move({ 0,1.02,0 });
+
 
 		ShaderProgram shader("CubeShader.vert", "CubeShader.frag");
 		// main event loop
@@ -117,36 +122,20 @@ int main()
 			Scene::getScene().setMatrix4fvInShaders("view", camera.GetViewMatrix());
 			Scene::getScene().setVec3InShaders("viewPos", camera.Position);
 
-			
-
 			//movement
 			Scene::getScene().updateLights();
 
 			SkyBox.setPosition(camera.Position);
-			//Wagon1.move({0,0,-0.01});
 			LightCube.draw();
-			//LightCylinder.draw();
-			//Loc1.move({ 0,0,-0.01 });
-			//glDepthMask(GL_FALSE);
-			//skybox.draw();
-			//glDepthMask(GL_TRUE);
-			//LightCube.draw();
 			glDepthMask(GL_FALSE);
 			SkyBox.draw();
 			glDepthMask(GL_TRUE);
-			Floor.draw();
+			Loc1.move({ 0,0,-0.01 });
 			Loc1.draw();
+			Wagon1.move({ 0,0,-0.01 });
 			Wagon1.draw();
-
-
-			// Bind Textures using texture units
-			//glActiveTexture(GL_TEXTURE0);
-			//glBindTexture(GL_TEXTURE_2D, texture0);
-			//glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture0"), 0);
-			//glActiveTexture(GL_TEXTURE1);
-			//glBindTexture(GL_TEXTURE_2D, texture1);
-			//glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture1"), 1);
-			
+			Floor.draw();
+			TrainTracks.draw();
 
 			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 			// Swap the screen buffers

@@ -52,5 +52,6 @@ public:
 	/* set shape color using standard 0-255 range */
 	void setColor(const uint32_t r, uint32_t g, const uint32_t b);
 
+	/* set shader to use */
 	void setShader(const ShaderProgram& shader);
 };

@@ -3,7 +3,7 @@
 // constructor with vectors
 Camera::Camera(glm::vec3 position , glm::vec3 up , float yaw , float pitch) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
 {
-    position_ = position;
+    Position = position;
     WorldUp = up;
     Yaw = yaw;
     Pitch = pitch;
@@ -13,7 +13,7 @@ Camera::Camera(glm::vec3 position , glm::vec3 up , float yaw , float pitch) : Fr
 // constructor with scalars
 Camera::Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
 {
-    position_ = glm::vec3(posX, posY, posZ);
+    Position = glm::vec3(posX, posY, posZ);
     WorldUp = glm::vec3(upX, upY, upZ);
     Yaw = yaw;
     Pitch = pitch;
@@ -24,13 +24,13 @@ void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime)
 {
     float velocity = MovementSpeed * deltaTime;
     if (direction == FORWARD)
-        position_ += Front * velocity;
+        Position += Front * velocity;
     if (direction == BACKWARD)
-        position_ -= Front * velocity;
+        Position -= Front * velocity;
     if (direction == LEFT)
-        position_ -= Right * velocity;
+        Position -= Right * velocity;
     if (direction == RIGHT)
-        position_ += Right * velocity;
+        Position += Right * velocity;
 }
 void Camera::ProcessMouseMovement(float xoffset, float yoffset, bool constrainPitch  )
 {

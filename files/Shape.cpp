@@ -141,3 +141,8 @@ void Shape::setColor(const uint32_t r, uint32_t g, const uint32_t b)
 	this->setColor(r / 255.0f, g / 255.0f, b / 255.0f);
 }
 
+void Shape::setShader(const ShaderProgram& shader) {
+
+	shader_ = shader;
+}
+

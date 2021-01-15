@@ -70,6 +70,15 @@
     <None Include="CubeShader.vert">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="SkyBox.frag">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="SkyBox.vert">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\README.md">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="iipw.png">
@@ -79,6 +88,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="piesek.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="skybox.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\screenshot.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

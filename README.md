@@ -38,8 +38,8 @@ Lista zazdań w formie oddzielnych issues [tutaj](http://gitlab.ii.pw.edu.pl/gko
     - [x] Nakładanie więzów na obiekty oraz ich grupowanie
 - [ ] Przygotowanie CI
 - [ ] Przygotowanie modelu lokomotywy
-    - [ ] Podział na figury
-    - [ ] Połączenie figur
+    - [x] Podział na figury
+    - [x] Połączenie figur
     - [ ] Nadanie koloru lub tekstur
 - [ ] Przygotowanie modelu wagonu
     - [x] Podział na figury
@@ -51,7 +51,7 @@ Lista zazdań w formie oddzielnych issues [tutaj](http://gitlab.ii.pw.edu.pl/gko
     - [ ] Nadanie koloru lub tekstur
 - [ ] Przygotowanie tekstur
 - [x] Implementacja ruchomej kamery
-- [ ] Dodanie obsługi oświetlenia
+- [x] Dodanie obsługi oświetlenia
 - [ ] Dodanie elementów świecących
 - [ ] Obsługa wejść użytkownika
 - [ ] Zarządzanie repozytorium

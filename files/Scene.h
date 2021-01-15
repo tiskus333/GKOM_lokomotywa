@@ -24,6 +24,7 @@ public:
 
     ShaderProgram shape_shader;
     ShaderProgram light_shader;
+    ShaderProgram skybox_shader;
 
     static Scene &getScene();
 

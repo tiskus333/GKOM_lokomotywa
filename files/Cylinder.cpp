@@ -1,20 +1,27 @@
 #include "Cylinder.h"
 #include <math.h>
 
-Cylinder::Cylinder(const glm::vec3& position, const glm::vec3& size, bool is_light_source) : Shape(position, size, glm::vec3(1.0f, 1.0f, 1.0f), "", is_light_source)
+Cylinder::Cylinder(const glm::vec3& position, const glm::vec3& size, const glm::vec3& color, const std::string& texture_path, bool is_light_source) : Shape(position, size, color, texture_path, is_light_source)
+{
+	if (is_light_source_)
+		this->shader_ = Scene::getScene().light_shader;
+	else
+		this->shader_ = Scene::getScene().shape_shader;
+	generateVertices();
+	generateIndices();
+	Shape::bindBuffers();
+}
+
+Cylinder::Cylinder(const glm::vec3& position, const glm::vec3& size, const glm::vec3& color, bool is_light_source) : Cylinder(position, size,color,"", is_light_source)
 {
 }
 
-Cylinder::Cylinder(const glm::vec3& position, const glm::vec3& size, const glm::vec3& color, bool is_light_source) : Cylinder(position, size, is_light_source)
+Cylinder::Cylinder(const glm::vec3& position, const glm::vec3& size, const std::string& texture_path, bool is_light_source): Cylinder(position, size, glm::vec3(1.0f,1.0f,1.0f),texture_path, is_light_source)
 {
-	this->color_ = color;
-	init();
 }
 
-Cylinder::Cylinder(const glm::vec3& position, const glm::vec3& size, const std::string& texture_path, bool is_light_source): Cylinder(position, size, is_light_source)
+Cylinder::Cylinder(const glm::vec3& position, const glm::vec3& size) : Cylinder(position, size, glm::vec3(1.0f, 1.0f, 1.0f), "", false)
 {
-	texture_path_ = texture_path;
-	init();
 }
 
 void Cylinder::generateIndices()
@@ -126,16 +133,5 @@ void Cylinder::generateVertices()
 			vertices_.push_back(-sin(theta) * 0.5f + 0.5f);
 		}
 	}
-}
-
-void Cylinder::init()
-{
-	if(is_light_source_)
-		this->shader_ =Scene::getScene().light_shader;
-	else
-		this->shader_ =Scene::getScene().shape_shader;
-	generateVertices();
-	generateIndices();
-	Shape::bindBuffers();
 }
 

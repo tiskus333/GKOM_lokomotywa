@@ -111,6 +111,7 @@
   <ItemGroup>
     <Image Include="iipw.png" />
     <Image Include="piesek.png" />
+    <Image Include="skybox.png" />
     <Image Include="weiti.png" />
   </ItemGroup>
   <ItemGroup>

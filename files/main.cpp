@@ -91,11 +91,11 @@ int main()
 		glViewport(0, 0, WIDTH, HEIGHT);
 		glEnable(GL_DEPTH_TEST);
 
-		Cuboid LightCube({ 3, 3, 3 }, { 0.5, 0.5, 0.5 }, glm::vec3( 1, 1, 1 ), true);
+		Cuboid LightCube({ 0, 0, 0 }, { 0.1, 0.1, 0.1 }, glm::vec3( 1, 1, 1 ), true);
 		
 		Cylinder LightCylinder({ -1, 1, 1 }, { 0.5, 0.5, 0.5 }, glm::vec3( 1, 0, 0 ), true);
 		
-		Cuboid TextureCube({ 1,1,1 }, { 1,1,1 }, "kolory.png");
+		Cuboid TextureCube({ 0,0,0 }, { 10,10,10 }, "skybox.png");
 		Cylinder TextureCylinder({ 3,2,1 }, { 1,1,1 }, "kolo2.bmp",false);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// prepare textures
@@ -109,9 +109,9 @@ int main()
 	
 
 		
-		Wagon Wagon1; 
-		Wagon1.move({ 0,0,3 });
-		Locomotive Loc1;
+		//Wagon Wagon1; 
+		//Wagon1.move({ 0,0,3 });
+		//Locomotive Loc1;
 
 		
 		//comp.addElement(LocomotiveHullRoof);
@@ -139,13 +139,14 @@ int main()
 			//movement
 			Scene::getScene().updateLights();
 			
-			Wagon1.move({0,0,-0.01});
-			LightCube.draw();
-			LightCylinder.draw();
-			Wagon1.draw();
-			Loc1.move({ 0,0,-0.01 });
-			Loc1.draw();
+			//Wagon1.move({0,0,-0.01});
+			//LightCube.draw();
+			//LightCylinder.draw();
+			//Wagon1.draw();
+			//Loc1.move({ 0,0,-0.01 });
+			//Loc1.draw();
 			TextureCube.draw();
+			LightCube.draw();
 			
 
 

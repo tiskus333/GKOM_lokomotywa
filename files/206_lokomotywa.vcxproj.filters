@@ -81,6 +81,9 @@
     <Image Include="piesek.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="skybox.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shprogram.h">

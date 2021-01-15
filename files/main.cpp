@@ -15,7 +15,7 @@ using namespace std;
 #include "Wagon.h"
 #include "Locomotive.h"
 
-const GLuint WIDTH = 800, HEIGHT = 800;
+const GLuint WIDTH = 1920, HEIGHT = 1080;
 
 static Camera camera(glm::vec3(0.f,0.f,3.f), glm::vec3(0.f, 1.f, 0.f));
 float current_time = 0.0, delta_time = 0.0f, last_frame = 0.0f;
@@ -60,25 +60,6 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	camera.ProcessMouseMovement(xoffset, yoffset);
 }
 
-GLuint LoadMipmapTexture(GLuint texId, const char* fname)
-{
-	int width, height;
-	unsigned char* image = SOIL_load_image(fname, &width, &height, 0, SOIL_LOAD_RGB);
-	if (image == nullptr)
-		throw exception("Failed to load texture file");
-
-	GLuint texture;
-	glGenTextures(1, &texture);
-
-	glActiveTexture(texId);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	SOIL_free_image_data(image);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	return texture;
-}
-
 int main()
 {
 	if (glfwInit() != GL_TRUE)
@@ -110,10 +91,12 @@ int main()
 		glViewport(0, 0, WIDTH, HEIGHT);
 		glEnable(GL_DEPTH_TEST);
 
-		Cuboid LightCube({ 3, 3, 3 }, { 0.5, 0.5, 0.5 }, glm::vec3( 1, 1, 1 ), true);
+		Cuboid LightCube({ 0, 0, 0 }, { 0.1, 0.1, 0.1 }, glm::vec3( 1, 1, 1 ), true);
 		
 		Cylinder LightCylinder({ -1, 1, 1 }, { 0.5, 0.5, 0.5 }, glm::vec3( 1, 0, 0 ), true);
 		
+		Cuboid TextureCube({ 0,0,0 }, { 100,100,100 }, "skybox2.png");
+		Cylinder TextureCylinder({ 3,2,1 }, { 1,1,1 }, "kolo2.bmp",false);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// prepare textures
 		//GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "piesek.png");
@@ -126,9 +109,9 @@ int main()
 	
 
 		
-		Wagon Wagon1; 
-		Wagon1.move({ 0,0,3 });
-		Locomotive Loc1;
+		//Wagon Wagon1; 
+		//Wagon1.move({ 0,0,3 });
+		//Locomotive Loc1;
 
 		
 		//comp.addElement(LocomotiveHullRoof);
@@ -141,6 +124,7 @@ int main()
 			current_time = glfwGetTime();
 			delta_time = current_time - last_frame;
 			last_frame = current_time;
+			glfwPollEvents();
 			// Clear the colorbuffer
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -155,12 +139,14 @@ int main()
 			//movement
 			Scene::getScene().updateLights();
 			
-			Wagon1.move({0,0,-0.01});
+			//Wagon1.move({0,0,-0.01});
+			//LightCube.draw();
+			//LightCylinder.draw();
+			//Wagon1.draw();
+			//Loc1.move({ 0,0,-0.01 });
+			//Loc1.draw();
+			TextureCube.draw();
 			LightCube.draw();
-			LightCylinder.draw();
-			Wagon1.draw();
-			Loc1.move({ 0,0,-0.01 });
-			Loc1.draw();
 			
 
 
@@ -174,7 +160,6 @@ int main()
 			
 
 			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
-			glfwPollEvents();
 			// Swap the screen buffers
 			glfwSwapBuffers(window);
 		}

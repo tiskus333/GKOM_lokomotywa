@@ -14,6 +14,7 @@ using namespace std;
 #include "Scene.h"
 #include "Wagon.h"
 #include "Locomotive.h"
+#include "Tracks.h"
 
 const GLuint WIDTH = 800, HEIGHT = 800;
 
@@ -119,17 +120,13 @@ int main()
 		//GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "piesek.png");
 		// GLuint texture1 = LoadMipmapTexture(GL_TEXTURE1, "weiti.png");
 
+		Tracks TrainTracks;
 		
-
-		
-
-	
-
 		
 		Wagon Wagon1; 
-		Wagon1.move({ 0,0,3 });
+		Wagon1.move({ 0,1.02,3 });
 		Locomotive Loc1;
-
+		Loc1.move({ 0,1.02,0 });
 		
 		//comp.addElement(LocomotiveHullRoof);
 
@@ -161,9 +158,10 @@ int main()
 			Wagon1.draw();
 			Loc1.move({ 0,0,-0.01 });
 			Loc1.draw();
+			TrainTracks.draw();
+
 			
-
-
+			
 			// Bind Textures using texture units
 			//glActiveTexture(GL_TEXTURE0);
 			//glBindTexture(GL_TEXTURE_2D, texture0);

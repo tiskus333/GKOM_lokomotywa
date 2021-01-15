@@ -95,7 +95,7 @@ int main()
 		
 		Cylinder LightCylinder({ -1, 1, 1 }, { 0.5, 0.5, 0.5 }, glm::vec3( 1, 0, 0 ), true);
 		
-		Cuboid TextureCube({ 1,1,1 }, { 1,1,1 }, "kolory_inv.png");
+		Cuboid TextureCube({ 1,1,1 }, { 1,1,1 }, "kolory.png");
 		Cylinder TextureCylinder({ 3,2,1 }, { 1,1,1 }, "kolo2.bmp",false);
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// prepare textures
@@ -145,6 +145,7 @@ int main()
 			Wagon1.draw();
 			Loc1.move({ 0,0,-0.01 });
 			Loc1.draw();
+			TextureCube.draw();
 			
 
 

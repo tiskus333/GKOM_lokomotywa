@@ -125,8 +125,6 @@ int main()
 		Locomotive Loc1;
 		Loc1.move({ 0,1.02,0 });
 
-
-		ShaderProgram shader("CubeShader.vert", "CubeShader.frag");
 		// main event loop
 		float num = 1;
 		while (!glfwWindowShouldClose(window))

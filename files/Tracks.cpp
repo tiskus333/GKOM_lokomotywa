@@ -5,7 +5,7 @@ Tracks::Tracks() {
 	track.addElement(firstDiagonal);
 	track.addElement(secondDiagonal);
 
-	for (int i = -100; i < 100; i++)
+	for (int i = -49; i < 50; i++)
 	{
 		track.setPosition({ 0,0,i });
 		comVec.push_back(track);

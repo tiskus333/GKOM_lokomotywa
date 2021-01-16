@@ -135,15 +135,13 @@ void Shape::setSize(const glm::vec3& size)
 
 void Shape::setColor(const float r, const float g, const float b)
 {
+	this->color_ = glm::vec3(r, g, b);
 	updateVerticiesColor();
 	bindBuffers();
-	this->color_ = glm::vec3(r, g, b);
 }
 
 void Shape::setColor(const uint32_t r, uint32_t g, const uint32_t b)
 {
-	updateVerticiesColor();
-	bindBuffers();
 	this->setColor(r / 255.0f, g / 255.0f, b / 255.0f);
 }
 

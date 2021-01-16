@@ -18,8 +18,8 @@ using namespace std;
 
 const GLuint WIDTH = 1920, HEIGHT = 1080;
 
-static Camera camera(glm::vec3(0.f,0.f,3.f), glm::vec3(0.f, 1.f, 0.f));
-float current_time = 0.0, delta_time = 0.0f, last_frame = 0.0f;
+static Camera camera(glm::vec3(1.f,1.f,1.f), glm::vec3(0.f, 1.f, 0.f));
+float current_time = 0.0, delta_time = 0.0f, last_frame = 0.0f, directional_speed = 0.0f, light_intensity = 0.0f;
 double lastX = WIDTH/2;
 double lastY = HEIGHT/2;
 bool firstMouse = true;
@@ -42,6 +42,23 @@ void processInput(GLFWwindow* window) {
 		camera.ProcessKeyboard(LEFT, delta_time);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		camera.ProcessKeyboard(RIGHT, delta_time);
+	if (glfwGetKey(window, GLFW_KEY_PAGE_UP) == GLFW_PRESS)
+		directional_speed -= 0.1;
+	if (glfwGetKey(window, GLFW_KEY_PAGE_DOWN) == GLFW_PRESS)
+		directional_speed += 0.1f;
+	if (glfwGetKey(window, GLFW_KEY_HOME) == GLFW_PRESS)
+		directional_speed = 0.0f;
+	if (glfwGetKey(window, GLFW_KEY_PERIOD) == GLFW_PRESS) {
+
+		if ((light_intensity += 0.1f) > 1.0f)
+			light_intensity = 1.0f;
+	}
+		
+	if (glfwGetKey(window, GLFW_KEY_COMMA) == GLFW_PRESS) {
+		
+		if ((light_intensity -= 0.1f) < 0.0f)
+			light_intensity = 0.0f;
+	}
 }
 
 void scroll_callback(GLFWwindow* window, double xpos, double ypos)
@@ -118,6 +135,7 @@ int main()
 			current_time = glfwGetTime();
 			delta_time = current_time - last_frame;
 			last_frame = current_time;
+
 			glfwPollEvents();
 			// Clear the colorbuffer
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
@@ -136,9 +154,10 @@ int main()
 			glDepthMask(GL_FALSE);
 			SkyBox.draw();
 			glDepthMask(GL_TRUE);
-			Loc1.move({ 0,0,-0.01 });
+			Loc1.move({ 0,0,- delta_time * directional_speed });
+			Loc1.set_light_intensity(light_intensity);
 			Loc1.draw();
-			Wagon1.move({ 0,0,-0.01 });
+			Wagon1.move({ 0,0,-delta_time * directional_speed });
 			Wagon1.draw();
 			Floor.draw();
 			TrainTracks.draw();

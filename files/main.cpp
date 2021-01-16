@@ -43,9 +43,9 @@ void processInput(GLFWwindow* window) {
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		camera.ProcessKeyboard(RIGHT, delta_time);
 	if (glfwGetKey(window, GLFW_KEY_PAGE_UP) == GLFW_PRESS)
-		directional_speed -= 0.1;
+		directional_speed += 0.1;
 	if (glfwGetKey(window, GLFW_KEY_PAGE_DOWN) == GLFW_PRESS)
-		directional_speed += 0.1f;
+		directional_speed -= 0.1f;
 	if (glfwGetKey(window, GLFW_KEY_HOME) == GLFW_PRESS)
 		directional_speed = 0.0f;
 	if (glfwGetKey(window, GLFW_KEY_PERIOD) == GLFW_PRESS) {

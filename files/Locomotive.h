@@ -6,10 +6,10 @@
 class Locomotive 
 {
 	std::vector<WagonWheels*> wheelVector;
-	Cylinder DriverBoothRoof = Cylinder({ 0,0.5,0.85 }, { 1,0.7999,0.5 }, glm::vec3(0.294, 0.294, 0.294));
-	Cuboid DriverBoothBody = Cuboid({ 0,0,0.85 }, { 1,1,0.8 }, glm::vec3(0.294, 0.294, 0.294));
-	Cylinder LocomotiveHullRoof = Cylinder({ 0,-0.1,-0.35 }, { 1,1.799, 0.4 }, glm::vec3(0.294, 0.294, 0.294));
-	Cuboid LocomotiveHull = Cuboid({ 0,-0.3,-0.35 }, { 1,0.4,1.8 }, glm::vec3(0.294, 0.294, 0.294));
+	Cylinder DriverBoothRoof = Cylinder({ 0,0.5,0.85 }, { 1,0.7999,0.5 }, glm::vec3(0.874, 0.823, 0.862));
+	Cuboid DriverBoothBody = Cuboid({ 0,0,0.85 }, { 1,1,0.8 }, "kabina.png");
+	Cylinder LocomotiveHullRoof = Cylinder({ 0,-0.1,-0.35 }, { 1,1.799, 0.4 }, glm::vec3(0.819, 0.455, 0.314));
+	Cuboid LocomotiveHull = Cuboid({ 0,-0.3,-0.35 }, { 1,0.4,1.8 }, glm::vec3(0.819, 0.455, 0.314));
 	Cuboid Chimney1 = Cuboid({ 0,0.2,-0.4 }, { 0.2,0.6,0.2 }, glm::vec3(0.294, 0.294, 0.294));
 	Cuboid ChimneyTop1 = Cuboid({ 0,0.5,-0.4 }, { 0.3,0.1,0.3 }, glm::vec3(0.294, 0.294, 0.294));
 	Cuboid Chimney2 = Cuboid({ 0,0.2,-1.0 }, { 0.2,0.6,0.2 }, glm::vec3(0.294, 0.294, 0.294));

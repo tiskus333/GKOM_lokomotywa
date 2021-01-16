@@ -15,6 +15,7 @@ using namespace std;
 #include "Wagon.h"
 #include "Locomotive.h"
 #include "Tracks.h"
+#include "floor.h"
 
 const GLuint WIDTH = 1920, HEIGHT = 1080;
 
@@ -42,21 +43,33 @@ void processInput(GLFWwindow* window) {
 		camera.ProcessKeyboard(LEFT, delta_time);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		camera.ProcessKeyboard(RIGHT, delta_time);
-	if (glfwGetKey(window, GLFW_KEY_PAGE_UP) == GLFW_PRESS)
-		directional_speed += 0.1;
-	if (glfwGetKey(window, GLFW_KEY_PAGE_DOWN) == GLFW_PRESS)
-		directional_speed -= 0.1f;
-	if (glfwGetKey(window, GLFW_KEY_HOME) == GLFW_PRESS)
-		directional_speed = 0.0f;
-	if (glfwGetKey(window, GLFW_KEY_PERIOD) == GLFW_PRESS) {
+	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+	{
+		directional_speed += 0.01 * delta_time;
+		if (directional_speed > 1.0)
+			directional_speed = 1;
+	}
+		
+	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+	{
+		directional_speed -= 0.01f * delta_time;
+		if (directional_speed < -1.0)
+			directional_speed = -1;
+	}
+	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+	{
 
-		if ((light_intensity += 0.1f) > 1.0f)
+		directional_speed += delta_time * (directional_speed > 0 ? -1.0 : 1.0) * 0.01;
+	}
+	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
+
+		if ((light_intensity += 1.f * delta_time) > 1.0f)
 			light_intensity = 1.0f;
 	}
 		
-	if (glfwGetKey(window, GLFW_KEY_COMMA) == GLFW_PRESS) {
+	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
 		
-		if ((light_intensity -= 0.1f) < 0.0f)
+		if ((light_intensity -= 1.f * delta_time) < 0.0f)
 			light_intensity = 0.0f;
 	}
 }
@@ -114,10 +127,10 @@ int main()
 		glViewport(0, 0, WIDTH, HEIGHT);
 		glEnable(GL_DEPTH_TEST);
 
-		Cuboid LightCube({ 0, 99, 0 }, { 0.1, 0.1, 0.1 }, glm::vec3( 1, 1, 1 ), true);
+		Cuboid LightCube({ 10, 99, 10 }, { 0.1, 0.1, 0.1 }, glm::vec3( 1, 1, 1 ), true);
 		Cuboid SkyBox({ 0,0,0 }, { 1, 1, 1 }, "skybox2.png");
 		SkyBox.setShader(Scene::getScene().skybox_shader);
-		Cuboid Floor({ 0,-.5,0 }, { 1000,1,1000 }, "floor.png");	
+		Floor Floor({ 0,-.5,0 }, { 100,1,100 }, "floor2.png");	
 		Tracks TrainTracks;
 			
 		Wagon Wagon1; 
@@ -133,6 +146,10 @@ int main()
 			current_time = glfwGetTime();
 			delta_time = current_time - last_frame;
 			last_frame = current_time;
+
+			// resistance on rolling
+			if(directional_speed != 0.0)
+				directional_speed += delta_time * (directional_speed > 0 ? -1. : 1.) * 0.001;
 
 			glfwPollEvents();
 			// Clear the colorbuffer
@@ -152,10 +169,10 @@ int main()
 			glDepthMask(GL_FALSE);
 			SkyBox.draw();
 			glDepthMask(GL_TRUE);
-			Loc1.move({ 0,0,- delta_time * directional_speed });
+			Loc1.move({ 0,0,directional_speed });
 			Loc1.set_light_intensity(light_intensity);
 			Loc1.draw();
-			Wagon1.move({ 0,0,-delta_time * directional_speed });
+			Wagon1.move({ 0,0,directional_speed });
 			Wagon1.draw();
 			Floor.draw();
 			TrainTracks.draw();

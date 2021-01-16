@@ -37,23 +37,23 @@ Lista zazdań w formie oddzielnych issues [tutaj](http://gitlab.ii.pw.edu.pl/gko
     - [x] Ustalenie zakresu zadań, które mają być realizowane za pomocą tych wrapperów
     - [x] Nakładanie więzów na obiekty oraz ich grupowanie
 - [ ] Przygotowanie CI
-- [ ] Przygotowanie modelu lokomotywy
+- [x] Przygotowanie modelu lokomotywy
     - [x] Podział na figury
     - [x] Połączenie figur
-    - [ ] Nadanie koloru lub tekstur
-- [ ] Przygotowanie modelu wagonu
+    - [x] Nadanie koloru lub tekstur
+- [x] Przygotowanie modelu wagonu
     - [x] Podział na figury
     - [x] Połączenie figur
-    - [ ] Nadanie koloru lub tekstur
-- [ ] Przygotowanie modelu otoczenia (tory, góry, łąka)
+    - [x] Nadanie koloru lub tekstur
+- [x] Przygotowanie modelu otoczenia (tory, góry, łąka)
     - [x] Podział na figury
     - [x] Połączenie figur
-    - [ ] Nadanie koloru lub tekstur
-- [ ] Przygotowanie tekstur
+    - [x] Nadanie koloru lub tekstur
+- [x] Przygotowanie tekstur
 - [x] Implementacja ruchomej kamery
 - [x] Dodanie obsługi oświetlenia
-- [ ] Dodanie elementów świecących
-- [ ] Obsługa wejść użytkownika
+- [x] Dodanie elementów świecących
+- [x] Obsługa wejść użytkownika
 - [ ] Zarządzanie repozytorium
 
 ## Aktualny stan projektu

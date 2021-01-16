@@ -136,11 +136,23 @@ void Shape::setSize(const glm::vec3& size)
 void Shape::setColor(const float r, const float g, const float b)
 {
 	this->color_ = glm::vec3(r, g, b);
+	updateVerticiesColor();
+	bindBuffers();
 }
 
 void Shape::setColor(const uint32_t r, uint32_t g, const uint32_t b)
 {
 	this->setColor(r / 255.0f, g / 255.0f, b / 255.0f);
+}
+
+void Shape::updateVerticiesColor()
+{
+	for (uint32_t i = 3; i < vertices_.size(); i += 11)
+	{
+		vertices_.at(i) = color_.x;
+		vertices_.at(i + 1) = color_.y;
+		vertices_.at(i + 2) = color_.z;
+	}
 }
 
 void Shape::setShader(const ShaderProgram& shader) {

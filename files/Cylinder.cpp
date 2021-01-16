@@ -71,6 +71,7 @@ void Cylinder::generateVertices()
 {
 	float theta = 0.0;
 	float step = 2 * 3.14159265f / static_cast<float>(SEGMENTS);
+	vertices_.reserve(11*(SEGMENTS+1)*4 + 11*2);
 
 	//lids
 	vertices_.push_back(0.0f);  //0 top middle

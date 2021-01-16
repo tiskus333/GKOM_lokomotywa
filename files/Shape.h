@@ -30,6 +30,7 @@ protected:
 	/* internaly construct shape with provided parameters */
 	Shape(const glm::vec3 &position, const glm::vec3 &size, const glm::vec3 &color, const std::string &texture_path, bool is_light_source);
 
+    void updateVerticiesColor();
 public:
 	/* free buffers and delete shape */
 	~Shape();

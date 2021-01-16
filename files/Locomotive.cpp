@@ -33,6 +33,11 @@ void Locomotive::draw()
 		w->draw();
 }
 
+void Locomotive::set_light_intensity(float intensity) {
+
+	Loc.getElement(9)->setColor( intensity, intensity, intensity );
+}
+
 void Locomotive::move(const glm::vec3 moveVector)
 {
 	float angle = moveVector.z * 360.0 / (2 * 3.1415 * 0.21);

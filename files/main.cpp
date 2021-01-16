@@ -25,20 +25,25 @@ double lastY = HEIGHT/2;
 bool firstMouse = true;
 
 
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
-{
+
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {
+	
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
-
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		camera.ProcessKeyboard(Camera_Movement::FORWARD, delta_time);
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		camera.ProcessKeyboard(Camera_Movement::BACKWARD, delta_time);
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		camera.ProcessKeyboard(Camera_Movement::LEFT, delta_time);
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		camera.ProcessKeyboard(Camera_Movement::RIGHT, delta_time);
 }
+
+void processInput(GLFWwindow* window) {
+	
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+		camera.ProcessKeyboard(FORWARD, delta_time);
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		camera.ProcessKeyboard(BACKWARD, delta_time);
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+		camera.ProcessKeyboard(LEFT, delta_time);
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+		camera.ProcessKeyboard(RIGHT, delta_time);
+}
+
 void scroll_callback(GLFWwindow* window, double xpos, double ypos)
 {
 	camera.ProcessMouseScroll(ypos);
@@ -109,6 +114,7 @@ int main()
 		float num = 1;
 		while (!glfwWindowShouldClose(window))
 		{
+			processInput(window);
 			current_time = glfwGetTime();
 			delta_time = current_time - last_frame;
 			last_frame = current_time;

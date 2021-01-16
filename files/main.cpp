@@ -15,6 +15,7 @@ using namespace std;
 #include "Wagon.h"
 #include "Locomotive.h"
 #include "Tracks.h"
+#include "floor.h"
 
 const GLuint WIDTH = 1920, HEIGHT = 1080;
 
@@ -117,7 +118,7 @@ int main()
 		Cuboid LightCube({ 0, 99, 0 }, { 0.1, 0.1, 0.1 }, glm::vec3( 1, 1, 1 ), true);
 		Cuboid SkyBox({ 0,0,0 }, { 1, 1, 1 }, "skybox2.png");
 		SkyBox.setShader(Scene::getScene().skybox_shader);
-		Cuboid Floor({ 0,-.5,0 }, { 1000,1,1000 }, "floor0.png");	
+		Floor Floor({ 0,-.5,0 }, { 100,1,100 }, "floor.png");	
 		Tracks TrainTracks;
 			
 		Wagon Wagon1; 

@@ -20,7 +20,7 @@ using namespace std;
 const GLuint WIDTH = 1920, HEIGHT = 1080;
 
 static Camera camera(glm::vec3(1.f,1.f,1.f), glm::vec3(0.f, 1.f, 0.f));
-float current_time = 0.0, delta_time = 0.0f, last_frame = 0.0f, directional_speed = 0.0f, light_intensity = 0.0f;
+float current_time = 0.0, delta_time = 0.0f, last_frame = 0.0f, directional_speed = 0.0f, light_intensity = 0.3f;
 double lastX = WIDTH/2;
 double lastY = HEIGHT/2;
 bool firstMouse = true;
@@ -69,8 +69,8 @@ void processInput(GLFWwindow* window) {
 		
 	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
 		
-		if ((light_intensity -= 1.f * delta_time) < 0.0f)
-			light_intensity = 0.0f;
+		if ((light_intensity -= 1.f * delta_time) < 0.3f)
+			light_intensity = 0.3f;
 	}
 }
 

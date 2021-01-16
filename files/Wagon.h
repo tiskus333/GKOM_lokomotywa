@@ -10,9 +10,9 @@ class Wagon
 	WagonWheels FrontWheels1 = WagonWheels({ 0, -0.71, 0.65 });
 	WagonWheels BackWheels = WagonWheels({ 0, -0.71, -0.65 });
 	WagonWheels BackWheels1 = WagonWheels({ 0, -0.71, -1.1 });
-	Cylinder WagonRoof = Cylinder({ 0,0.5,0 }, { 1,2.999,0.5 }, /*glm::vec3(0, 0, 1)*/"dach1.bmp",false);
-	Cuboid WagonBody = Cuboid({ 0,0,0 }, { 1,1,3 },/* glm::vec3(1, 0.5, 1)*/"okienka.bmp");
-	Cuboid WagonSuspension = Cuboid({ 0,-0.6,0 }, { 0.75,0.2,2.8 },/* glm::vec3(0, 1, 1)*/"spod.bmp",false);
+	Cylinder WagonRoof = Cylinder({ 0,0.5,0 }, { 1,2.999,0.5 }, glm::vec3(0.294, 0.294, 0.294),false);
+	Cuboid WagonBody = Cuboid({ 0,0,0 }, { 1,1,3 }, glm::vec3(0.294, 0.294, 0.294));
+	Cuboid WagonSuspension = Cuboid({ 0,-0.6,0 }, { 0.75,0.2,2.8 }, glm::vec3(0.294, 0.294, 0.294),false);
 	Composite Compartment = Composite({ 0,0,0 });
 public:
 	Wagon();

@@ -138,6 +138,8 @@ int main()
 		Locomotive Loc1;
 		Loc1.move({ 0,1.02,0 });
 
+		Scene::getScene().initShadows();
+
 		// main event loop
 		float num = 1;
 		while (!glfwWindowShouldClose(window))
@@ -165,17 +167,38 @@ int main()
 			Scene::getScene().updateLights();
 
 			SkyBox.setPosition(camera.Position);
+			
+			Loc1.move({ 0,0,directional_speed });
+			Loc1.set_light_intensity(light_intensity);
+			Wagon1.move({ 0,0,directional_speed });
+
+			//shadows
+			Loc1.setShader(Scene::getScene().simpleDepthShader);;
+			Wagon1.setShader(Scene::getScene().simpleDepthShader);
+			Floor.setShader(Scene::getScene().simpleDepthShader);
+			TrainTracks.setShader(Scene::getScene().simpleDepthShader);
+			Scene::getScene().setViewPort();
+			Loc1.draw();
+			Wagon1.draw();
+			//Floor.draw();
+			TrainTracks.draw();
+			Scene::getScene().resetViewPort();
+			Loc1.setShader(Scene::getScene().shape_shader);
+			Wagon1.setShader(Scene::getScene().shape_shader);
+			Floor.setShader(Scene::getScene().shape_shader);
+			TrainTracks.setShader(Scene::getScene().shape_shader);
+			//shadows
+
 			LightCube.draw();
 			glDepthMask(GL_FALSE);
 			SkyBox.draw();
 			glDepthMask(GL_TRUE);
-			Loc1.move({ 0,0,directional_speed });
-			Loc1.set_light_intensity(light_intensity);
 			Loc1.draw();
-			Wagon1.move({ 0,0,directional_speed });
 			Wagon1.draw();
 			Floor.draw();
 			TrainTracks.draw();
+
+			//Scene::getScene().debug();
 
 			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 			// Swap the screen buffers

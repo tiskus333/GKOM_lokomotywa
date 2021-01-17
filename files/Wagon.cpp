@@ -19,6 +19,13 @@ void Wagon::draw()
 		w->draw();
 }
 
+void Wagon::setShader(const ShaderProgram& shader)
+{
+	this->Compartment.setShader(shader);
+	for (auto w : wheelVector)
+		w->setShader(shader);
+}
+
 void Wagon::move(const glm::vec3 moveVector)
 {
 	float angle = moveVector.z * 360.0 / (2 * 3.1415 * 0.21);

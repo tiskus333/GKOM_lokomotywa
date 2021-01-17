@@ -28,7 +28,7 @@ public:
     const GLuint WIDTH = 1920, HEIGHT = 1080;
     glm::mat4 lightProjection, lightView;
     glm::mat4 lightSpaceMatrix;
-    float near_plane = 1.0f, far_plane = 300.f;
+    float near_plane = 1.0f, far_plane = 200.f;
     glm::vec3 lightPos = glm::vec3(10.0f, 99.f, 10.f);
     //shadows
 

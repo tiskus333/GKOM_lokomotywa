@@ -25,8 +25,6 @@ uniform PointLight point_lights[MAX_NUM_OF_POINT_LIGHTS];
 uniform vec3 ambientColor;
 uniform vec3 viewPos;
 
-float near = 0.01;
-float far = 100.0;
 float specularStrength = 0.5;
   
 vec3 calculate_color_from_lightsource(PointLight light, vec3 norm, vec3 viewDir);

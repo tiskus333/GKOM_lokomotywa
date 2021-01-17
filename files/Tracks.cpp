@@ -19,6 +19,16 @@ void Tracks::draw() {
 	}
 
 }
+
+void Tracks::setShader(const ShaderProgram& shader)
+{
+
+	for (auto& i : comVec)
+	{
+		i.setShader(shader);
+	}
+}
+
 void Tracks::adjustPosition(const glm::vec3& train_pos)
 {
 	for (auto i = 0; i < comVec.size(); ++i)

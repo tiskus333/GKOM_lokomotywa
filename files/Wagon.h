@@ -18,6 +18,7 @@ public:
 	Wagon();
 	void move(glm::vec3);
 	void draw();
+	void setShader(const ShaderProgram& shader);
 	
 };
 

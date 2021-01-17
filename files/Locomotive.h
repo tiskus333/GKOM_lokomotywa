@@ -29,6 +29,7 @@ public:
 	void move(glm::vec3);
 	glm::vec3 getPosition();
 	void draw();
+	void setShader(const ShaderProgram& shader);
 	void set_light_intensity(float intensity);
 };
 

@@ -33,6 +33,16 @@ void Locomotive::draw()
 		w->draw();
 }
 
+void Locomotive::setShader(const ShaderProgram& shader)
+{
+
+	Loc.setShader(shader);
+
+	for (auto w : wheelVector)
+		w->setShader(shader);
+	Loc.getElement(9)->setShader(Scene::getScene().light_shader);
+}
+
 void Locomotive::set_light_intensity(float intensity) {
 
 	Loc.getElement(9)->setColor( intensity, intensity, intensity );

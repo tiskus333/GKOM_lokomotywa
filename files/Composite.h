@@ -13,6 +13,8 @@ public:
 
 	/* draw composite elements in regard to it's position */
 	void draw();
+
+	void setShader(const ShaderProgram& shader);
 	
 	/* add element to composite */
 	void addElement( Shape& object);

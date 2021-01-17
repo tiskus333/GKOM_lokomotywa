@@ -59,7 +59,7 @@ void processInput(GLFWwindow* window) {
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
 
-		directional_speed += delta_time * (directional_speed > 0 ? -1.0 : 1.0) * 0.01;
+		directional_speed += delta_time * (directional_speed > 0 ? -1.0 : 1.0) * 0.05;
 	}
 	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
 
@@ -127,7 +127,7 @@ int main()
 		glViewport(0, 0, WIDTH, HEIGHT);
 		glEnable(GL_DEPTH_TEST);
 
-		Cuboid LightCube({ 10, 99, 10 }, { 0.1, 0.1, 0.1 }, glm::vec3( 1, 1, 1 ), true);
+		Cuboid LightCube({ -10, 30, 10 }, { 0.1, 0.1, 0.1 }, glm::vec3( 1, 1, 1 ), true);
 		Cuboid SkyBox({ 0,0,0 }, { 1, 1, 1 }, "skybox2.png");
 		SkyBox.setShader(Scene::getScene().skybox_shader);
 		Floor Floor({ 0,-.5,0 }, { 100,1,10000 }, "floor2.png");
@@ -137,6 +137,8 @@ int main()
 		Wagon1.move({ 0,1.02,3 });
 		Locomotive Loc1;
 		Loc1.move({ 0,1.02,0 });
+
+		Scene::getScene().initShadows();
 
 		// main event loop
 		float num = 1;
@@ -149,7 +151,7 @@ int main()
 
 			// resistance on rolling
 			if(directional_speed != 0.0)
-				directional_speed += delta_time * (directional_speed > 0 ? -1. : 1.) * 0.001;
+				directional_speed += delta_time * (directional_speed > 0 ? -1. : 1.) * 0.002;
 
 			glfwPollEvents();
 			// Clear the colorbuffer
@@ -167,20 +169,43 @@ int main()
 			Scene::getScene().updateLights();
 
 			SkyBox.setPosition(camera.getPosition());
-			LightCube.setPosition({ -10,99,10 + Loc1.getPosition().z });
+			
+			Loc1.move({ 0,0,directional_speed });
+			Loc1.set_light_intensity(light_intensity);
+			Wagon1.move({ 0,0,directional_speed });
+			LightCube.setPosition(Loc1.getPosition() + glm::vec3(-10,30,10));
+			Scene::getScene().lightPos = LightCube.position_;
+
+			TrainTracks.adjustPosition(Loc1.getPosition());
+			Floor.adjustPosition(Loc1.getPosition()); // TODO
+
+			//shadows
+			Loc1.setShader(Scene::getScene().simpleDepthShader);;
+			Wagon1.setShader(Scene::getScene().simpleDepthShader);
+			Floor.setShader(Scene::getScene().simpleDepthShader);
+			TrainTracks.setShader(Scene::getScene().simpleDepthShader);
+			Scene::getScene().setViewPort(Loc1.getPosition());
+			Loc1.draw();
+			Wagon1.draw();
+			//Floor.draw();
+			TrainTracks.draw();
+			Scene::getScene().resetViewPort();
+			Loc1.setShader(Scene::getScene().shape_shader);
+			Wagon1.setShader(Scene::getScene().shape_shader);
+			Floor.setShader(Scene::getScene().shape_shader);
+			TrainTracks.setShader(Scene::getScene().shape_shader);
+			//shadows
+
 			LightCube.draw();
 			glDepthMask(GL_FALSE);
 			SkyBox.draw();
 			glDepthMask(GL_TRUE);
-			Loc1.move({ 0,0,directional_speed });
-			Loc1.set_light_intensity(light_intensity);
 			Loc1.draw();
-			Wagon1.move({ 0,0,directional_speed });
 			Wagon1.draw();
-			Floor.adjustPosition(Loc1.getPosition()); // TODO
 			Floor.draw();
-			TrainTracks.adjustPosition(Loc1.getPosition());
 			TrainTracks.draw();
+
+			//Scene::getScene().debug();
 
 			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 			// Swap the screen buffers

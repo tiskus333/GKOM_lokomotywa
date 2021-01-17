@@ -67,6 +67,7 @@ void Shape::freeBuffers()
 
 void Shape::draw(const glm::mat4& parent_model)
 {
+	
 	if (is_light_source_)
 	{
 		glm::vec3 placement = position_;
@@ -83,6 +84,7 @@ void Shape::draw(const glm::mat4& parent_model)
 			Scene::getScene().updatePointLightSource(number_of_light_, placement, color_);
 		}
 	}
+
 	this->shader_.Use();
 	shader_.setBool("hasTexture", has_texture_);
 	if (has_texture_)
@@ -143,4 +145,3 @@ void Shape::setShader(const ShaderProgram& shader) {
 
 	shader_ = shader;
 }
-

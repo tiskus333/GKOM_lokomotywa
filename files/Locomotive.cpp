@@ -28,21 +28,20 @@ Locomotive::Locomotive()
 
 void Locomotive::draw()
 {
+	static bool light_set = false;
 	Loc.draw();
 
 	for (auto w : wheelVector)
 		w->draw();
-}
-
-void Locomotive::set_light_intensity(float intensity)
-{
-	static bool light_set = false;
-
-	if (!light_set)
+		if (!light_set)
 	{
 		light_set = true;
 		Scene::getScene().light_directions[LocomotiveHeadlight.number_of_light_] = glm::vec3(0.0, 0.0, 0.002);
 	}
+}
+
+void Locomotive::set_light_intensity(float intensity)
+{
 	Loc.getElement(9)->setColor(intensity, intensity, intensity);
 }
 

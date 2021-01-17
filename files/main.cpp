@@ -131,7 +131,6 @@ int main()
 		Cuboid SkyBox({ 0,0,0 }, { 1, 1, 1 }, "skybox2.png");
 		SkyBox.setShader(Scene::getScene().skybox_shader);
 		Floor Floor({ 0,-.5,0 }, { 100,1,100 }, "floor2.png");
-		Cuboid test({ 1,0.05,-1.53 }, { 0.1,0.1,4.02 }, glm::vec3(0, 0, 0));
 		Tracks TrainTracks;
 			
 		Wagon Wagon1; 
@@ -168,6 +167,7 @@ int main()
 			Scene::getScene().updateLights();
 
 			SkyBox.setPosition(camera.getPosition());
+			LightCube.setPosition({ -10,99,10 + Loc1.getPosition().z });
 			LightCube.draw();
 			glDepthMask(GL_FALSE);
 			SkyBox.draw();
@@ -181,7 +181,6 @@ int main()
 			Floor.draw();
 			TrainTracks.adjustPosition(Loc1.getPosition());
 			TrainTracks.draw();
-			test.draw();
 
 			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 			// Swap the screen buffers

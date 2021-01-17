@@ -14,6 +14,7 @@ protected:
 	std::vector<GLuint> indices_;
 	GLuint VAO_, VBO_, EBO_;
 	ShaderProgram shader_;
+	bool has_texture_ = false;
 	std::string texture_path_;
 	GLuint texture_;
 

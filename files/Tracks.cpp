@@ -19,3 +19,10 @@ void Tracks::draw() {
 	}
 
 }
+void Tracks::adjustPosition(const glm::vec3& train_pos)
+{
+	for (auto i = 0; i < comVec.size(); ++i)
+	{
+		comVec[i].setPosition({ 0,0,std::floor(train_pos.z) + i - 50 });
+	}
+}

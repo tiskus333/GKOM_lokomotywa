@@ -14,5 +14,6 @@ private:
 public:
 	Tracks();
 	void draw();
+	void adjustPosition(const glm::vec3& train_pos);
 };
 

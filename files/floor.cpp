@@ -84,3 +84,8 @@ void Floor::generateVertices()
 		vertices_.at(i+2) = color_.z;
 	}
 }
+void Floor::adjustPosition(const glm::vec3& train_pos)
+{
+	//if((int)std::abs(std::floor(train_pos.z)) < )
+	//position_ = { 0,-.5,std::floor(train_pos.z) + 4.02};
+}

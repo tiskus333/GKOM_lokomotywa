@@ -53,3 +53,7 @@ void Locomotive::move(const glm::vec3 moveVector)
 	
 	Loc.move(moveVector);
 }
+glm::vec3 Locomotive::getPosition()
+{
+	return Loc.position_;
+}

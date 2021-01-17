@@ -130,7 +130,8 @@ int main()
 		Cuboid LightCube({ 10, 99, 10 }, { 0.1, 0.1, 0.1 }, glm::vec3( 1, 1, 1 ), true);
 		Cuboid SkyBox({ 0,0,0 }, { 1, 1, 1 }, "skybox2.png");
 		SkyBox.setShader(Scene::getScene().skybox_shader);
-		Floor Floor({ 0,-.5,0 }, { 100,1,100 }, "floor2.png");	
+		Floor Floor({ 0,-.5,0 }, { 100,1,100 }, "floor2.png");
+		Cuboid test({ 1,0.05,-1.53 }, { 0.1,0.1,4.02 }, glm::vec3(0, 0, 0));
 		Tracks TrainTracks;
 			
 		Wagon Wagon1; 
@@ -156,15 +157,17 @@ int main()
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+			camera.adjustPosition(Loc1.getPosition());
+
 			glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 0.1f, 100.0f);
 			Scene::getScene().setMatrix4fvInShaders("projection", projection);
 			Scene::getScene().setMatrix4fvInShaders("view", camera.GetViewMatrix());
-			Scene::getScene().setVec3InShaders("viewPos", camera.Position);
+			Scene::getScene().setVec3InShaders("viewPos", camera.getPosition());
 
 			//movement
 			Scene::getScene().updateLights();
 
-			SkyBox.setPosition(camera.Position);
+			SkyBox.setPosition(camera.getPosition());
 			LightCube.draw();
 			glDepthMask(GL_FALSE);
 			SkyBox.draw();
@@ -174,8 +177,11 @@ int main()
 			Loc1.draw();
 			Wagon1.move({ 0,0,directional_speed });
 			Wagon1.draw();
+			Floor.adjustPosition(Loc1.getPosition()); // TODO
 			Floor.draw();
+			TrainTracks.adjustPosition(Loc1.getPosition());
 			TrainTracks.draw();
+			test.draw();
 
 			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 			// Swap the screen buffers

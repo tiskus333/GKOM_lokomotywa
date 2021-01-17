@@ -37,7 +37,7 @@ void Scene::setMatrix4fvInShaders(const std::string &name, glm::mat4 &matrix)
     skybox_shader.setMatrix4fv(name, matrix);
 }
 
-unsigned int Scene::addPointLightSource(glm::vec3 lightPos, glm::vec3 lightColor)
+unsigned int Scene::addPointLightSource(glm::vec3 lightPos, glm::vec3 lightColor, glm::vec3 light_direction)
 {
     if (number_of_lights == MAX_NUM_OF_POINT_LIGHTS)
         throw std::exception("All of lights already used");
@@ -48,6 +48,7 @@ unsigned int Scene::addPointLightSource(glm::vec3 lightPos, glm::vec3 lightColor
             is_light_used[i] = true;
             light_positions[i] = lightPos;
             light_colors[i] = lightColor;
+            light_directions[i] = light_direction;
             number_of_lights++;
             return i;
         }
@@ -91,6 +92,7 @@ void Scene::updateLights()
             std::string light = "point_lights[" + std::to_string(found_lights) + "]";
             shape_shader.setVec3(light + ".lightPos", light_positions[found_lights]);
             shape_shader.setVec3(light + ".lightColor", light_colors[found_lights]);
+            shape_shader.setVec3(light + ".lightDir", light_directions[found_lights]);
             found_lights++;
         }
     }

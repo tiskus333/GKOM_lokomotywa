@@ -22,6 +22,7 @@ private:
     std::vector<std::pair<std::string, GLuint>> texture_chache_;
 
 public:
+    glm::vec3 light_directions[MAX_NUM_OF_POINT_LIGHTS];
     glm::vec3 ambient_light;
 
     ShaderProgram shape_shader;
@@ -35,7 +36,7 @@ public:
     void setVec3InShaders(const std::string &name, glm::vec3 &value);
     void setMatrix4fvInShaders(const std::string &name, glm::mat4 &matrix);
 
-    unsigned int addPointLightSource(glm::vec3 lightPos,glm::vec3 lightColor);
+    unsigned int addPointLightSource(glm::vec3 lightPos, glm::vec3 lightColor, glm::vec3 light_direction = glm::vec3(0.0, 0.0, 0.0));
     void updatePointLightSource(unsigned int number, glm::vec3 lightPos,glm::vec3 lightColor);
     void removePointLightSource(unsigned int number);
     unsigned int getNUmberOfLights() { return number_of_lights; }

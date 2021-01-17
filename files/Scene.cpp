@@ -163,8 +163,8 @@ void Scene::initShadows()
 
 void Scene::setViewPort()
 {
-    lightProjection = glm::ortho(-150.0f, 150.0f, -150.0f, 150.0f, near_plane, far_plane);
-    lightView = glm::lookAt({ -251.0f, 0.62f, -0.175f }, glm::vec3(-250.0f, 0.0f, 0.0f), glm::vec3(0.0, 1.0, 0.0));
+    lightProjection = glm::ortho(-50.0f, 50.0f, -50.0f, 50.0f, near_plane, far_plane);
+    lightView = glm::lookAt(lightPos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0, 1.0, 0.0));
     lightSpaceMatrix = lightProjection * lightView;
 
     simpleDepthShader.setMatrix4fv("lightSpaceMatrix", lightSpaceMatrix);

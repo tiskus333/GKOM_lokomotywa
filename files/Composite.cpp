@@ -14,6 +14,13 @@ void Composite::draw()
 		el->draw(model);
 }
 
+void Composite::setShader(const ShaderProgram& shader)
+{
+	
+	for (auto& el : elements)
+		el->setShader(shader);
+}
+
 void Composite::addElement( Shape& shape)
 {
 	shape.setParent(this);

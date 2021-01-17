@@ -28,6 +28,7 @@ public:
 	Locomotive();
 	void move(glm::vec3);
 	void draw();
+	void setShader(const ShaderProgram& shader);
 	void set_light_intensity(float intensity);
 };
 

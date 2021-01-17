@@ -20,13 +20,26 @@ private:
     bool is_light_used[MAX_NUM_OF_POINT_LIGHTS];
     unsigned int number_of_lights;
     std::vector<std::pair<std::string, GLuint>> texture_chache_;
-
 public:
+    //shadows
+    unsigned int depthMapFBO;
+    unsigned int depthMap;
+    const unsigned int SHADOW_WIDTH = 8192, SHADOW_HEIGHT = 8192;
+    const GLuint WIDTH = 1920, HEIGHT = 1080;
+    glm::mat4 lightProjection, lightView;
+    glm::mat4 lightSpaceMatrix;
+    float near_plane = 1.0f, far_plane = 300.f;
+    glm::vec3 lightPos = glm::vec3(10.0f, 99.f, 10.f);
+    //shadows
+
+
     glm::vec3 ambient_light;
 
     ShaderProgram shape_shader;
     ShaderProgram light_shader;
     ShaderProgram skybox_shader;
+    ShaderProgram simpleDepthShader;
+    ShaderProgram debugDepthQuad;
 
     static Scene &getScene();
 
@@ -43,4 +56,9 @@ public:
     /* Load texture from file */
     GLuint LoadMipmapTexture(GLuint texId, const char* fname);
     GLuint getTexture(std::string& texture);
+    void initShadows();
+    void setViewPort();
+    void resetViewPort();
+    void debug();
+    void renderQuad();
 };

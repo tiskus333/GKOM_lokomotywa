@@ -1,9 +1,7 @@
 #pragma once
 #include "Object.h"
 #include "Scene.h"
-#include "Shader.h"
 #include "shprogram.h"
-#include <SOIL.h>
 #include <vector>
 
 class Shape : public Object
@@ -35,8 +33,7 @@ public:
 	/* free buffers and delete shape */
 	~Shape();
 
-	/* Load texture from file */
-	GLuint LoadMipmapTexture(GLuint texId, const char* fname);
+
 
 	/* draw shape in relation to parent object, if no parent leave empty */
 	void draw(const glm::mat4 &parent_model = glm::mat4(1.f));

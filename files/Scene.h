@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <GL/glew.h>
+#include <SOIL.h>
 #include "shprogram.h"
 
 #define MAX_NUM_OF_POINT_LIGHTS 10
@@ -18,6 +19,7 @@ private:
     glm::vec3 light_colors[MAX_NUM_OF_POINT_LIGHTS];
     bool is_light_used[MAX_NUM_OF_POINT_LIGHTS];
     unsigned int number_of_lights;
+    std::vector<std::pair<std::string, GLuint>> texture_chache_;
 
 public:
     glm::vec3 ambient_light;
@@ -38,4 +40,7 @@ public:
     void removePointLightSource(unsigned int number);
     unsigned int getNUmberOfLights() { return number_of_lights; }
     void updateLights();
+    /* Load texture from file */
+    GLuint LoadMipmapTexture(GLuint texId, const char* fname);
+    GLuint getTexture(std::string& texture);
 };

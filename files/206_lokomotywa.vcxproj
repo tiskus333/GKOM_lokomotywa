@@ -95,12 +95,10 @@
     <ClCompile Include="Cylinder.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="shprogram.cpp" />
     <ClCompile Include="Locomotive.cpp" />
     <ClCompile Include="Tracks.cpp" />
-    <ClCompile Include="TrainTracks.cpp" />
     <ClCompile Include="Wagon.cpp" />
     <ClCompile Include="WagonWheels.cpp" />
   </ItemGroup>
@@ -129,12 +127,10 @@
     <ClInclude Include="floor.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="Shader.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="shprogram.h" />
     <ClInclude Include="Locomotive.h" />
     <ClInclude Include="Tracks.h" />
-    <ClInclude Include="TrainTracks.h" />
     <ClInclude Include="Wagon.h" />
     <ClInclude Include="WagonWheels.h" />
   </ItemGroup>

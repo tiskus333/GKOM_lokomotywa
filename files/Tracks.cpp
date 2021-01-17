@@ -19,3 +19,12 @@ void Tracks::draw() {
 	}
 
 }
+
+void Tracks::setShader(const ShaderProgram& shader)
+{
+
+	for (auto& i : comVec)
+	{
+		i.setShader(shader);
+	}
+}

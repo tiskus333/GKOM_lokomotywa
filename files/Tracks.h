@@ -14,5 +14,6 @@ private:
 public:
 	Tracks();
 	void draw();
+	void setShader(const ShaderProgram& shader);
 };
 

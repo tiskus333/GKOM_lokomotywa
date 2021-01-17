@@ -100,3 +100,34 @@ void Scene::updateLights()
         throw std::exception("Something went wrong during counting ligts");
     }
 }
+
+GLuint Scene::LoadMipmapTexture(GLuint texId, const char* fname)
+{
+    int width, height;
+    unsigned char* image = SOIL_load_image(fname, &width, &height, 0, SOIL_LOAD_RGB);
+    if (image == nullptr)
+        throw std::exception("Failed to load texture file");
+
+    GLuint texture;
+    glGenTextures(1, &texture);
+
+    glActiveTexture(texId);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    SOIL_free_image_data(image);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    return texture;
+}
+
+GLuint Scene::getTexture(std::string& texture)
+{
+    for (auto& p : texture_chache_)
+        if (p.first == texture)
+            return p.second;
+    GLuint text_id =  LoadMipmapTexture(GL_TEXTURE0, texture.c_str());
+    texture_chache_.emplace_back(texture, text_id);
+    return text_id;
+}

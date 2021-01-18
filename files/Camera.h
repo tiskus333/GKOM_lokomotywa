@@ -41,14 +41,19 @@ public:
     float MouseSensitivity;
     float Zoom;
 
+    float trainPos = 0;
+
     Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH);
     Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch);
     inline glm::mat4 GetViewMatrix(){
-        return glm::lookAt(Position, Position + Front, Up);
+        return glm::lookAt(getPosition(), getPosition() + Front, Up);
     }
     void ProcessKeyboard(Camera_Movement direction, float deltaTime);
     void ProcessMouseMovement(float xoffset, float yoffset, bool constrainPitch = true);
     void ProcessMouseScroll(float yoffset);
+    void adjustPosition(const glm::vec3& train_pos);
+
+    glm::vec3 getPosition();
 
 private:
     void updateCameraVectors();

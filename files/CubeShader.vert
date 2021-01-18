@@ -9,10 +9,13 @@ out vec3 ourColor;  // Output a color to the fragment shader
 out vec3 Normal;    //normal vector passed to the fragment shader
 out vec3 FragPos;   //thi
 out vec2 TexCoord;
+out vec4 FragPosLightSpace;
 
 uniform mat4 transform;
 uniform mat4 view;
 uniform mat4 projection;
+uniform mat4 lightSpaceMatrix;
+
 void main()
 {
     gl_Position = projection*view*transform * vec4(position, 1.0);
@@ -20,4 +23,5 @@ void main()
     Normal = mat3(transpose(inverse(transform))) * aNormal;
     FragPos = vec3(transform * vec4(position, 1.0));
     TexCoord = vertexUV;
+    FragPosLightSpace = lightSpaceMatrix * vec4(FragPos, 1.0);
 } 

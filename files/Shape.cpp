@@ -13,7 +13,7 @@ Shape::Shape(const glm::vec3& position, const glm::vec3& size, const glm::vec3& 
 	this->color_ = color;
 	this->texture_path_ = texture_path;
 	this->is_light_source_ = is_light_source;
-	if(texture_path_ != "")
+	if(has_texture_ = texture_path_ != "")
 		this->texture_ = Scene::getScene().getTexture(texture_path_);
 }
 
@@ -67,6 +67,7 @@ void Shape::freeBuffers()
 
 void Shape::draw(const glm::mat4& parent_model)
 {
+	
 	if (is_light_source_)
 	{
 		glm::vec3 placement = position_;
@@ -83,10 +84,10 @@ void Shape::draw(const glm::mat4& parent_model)
 			Scene::getScene().updatePointLightSource(number_of_light_, placement, color_);
 		}
 	}
+
 	this->shader_.Use();
-	bool hasTexture = texture_path_ != "";
-	shader_.setBool("hasTexture", hasTexture);
-	if (hasTexture)
+	shader_.setBool("hasTexture", has_texture_);
+	if (has_texture_)
 	{
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture_);
@@ -114,9 +115,15 @@ void Shape::setSize(const glm::vec3& size)
 
 void Shape::setColor(const float r, const float g, const float b)
 {
-	this->color_ = glm::vec3(r, g, b);
-	updateVerticiesColor();
-	bindBuffers();
+	auto tmp_color = glm::vec3(r, g, b);
+	if (color_ != tmp_color)
+	{
+		this->color_ = glm::vec3(r, g, b);
+		updateVerticiesColor();
+		freeBuffers();
+		bindBuffers();
+
+	}
 }
 
 void Shape::setColor(const uint32_t r, uint32_t g, const uint32_t b)
@@ -138,4 +145,3 @@ void Shape::setShader(const ShaderProgram& shader) {
 
 	shader_ = shader;
 }
-

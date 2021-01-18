@@ -12,6 +12,8 @@ public:
     void generateIndices();
     void generateVertices();
 
+    void adjustPosition(const glm::vec3& train_pos);
+
 };
 
 

@@ -25,9 +25,11 @@ class Locomotive
 	
 	Composite Loc = Composite({ 0,0,0 });
 public:
-	Locomotive();
-	void move(glm::vec3);
+	Locomotive(const glm::vec3& pos);
+	void move(const glm::vec3& moveVector);
+	glm::vec3 getPosition();
 	void draw();
+	void setShader(const ShaderProgram& shader);
 	void set_light_intensity(float intensity);
 };
 

@@ -70,12 +70,12 @@ void Floor::generateVertices()
 	-0.5f, -0.5f,  0.5f,	0.0f, 0.0f, 0.0f,	0.0f, -1.0f, 0.0f,	0.251f, 0.999f,
 	-0.5f, -0.5f, -0.5f,	0.0f, 0.0f, 0.0f,	0.0f, -1.0f, 0.0f,	0.499f, 0.999f,
 
-	-0.5f, 0.5f, -0.5f,		0.0f, 0.0f, 0.0f,	0.0f, 1.0f, 0.0f,	24.9f, 50.1f,			//5
-	 0.5f, 0.5f, -0.5f,		0.0f, 0.0f, 0.0f,	0.0f, 1.0f, 0.0f,   24.9f, 99.9f,
+	-0.5f, 0.5f, -0.5f,		0.0f, 0.0f, 0.0f,	0.0f, 1.0f, 0.0f,	2500.f, 50.1f,			//5
+	 0.5f, 0.5f, -0.5f,		0.0f, 0.0f, 0.0f,	0.0f, 1.0f, 0.0f,   2500.f, 99.9f,
 	 0.5f, 0.5f,  0.5f,		0.0f, 0.0f, 0.0f,	0.0f, 1.0f, 0.0f,   0.1f, 99.9f,
 	 0.5f, 0.5f,  0.5f,		0.0f, 0.0f, 0.0f,	0.0f, 1.0f, 0.0f,   00.1f, 99.9f,
 	-0.5f, 0.5f,  0.5f,		0.0f, 0.0f, 0.0f,	0.0f, 1.0f, 0.0f,   00.1f, 50.1f,
-	-0.5f, 0.5f, -0.5f,		0.0f, 0.0f, 0.0f,	0.0f, 1.0f, 0.0f,   24.9f, 50.1f
+	-0.5f, 0.5f, -0.5f,		0.0f, 0.0f, 0.0f,	0.0f, 1.0f, 0.0f,   2500.f, 50.1f
 };
 	for (uint32_t i = 3; i < vertices_.size(); i += 11)
 	{
@@ -83,4 +83,9 @@ void Floor::generateVertices()
 		vertices_.at(i+1) = color_.y;
 		vertices_.at(i+2) = color_.z;
 	}
+}
+void Floor::adjustPosition(const glm::vec3& train_pos)
+{
+	//if((int)std::abs(std::floor(train_pos.z)) < )
+	//position_ = { 0,-.5,std::floor(train_pos.z) + 4.02};
 }

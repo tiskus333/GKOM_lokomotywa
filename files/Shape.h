@@ -19,7 +19,6 @@ protected:
 	GLuint texture_;
 
 	bool is_light_source_;
-	int number_of_light_; //number of light in scene
 
 	/* creating openGL buffers */
 	void bindBuffers();
@@ -31,6 +30,7 @@ protected:
 
     void updateVerticiesColor();
 public:
+	int number_of_light_; //number of light in scene
 	/* free buffers and delete shape */
 	~Shape();
 

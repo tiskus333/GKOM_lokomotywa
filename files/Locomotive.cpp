@@ -1,4 +1,5 @@
 #include "Locomotive.h"
+#include <iostream>
 
 Locomotive::Locomotive()
 {
@@ -27,10 +28,16 @@ Locomotive::Locomotive()
 
 void Locomotive::draw()
 {
+	static bool light_set = false;
 	Loc.draw();
 
 	for (auto w : wheelVector)
 		w->draw();
+		if (!light_set)
+	{
+		light_set = true;
+		Scene::getScene().light_directions[LocomotiveHeadlight.number_of_light_] = glm::vec3(0.0, 0.0, 0.002);
+	}
 }
 
 void Locomotive::setShader(const ShaderProgram& shader)

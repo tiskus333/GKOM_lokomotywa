@@ -3,6 +3,7 @@
 struct PointLight {
     vec3 lightPos;
     vec3 lightColor;
+    vec3 lightDir; //regular point when 0,0,0
 };
 
 
@@ -92,6 +93,10 @@ void main()
 
 vec3 calculate_color_from_lightsource(PointLight light, vec3 norm, vec3 viewDir)
 {
+    if(length(light.lightPos - FragPos)>length(light.lightPos - FragPos + light.lightDir))
+    {
+        return vec3(0.0,0.0,0.0);
+    }
     //diffuse
     vec3 lightDir = normalize(light.lightPos - FragPos);
     float diff = max(dot(norm, lightDir), 0.0);

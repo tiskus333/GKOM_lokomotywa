@@ -24,12 +24,12 @@ public:
     //shadows
     unsigned int depthMapFBO;
     unsigned int depthMap;
-    const unsigned int SHADOW_WIDTH = 8192, SHADOW_HEIGHT = 8192;
+    const unsigned int SHADOW_WIDTH = 16384, SHADOW_HEIGHT = 16384;
     const GLuint WIDTH = 1920, HEIGHT = 1080;
     glm::mat4 lightProjection, lightView;
     glm::mat4 lightSpaceMatrix;
     float near_plane = 1.0f, far_plane = 200.f;
-    glm::vec3 lightPos = glm::vec3(-10.0f, 30.f, 10.f);
+    glm::vec3 lightPos = glm::vec3(-10.0f, 300.f, 10.f);
     //shadows
 
     glm::vec3 light_directions[MAX_NUM_OF_POINT_LIGHTS];

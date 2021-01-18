@@ -24,14 +24,45 @@ float current_time = 0.0, delta_time = 0.0f, last_frame = 0.0f, directional_spee
 double lastX = WIDTH/2;
 double lastY = HEIGHT/2;
 bool firstMouse = true;
-std::vector<Wagon> wagons;
+std::vector<Wagon*> wagons;
 float last_wagon = 3.0f;
+float train_pos;
 
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {
 	
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
+	if (glfwGetKey(window, GLFW_KEY_PAGE_UP) == GLFW_PRESS) {
+		try
+		{
+			if (last_wagon < 60)
+			{
+				last_wagon += 3.2;
+				Wagon* w = new Wagon({ 0,1.02,last_wagon + train_pos });
+				wagons.push_back(w);
+			}
+		}
+		catch (std::exception e)
+		{
+			std::cout << e.what();
+		}
+	}
+	if (glfwGetKey(window, GLFW_KEY_PAGE_DOWN) == GLFW_PRESS) {
+		if (last_wagon > 6.0f)
+		{
+			try
+			{
+				last_wagon -= 3.2;
+				delete wagons.at(wagons.size() - 1);
+				wagons.pop_back();
+			}
+			catch (std::exception e)
+			{
+				std::cout << e.what();
+			}
+		}
+	}
 }
 
 void processInput(GLFWwindow* window) {
@@ -59,8 +90,8 @@ void processInput(GLFWwindow* window) {
 	}
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
-
-		directional_speed += delta_time * (directional_speed > 0 ? -1.0 : 1.0) * 0.05;
+		if(directional_speed != 0)
+		directional_speed += delta_time * (directional_speed > 0 ? -1.0 : 1.0) * 0.03;
 	}
 	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
 
@@ -73,30 +104,7 @@ void processInput(GLFWwindow* window) {
 		if ((light_intensity -= 1.f * delta_time) < 0.3f)
 			light_intensity = 0.3f;
 	}
-	if (glfwGetKey(window, GLFW_KEY_PAGE_UP) == GLFW_PRESS) {
-		try
-		{
-			if (last_wagon < 34.0f)
-			{
-				last_wagon += 3.2;
-				Wagon w({ 0,1.02,last_wagon });
-				wagons.push_back( std::move( w));
-				//wagons.push_back(Wagon({ 0,1.02,last_wagon }));
 
-			}
-		}
-		catch (std::exception e)
-		{
-			std::cout << e.what();
-		}
-	}
-	if (glfwGetKey(window, GLFW_KEY_PAGE_DOWN) == GLFW_PRESS) {
-		if (last_wagon > 3.0f)
-		{
-			last_wagon -= 3.2;
-			wagons.pop_back();
-		}
-	}
 }
 
 void scroll_callback(GLFWwindow* window, double xpos, double ypos)
@@ -161,7 +169,7 @@ int main()
 		//wagons.emplace_back();
 		Locomotive Loc1({ 0,1.02,0 });
 		Wagon w1({ 0,1.02,3 });
-		wagons.push_back(w1);
+		wagons.push_back(&w1);
 		Scene::getScene().initShadows();
 
 		// main event loop
@@ -183,6 +191,7 @@ int main()
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			camera.adjustPosition(Loc1.getPosition());
+			train_pos = Loc1.getPosition().z;
 
 			glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 0.1f, 100.0f);
 			Scene::getScene().setMatrix4fvInShaders("projection", projection);
@@ -196,8 +205,8 @@ int main()
 			
 			Loc1.move({ 0,0,directional_speed });
 			Loc1.set_light_intensity(light_intensity);
-			for(auto &w: wagons )
-				w.move({ 0,0,directional_speed });
+			for(auto w: wagons )
+				w->move({ 0,0,directional_speed });
 			LightCube.setPosition(Loc1.getPosition() + glm::vec3(-10,30,10));
 			Scene::getScene().lightPos = LightCube.position_;
 
@@ -206,21 +215,21 @@ int main()
 
 			//shadows
 			Loc1.setShader(Scene::getScene().simpleDepthShader);
-			for (auto& w : wagons)
-				w.setShader(Scene::getScene().simpleDepthShader);
+			for (auto w : wagons)
+				w->setShader(Scene::getScene().simpleDepthShader);
 			Floor.setShader(Scene::getScene().simpleDepthShader);
 			TrainTracks.setShader(Scene::getScene().simpleDepthShader);
 
 			Scene::getScene().setViewPort(Loc1.getPosition());
 			Loc1.draw();
-			for (auto& w : wagons)
-				w.draw();
+			for (auto w : wagons)
+				w->draw();
 			TrainTracks.draw();
 			Scene::getScene().resetViewPort();
 
 			Loc1.setShader(Scene::getScene().shape_shader);
-			for (auto& w : wagons)
-				w.setShader(Scene::getScene().shape_shader);
+			for (auto w : wagons)
+				w->setShader(Scene::getScene().shape_shader);
 			Floor.setShader(Scene::getScene().shape_shader);
 			TrainTracks.setShader(Scene::getScene().shape_shader);
 			//shadows
@@ -230,8 +239,8 @@ int main()
 			SkyBox.draw();
 			glDepthMask(GL_TRUE);
 			Loc1.draw();
-			for (auto& w : wagons)
-				w.draw();
+			for (auto w : wagons)
+				w->draw();
 			Floor.draw();
 			TrainTracks.draw();
 

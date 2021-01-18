@@ -1,7 +1,7 @@
 #include "Locomotive.h"
 #include <iostream>
 
-Locomotive::Locomotive()
+Locomotive::Locomotive(const glm::vec3& pos)
 {
 	wheelVector.push_back(&FrontWheels2);
 	wheelVector.push_back(&FrontWheels1);
@@ -24,6 +24,8 @@ Locomotive::Locomotive()
 		
 	FrontWheels1.addElement(BailRight);
 	FrontWheels1.addElement(BailLeft);
+
+	move(pos);
 }
 
 void Locomotive::draw()
@@ -55,7 +57,7 @@ void Locomotive::set_light_intensity(float intensity) {
 	Loc.getElement(9)->setColor( intensity, intensity, intensity );
 }
 
-void Locomotive::move(const glm::vec3 moveVector)
+void Locomotive::move(const glm::vec3& moveVector)
 {
 	float angle = moveVector.z * 360.0 / (2 * 3.1415 * 0.21);
 	for (auto w : wheelVector)

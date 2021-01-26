@@ -16,6 +16,9 @@ using namespace std;
 #include "Locomotive.h"
 #include "Tracks.h"
 #include "floor.h"
+#include "Cacti.h"
+#include "EnvElements.h"
+
 
 const GLuint WIDTH = 1920, HEIGHT = 1080;
 
@@ -140,7 +143,7 @@ int main()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-
+	
 
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 	try
@@ -165,13 +168,18 @@ int main()
 		SkyBox.setShader(Scene::getScene().skybox_shader);
 		Floor Floor({ 0,-.5,0 }, { 100,1,10000 }, "floor2.png");
 		Tracks TrainTracks;
+		
+
+
+
 
 		//wagons.emplace_back();
 		Locomotive Loc1({ 0,1.02,0 });
 		Wagon w1({ 0,1.02,3 });
 		wagons.push_back(&w1);
 		Scene::getScene().initShadows();
-
+		EnvElements environs(Loc1.getPosition());
+		
 		// main event loop
 		float num = 1;
 		while (!glfwWindowShouldClose(window))
@@ -214,25 +222,31 @@ int main()
 			Floor.adjustPosition(Loc1.getPosition()); // TODO
 
 			//shadows
+
+
 			Loc1.setShader(Scene::getScene().simpleDepthShader);
 			for (auto w : wagons)
 				w->setShader(Scene::getScene().simpleDepthShader);
 			Floor.setShader(Scene::getScene().simpleDepthShader);
-			TrainTracks.setShader(Scene::getScene().simpleDepthShader);
-
+			TrainTracks.setShader(Scene::getScene().simpleDepthShader);			
+			environs.setShader(Scene::getScene().simpleDepthShader);
 			Scene::getScene().setViewPort(Loc1.getPosition());
 			Loc1.draw();
 			for (auto w : wagons)
 				w->draw();
-			TrainTracks.draw();
+			TrainTracks.draw();			
+			environs.draw(Loc1.getPosition());
 			Scene::getScene().resetViewPort();
-
 			Loc1.setShader(Scene::getScene().shape_shader);
 			for (auto w : wagons)
 				w->setShader(Scene::getScene().shape_shader);
 			Floor.setShader(Scene::getScene().shape_shader);
 			TrainTracks.setShader(Scene::getScene().shape_shader);
+			environs.setShader(Scene::getScene().shape_shader);
+			
 			//shadows
+
+			
 
 			LightCube.draw();
 			glDepthMask(GL_FALSE);
@@ -243,6 +257,9 @@ int main()
 				w->draw();
 			Floor.draw();
 			TrainTracks.draw();
+
+			environs.draw(Loc1.getPosition());
+
 
 			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 			// Swap the screen buffers

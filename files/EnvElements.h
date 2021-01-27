@@ -11,7 +11,7 @@ private:
 	int cacti_per_chunk = 20;
 	int cacti_spread = 15;
 	int chunk_size = 20;
-	int chunk_count = 3;
+	int chunk_count = 5;
 
 public:
 	EnvElements(glm::vec3 locomotivePosition);

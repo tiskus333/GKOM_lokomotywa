@@ -66,6 +66,16 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			}
 		}
 	}
+	if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
+
+		if (!camera.locked)
+			camera.locked = true;
+		else
+		{
+			camera.locked = false;
+			camera.SetPosition({0,3,train_pos});
+		}
+	}
 }
 
 void processInput(GLFWwindow* window) {

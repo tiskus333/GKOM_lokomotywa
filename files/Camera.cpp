@@ -77,19 +77,15 @@ void Camera::adjustPosition(const glm::vec3& train_pos)
 {
     trainPos = train_pos.z;
     if (locked)
-    {
-        
-        SetPosition(train_pos+glm::vec3{ 0,0.4,0.4 });
+    {       
         trainPos = 0;
-        Yaw = -90;
-        Pitch = 0;
-        updateCameraVectors();
+        SetPosition(train_pos+glm::vec3{ 0, 0.4, 0.3 });
     }
 }
 
 glm::vec3 Camera::getPosition()
 {
-    return Position + glm::vec3(0, 0, trainPos);
+    return Position+glm::vec3(0, 0, trainPos);
 }
 
 void Camera::SetPosition(glm::vec3 position) {

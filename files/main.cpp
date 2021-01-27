@@ -68,12 +68,23 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	}
 	if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
 
-		if (!camera.locked)
+		if (!camera.locked){
+
+			
 			camera.locked = true;
+			camera.trainPos = 0;
+			camera.Yaw = -90;
+			camera.Pitch = 0;
+			camera.updateCameraVectors();
+		}
+			
 		else
 		{
 			camera.locked = false;
-			camera.SetPosition({0,3,train_pos});
+			camera.SetPosition({2,3,2});
+			camera.Yaw = -130;
+			camera.Pitch = -30;
+			camera.updateCameraVectors();
 		}
 	}
 }
@@ -208,8 +219,7 @@ int main()
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			camera.adjustPosition(Loc1.getPosition());
-			train_pos = Loc1.getPosition().z;
+			
 
 			glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 0.1f, 100.0f);
 			Scene::getScene().setMatrix4fvInShaders("projection", projection);
@@ -270,6 +280,8 @@ int main()
 
 			environs.draw(Loc1.getPosition());
 
+			camera.adjustPosition(Loc1.getPosition());
+			train_pos = Loc1.getPosition().z;
 
 			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 			// Swap the screen buffers

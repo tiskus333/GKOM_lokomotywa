@@ -57,7 +57,7 @@ public:
 
     glm::vec3 getPosition();
     void SetPosition(glm::vec3 position);
-private:
+
     void updateCameraVectors();
 };
 

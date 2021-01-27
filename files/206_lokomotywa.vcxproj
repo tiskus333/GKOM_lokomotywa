@@ -86,6 +86,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BigCacti.cpp" />
     <ClCompile Include="Cacti.cpp" />
     <ClCompile Include="EnvElements.cpp" />
     <ClCompile Include="floor.cpp" />
@@ -123,6 +124,7 @@
     <Image Include="weiti.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BigCacti.h" />
     <ClInclude Include="Cacti.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Carriage.h" />

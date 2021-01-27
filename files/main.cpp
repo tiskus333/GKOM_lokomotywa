@@ -240,6 +240,7 @@ int main()
 
 			TrainTracks.adjustPosition(Loc1.getPosition());
 			Floor.adjustPosition(Loc1.getPosition()); // TODO
+			environs.adjustPosition(Loc1.getPosition());
 
 			//shadows
 
@@ -255,7 +256,7 @@ int main()
 			for (auto w : wagons)
 				w->draw();
 			TrainTracks.draw();			
-			environs.draw(Loc1.getPosition());
+			environs.draw();
 			Scene::getScene().resetViewPort();
 			Loc1.setShader(Scene::getScene().shape_shader);
 			for (auto w : wagons)
@@ -278,7 +279,7 @@ int main()
 			Floor.draw();
 			TrainTracks.draw();
 
-			environs.draw(Loc1.getPosition());
+			environs.draw();
 
 			camera.adjustPosition(Loc1.getPosition());
 			train_pos = Loc1.getPosition().z;

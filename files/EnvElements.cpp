@@ -1,40 +1,21 @@
 #include "EnvElements.h"
 EnvElements::EnvElements(glm::vec3 locomotivePosition) {
-	
-
-	for (int i = 0; i < 80; i++)
+	Composite* baseCacti;
+	for (int i = chunk_count; i >= -chunk_count; --i)
 	{
-		auto x = rand() % 15 + 5;
-		auto z = rand() % 90;
-		z -= 45;
-		auto angle = rand() % 90;
-		if (angle < 70) {
-
-
-			cacti.setPosition({ x,0 , locomotivePosition.z - z });
-			cacti.rotate({ 0,angle,0 });
-			cvec.emplace_back(cacti);
-		}
-		else {
-			bigCacti.setPosition({ x,0 , locomotivePosition.z - z });
-			bigCacti.rotate({ 0,angle,0 });
-			cvec.emplace_back(bigCacti);
-		}
-		auto x1 = (rand() % 15 + 5) * -1;
-		auto z1 = rand() % 90;
-		z1 -= 45;
-		auto angle1 = rand() % 90;
-		if (angle1 < 70) {
-
-
-			cacti.setPosition({ x1,0 , locomotivePosition.z - z1 });
-			cacti.rotate({ 0,angle1,0 });
-			cvec.emplace_back(cacti);
-		}
-		else {
-			bigCacti.setPosition({ x1,0 , locomotivePosition.z - z1 });
-			bigCacti.rotate({ 0,angle1,0 });
-			cvec.emplace_back(bigCacti);
+		for (int c = 0; c < cacti_per_chunk; ++c)
+		{
+			auto side = rand() % 2 ? -1 : 1;
+			auto x = rand() % cacti_spread + 5;
+			auto z = chunk_size * i + rand() % chunk_size;
+			auto angle = rand() % 90;
+			if (angle < 70) 
+				baseCacti = &cacti;
+			else 
+				baseCacti = &bigCacti;
+			baseCacti->setPosition({ x*side,0 , z });
+			baseCacti->rotate({ 0,angle,0 });
+			cvec.push_back(*baseCacti);
 		}
 	}
 
@@ -44,101 +25,40 @@ void EnvElements::setShader(const ShaderProgram& shader) {
 		w.setShader(shader);
 	}
 }
-void EnvElements::draw(glm::vec3 locomotivePosition) {
 
+void EnvElements::adjustPosition(const glm::vec3& locomotivePosition) {
+	float displacement = LastLocomotivePosition.z - locomotivePosition.z;
+	int direction = displacement > 0 ? -1 : 1;
+	Composite* baseCacti;
 
-	
-	if (abs(locomotivePosition.z - LastLocomotivePosition.z) < 15 ) {
-		for (auto& w : cvec) {
-			w.draw();
-		}
-	}
-	else  if (locomotivePosition.z - LastLocomotivePosition.z < 15)
+	if (std::abs(displacement) >= chunk_size)
 	{
-		cvec.erase(cvec.begin(), cvec.begin() + 24);
-		for (int i = 0; i < 12; i++)
+		if (direction < 0)
+			cvec.erase(cvec.begin(), cvec.begin() + cacti_per_chunk);
+		else
+			cvec.erase(cvec.end()-cacti_per_chunk, cvec.end());
+		for (int c = 0; c < cacti_per_chunk; ++c)
 		{
-			auto x = rand() % 15 + 5;
-			auto z = rand() % 15 + 30;
-
-			auto angle = rand() % 90; 
-			if (angle < 70) {
-
-
-				cacti.setPosition({ x,0 , locomotivePosition.z - z });
-				cacti.rotate({ 0,angle,0 });
-				cvec.emplace_back(cacti);
-			}
-			else {
-				bigCacti.setPosition({ x,0 , locomotivePosition.z - z });
-				bigCacti.rotate({ 0,angle,0 });
-				cvec.emplace_back(bigCacti);
-			}
-
-			auto x1 = (rand() % 15 + 5) * -1;
-			auto z1 = rand() % 15 + 30;
-			auto angle1 = rand() % 90;
-			if (angle1 < 70) {
-
-
-				cacti.setPosition({ x1,0 , locomotivePosition.z - z1 });
-				cacti.rotate({ 0,angle1,0 });
-				cvec.emplace_back(cacti);
-			}
-			else {
-				bigCacti.setPosition({ x1,0 , locomotivePosition.z - z1 });
-				bigCacti.rotate({ 0,angle1,0 });
-				cvec.emplace_back(bigCacti);
-			}
-		}
-		
-		LastLocomotivePosition = locomotivePosition;
-		for (auto& w : cvec) {
-			w.draw();
-		}
-	}
-	else {
-		cvec.erase(cvec.end()- 24, cvec.end());
-		for (int i = 0; i < 12; i++)
-		{
-			auto x = rand() % 15 + 5;
-			auto z = rand() % 15 + 30;
-
+			auto side = rand() % 2 ? -1 : 1;
+			auto x = rand() % cacti_spread + 5;
+			auto z = (int)std::floor(locomotivePosition.z) + direction*chunk_size * (chunk_count)  + rand() % chunk_size;
 			auto angle = rand() % 90;
 			if (angle < 70)
-			{
-				cacti.setPosition({ x,0 , locomotivePosition.z + z });
-				cacti.rotate({ 0,angle,0 });
-				cvec.emplace(cvec.begin(), cacti);
-			}
+				baseCacti = &cacti;
 			else
-			{
-				bigCacti.setPosition({ x,0 , locomotivePosition.z + z });
-				bigCacti.rotate({ 0,angle,0 });
-				cvec.emplace(cvec.begin(), bigCacti);
-			}
-			auto x1 = (rand() % 15 + 5) * -1;
-			auto z1 = rand() % 15 + 30;
-			auto angle1 = rand() % 90;
-			if (angle1 < 70)
-			{
-				cacti.rotate({ 0,angle1,0 });
-				cacti.setPosition({ x1,0 ,locomotivePosition.z + z1 });
-				cvec.emplace(cvec.begin(), cacti);
-			}
-			else 
-			{
-				bigCacti.rotate({ 0,angle1,0 });
-				bigCacti.setPosition({ x1,0 ,locomotivePosition.z + z1 });
-				cvec.emplace(cvec.begin(), bigCacti);
-			}
-			
+				baseCacti = &bigCacti;
+			baseCacti->setPosition({ x * side,0 , z });
+			baseCacti->rotate({ 0,angle,0 });
+			if (direction < 0)
+				cvec.push_back(*baseCacti);
+			else
+				cvec.insert(cvec.begin(), *baseCacti );
 		}
-
 		LastLocomotivePosition = locomotivePosition;
-		for (auto& w : cvec) {
-			w.draw();
-		}
 	}
+}
 
+void EnvElements::draw() {
+	for (auto& w : cvec) 
+		w.draw();
 }

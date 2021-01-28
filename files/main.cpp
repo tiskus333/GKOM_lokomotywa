@@ -163,11 +163,11 @@ int main()
 		glEnable(GL_MULTISAMPLE);
 
 		Cuboid LightCube({ -10, 30, 10 }, { 0.1, 0.1, 0.1 }, glm::vec3( 1, 1, 1 ), true);
-		Cuboid SkyBox({ 0,0,0 }, { 1, 1, 1 }, "skybox2.png");
+		Cuboid SkyBox({ 0,0,0 }, { 1, 1, 1 }, "skybox.png");
 		SkyBox.setShader(Scene::getScene().skybox_shader);
-		Floor Floor({ 0,-.5,0 }, { 100,1,10000 }, "floor2.png");
+		Floor Floor({ 0,-.5,0 }, { 100,1,10000 }, "floor.png");
 		Tracks TrainTracks;
-		//Train realTrain;
+
 		train = new Train();
 
 
@@ -237,9 +237,6 @@ int main()
 			TrainTracks.draw();
 			train->draw();
 			environs.draw();
-
-
-			//train_pos = train->getPosition().z;
 
 			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 			// Swap the screen buffers

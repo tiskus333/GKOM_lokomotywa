@@ -116,14 +116,6 @@ void processInput(GLFWwindow* window) {
 		if (directional_speed > 1.)
 			directional_speed = 1.;
 	}
-	/*if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_RELEASE)
-	{
-		play_engine = true;
-	}
-	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_RELEASE)
-	{
-		play_engine = true;
-	}*/
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
 	{
 		if (play_engine)

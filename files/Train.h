@@ -9,8 +9,8 @@ class Train
 	int min_wagons = 2;
 
 	std::vector<std::pair<Cuboid*, float>> smoke;
-	int maxSmoke = 30;
-	float smokeLife = 1.2;
+	int maxSmoke = 20;
+	float smokeLife = 2;
 	float smokeTimeDiff = smokeLife / maxSmoke;
 
 	float deltaTime;

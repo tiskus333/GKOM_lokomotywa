@@ -3,16 +3,16 @@
 SmokeParticle::SmokeParticle(const glm::vec3& position, float maxLife): Composite(position), maxLifeTime(maxLife)
 {
 	//gwiazdki
-	c1.rotate({ 45,0,0 });
+	//c1.rotate({ 45,0,0 });
 
 	//chmurki
-	/*c1.rotate({ 0,0,90 });
+	c1.rotate({ 0,0,90 });
 	c2.rotate({ 0,0,90 });
-	c3.rotate({ 0,0,90 });*/
+	c3.rotate({ 0,0,90 });
 
 	addElement(c1);
 	addElement(c2);
-	//addElement(c3);
+	addElement(c3);
 }
 
 bool SmokeParticle::update(float deltaTime)

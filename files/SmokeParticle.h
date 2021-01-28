@@ -6,13 +6,13 @@ class SmokeParticle :
     public Composite
 {
     // gwiazdki
-    Cuboid c1 = Cuboid({ 0,0,0 }, { 0.2,0.2,0.2 }, glm::vec3(1, 1, 1));
-    Cuboid c2 = Cuboid({ 0,0,0 }, { 0.2,0.2,0.2 }, glm::vec3(1, 1, 1));
+    /*Cuboid c1 = Cuboid({ 0,0,0 }, { 0.2,0.2,0.2 }, glm::vec3(1, 1, 1));
+    Cuboid c2 = Cuboid({ 0,0,0 }, { 0.2,0.2,0.2 }, glm::vec3(1, 1, 1));*/
 
     //chmurki
-   /* Cylinder c1 = Cylinder({ 0,0,0 }, { 0.2,0.2,0.5 }, glm::vec3(1, 1, 1));
+    Cylinder c1 = Cylinder({ 0,0,0 }, { 0.2,0.2,0.5 }, glm::vec3(1, 1, 1));
     Cylinder c2 = Cylinder({ 0,0.1,-0.1 }, { 0.3,0.2,0.2 }, glm::vec3(1, 1, 1));
-    Cylinder c3 = Cylinder({ 0,0.1,0.1 }, { 0.2,0.2,0.2 }, glm::vec3(1, 1, 1));*/
+    Cylinder c3 = Cylinder({ 0,0.1,0.1 }, { 0.2,0.2,0.2 }, glm::vec3(1, 1, 1));
 
 public:
     float lifeTime = 0.0f;

@@ -113,17 +113,20 @@
     <None Include="shadow_mapping_depth.vert" />
     <None Include="CubeShader.frag" />
     <None Include="CubeShader.vert" />
-    <None Include="gl_05.frag" />
-    <None Include="gl_05.vert" />
     <None Include="SkyBox.frag" />
     <None Include="SkyBox.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\screenshot.png" />
-    <Image Include="iipw.png" />
-    <Image Include="piesek.png" />
+    <Image Include="floor.png" />
+    <Image Include="kabina.png" />
+    <Image Include="metal.png" />
     <Image Include="skybox.png" />
-    <Image Include="weiti.png" />
+    <Image Include="spod.bmp" />
+    <Image Include="wagon.png" />
+    <Image Include="wagon_left_right.png" />
+    <Image Include="wheel.png" />
+    <Image Include="wood.png" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BigCacti.h" />

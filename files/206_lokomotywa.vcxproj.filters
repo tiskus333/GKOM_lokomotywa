@@ -77,8 +77,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="gl_05.frag" />
-    <None Include="gl_05.vert" />
     <None Include="CubeShader.frag">
       <Filter>Source Files</Filter>
     </None>
@@ -102,19 +100,34 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="iipw.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="weiti.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="piesek.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="skybox.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="..\screenshot.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="floor.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="kabina.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="metal.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="spod.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wagon.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wagon_left_right.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wheel.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wood.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

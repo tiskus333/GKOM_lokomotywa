@@ -22,6 +22,8 @@ void Train::move(const glm::vec3& moveVector)
 		resistance += deltaTime * (moveVector.z > 0 ? -1. : 1.) * 0.002;
 
 	glm::vec3 sppedMove = moveVector * maxSpeed + glm::vec3{0, 0, resistance};
+	if (std::abs(sppedMove.z) < 0.002)
+		sppedMove = { 0,0,0 };
 	locomotive.move(sppedMove);
 	for (auto& w : wagons)
 		w->move(sppedMove);

@@ -9,7 +9,7 @@ private:
 	Cacti cacti = Cacti({ 0,0,0 });
 	BigCacti bigCacti = BigCacti({ 0,0,0 });
 	int cacti_per_chunk = 20;
-	int cacti_spread = 15;
+	int cacti_spread = 20;
 	int chunk_size = 20;
 	int chunk_count = 5;
 

@@ -102,6 +102,7 @@
     <ClCompile Include="shprogram.cpp" />
     <ClCompile Include="Locomotive.cpp" />
     <ClCompile Include="Tracks.cpp" />
+    <ClCompile Include="Train.cpp" />
     <ClCompile Include="Wagon.cpp" />
     <ClCompile Include="WagonWheels.cpp" />
   </ItemGroup>
@@ -139,6 +140,7 @@
     <ClInclude Include="shprogram.h" />
     <ClInclude Include="Locomotive.h" />
     <ClInclude Include="Tracks.h" />
+    <ClInclude Include="Train.h" />
     <ClInclude Include="Wagon.h" />
     <ClInclude Include="WagonWheels.h" />
   </ItemGroup>

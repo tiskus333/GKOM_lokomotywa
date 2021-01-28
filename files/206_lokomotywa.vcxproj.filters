@@ -69,6 +69,9 @@
     <ClCompile Include="BigCacti.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Train.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="gl_05.frag" />
@@ -162,6 +165,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BigCacti.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Train.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

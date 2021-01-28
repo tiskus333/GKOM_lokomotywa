@@ -177,4 +177,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\Debug\Breaks.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="..\Debug\Horn.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="..\Debug\Steam_engine.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+  </ItemGroup>
 </Project>

@@ -8,6 +8,9 @@ using namespace std;
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <Windows.h>
+#include <mmsystem.h>
+#pragma comment(lib, "Winmm.lib")
 
 
 #include "Camera.h"
@@ -25,6 +28,9 @@ float current_time = 0.0, delta_time = 0.0f, last_frame = 0.0f, directional_spee
 double lastX = WIDTH/2;
 double lastY = HEIGHT/2;
 bool firstMouse = true;
+bool play_brakes = true;
+bool play_engine = true;
+bool play_horn = true;
 
 Train* train; 
 
@@ -74,23 +80,90 @@ void processInput(GLFWwindow* window) {
 		camera.ProcessKeyboard(LEFT, delta_time);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		camera.ProcessKeyboard(RIGHT, delta_time);
+	if (glfwGetKey(window, GLFW_KEY_V) == GLFW_PRESS)
+	{
+		if (play_horn)
+		{
+			PlaySound(L"Horn.wav", NULL, SND_FILENAME | SND_ASYNC);
+			play_horn = false;
+		}
+	}
+	if (glfwGetKey(window, GLFW_KEY_V) == GLFW_RELEASE)
+	{
+		if (!play_horn)
+		{
+			if (!play_engine)
+			{
+				PlaySound(L"Steam_engine.wav", NULL, SND_LOOP | SND_FILENAME | SND_ASYNC);
+				play_engine = false;
+			}
+			if (!play_brakes)
+			{
+				PlaySound(L"Breaks.wav", NULL, SND_LOOP | SND_FILENAME | SND_ASYNC);
+				play_brakes = false;
+			}
+		}
+		play_horn = true;
+	}
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
 	{
+		if (play_engine)
+		{
+			PlaySound(L"Steam_engine.wav", NULL, SND_LOOP | SND_FILENAME | SND_ASYNC);
+			play_engine = false;
+		}
 		directional_speed += 0.01 * delta_time;
 		if (directional_speed > 1.)
 			directional_speed = 1.;
 	}
-		
+	/*if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_RELEASE)
+	{
+		play_engine = true;
+	}
+	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_RELEASE)
+	{
+		play_engine = true;
+	}*/
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
 	{
+		if (play_engine)
+		{
+			PlaySound(L"Steam_engine.wav", NULL, SND_LOOP | SND_FILENAME | SND_ASYNC);
+			play_engine = false;
+		}
 		directional_speed -= 0.01f * delta_time;
 		if (directional_speed < -1.)
 			directional_speed = -1.;
 	}
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
+		if (play_brakes && std::abs(directional_speed) > 0.01)
+		{
+			PlaySound(L"Breaks.wav", NULL, SND_LOOP | SND_FILENAME | SND_ASYNC);
+			play_brakes = false;
+		}
 		if(directional_speed != 0)
 		directional_speed += delta_time * (directional_speed > 0 ? -1.0 : 1.0) * 0.03;
+	}
+	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_RELEASE)
+	{
+		if (!play_brakes)
+		{
+			if (std::abs(directional_speed) > 0.01)
+			{
+				PlaySound(L"Steam_engine.wav", NULL, SND_LOOP | SND_FILENAME | SND_ASYNC);
+				play_engine = false;
+			}
+			else
+			{
+				PlaySound(NULL, NULL,SND_ASYNC);
+				play_engine = true;
+			}
+
+		}
+		play_brakes = true;
+
+		
 	}
 	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
 
@@ -130,6 +203,8 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 
 int main()
 {
+
+
 
 	if (glfwInit() != GL_TRUE)
 	{

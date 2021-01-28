@@ -101,6 +101,7 @@
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="shprogram.cpp" />
     <ClCompile Include="Locomotive.cpp" />
+    <ClCompile Include="SmokeParticle.cpp" />
     <ClCompile Include="Tracks.cpp" />
     <ClCompile Include="Train.cpp" />
     <ClCompile Include="Wagon.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="Shape.h" />
     <ClInclude Include="shprogram.h" />
     <ClInclude Include="Locomotive.h" />
+    <ClInclude Include="SmokeParticle.h" />
     <ClInclude Include="Tracks.h" />
     <ClInclude Include="Train.h" />
     <ClInclude Include="Wagon.h" />

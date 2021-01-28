@@ -12,7 +12,7 @@ Train::~Train()
 	for (int i = wagons.size(); i > 1; --i)
 		delete wagons.at(i);
 	for (int i = 0; i < smoke.size(); ++i)
-		delete smoke.at(i).first;
+		delete smoke.at(i);
 }
 
 void Train::move(const glm::vec3& moveVector)
@@ -36,7 +36,7 @@ void Train::draw()
 	for (auto w : wagons)
 		w->draw();
 	for (const auto& s : smoke)
-		s.first->draw();
+		s->draw();
 }
 
 void Train::drawShadows()
@@ -89,35 +89,23 @@ void Train::calculateSmoke(const glm::vec3& locPosition)
 	int del = 0;
 	static bool turn = 0;
 	smokeTimeDiff -= deltaTime;
+
 	if (smoke.size() < maxSmoke * 2 && smokeTimeDiff < 0)
 	{
-		if (turn)
-		{
-			auto smk = std::make_pair(new Cuboid(locPosition + glm::vec3{ 0,0.6,-.4 }, { 0.2, 0.2, 0.2 }, glm::vec3(1, 1, 1)), smokeLife);
-			smoke.push_back(smk);
-		}
-		else
-		{
-			auto smk = std::make_pair(new Cuboid(locPosition + glm::vec3{ 0,0.6,-1 }, { 0.2, 0.2, 0.2 }, glm::vec3(1, 1, 1)), smokeLife);
-			smoke.push_back(smk);
-
-		}
+		auto offset = glm::vec3{ 0,0.6,-.4 };
+		if (!turn)
+			offset = glm::vec3{ 0,0.6,-1 };
+		auto smk = new SmokeParticle(locPosition + offset, smokeLife);
+		smoke.push_back(smk);
 		turn = !turn;
 		smokeTimeDiff = smokeLife / maxSmoke;
 	}
 	for (auto& s : smoke)
 	{
-		s.second -= deltaTime;
-		if (s.second <= 0)
+		if (s->update(deltaTime))
 		{
-			delete s.first;
+			delete s;
 			++del;
-		}
-		else
-		{
-			s.first->move({ 0,0.04 * (s.second / smokeLife),0 });
-			s.first->rotate({ rand() % 10,rand() % 10,rand() % 10 });
-			s.first->scale(glm::vec3{ 1.01,1.01,1.01 });
 		}
 	}
 	if (del > 0)

@@ -30,6 +30,10 @@ bool firstMouse = true;
 std::vector<Wagon*> wagons;
 float last_wagon = 3.0f;
 float train_pos;
+std::vector<std::pair<Cuboid*,float>> smoke;
+int maxSmoke = 30;
+float smokeLife = 1.2;
+float smokeTimeDiff = smokeLife/maxSmoke;
 
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {
@@ -102,15 +106,15 @@ void processInput(GLFWwindow* window) {
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
 	{
 		directional_speed += 0.01 * delta_time;
-		if (directional_speed > 1.0)
-			directional_speed = 1;
+		if (directional_speed > .70)
+			directional_speed = .7;
 	}
 		
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
 	{
 		directional_speed -= 0.01f * delta_time;
-		if (directional_speed < -1.0)
-			directional_speed = -1;
+		if (directional_speed < -.7)
+			directional_speed = -.7;
 	}
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
@@ -151,6 +155,38 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	lastY = ypos;
 
 	camera.ProcessMouseMovement(xoffset, yoffset);
+}
+
+void calcSmoke(const glm::vec3& locPosition)
+{
+	int del = 0;
+	smokeTimeDiff -= delta_time;
+	if (smoke.size() < maxSmoke*2 && smokeTimeDiff < 0)
+	{
+		auto smk = std::make_pair(new Cuboid(locPosition + glm::vec3{0,0.6,-.4}, { 0.2, 0.2, 0.2 }, glm::vec3(1, 1, 1)), smokeLife);
+		smoke.push_back(smk);
+		smk = std::make_pair(new Cuboid(locPosition + glm::vec3{ 0,0.6,-1 }, { 0.2, 0.2, 0.2 }, glm::vec3(1, 1, 1)), smokeLife);
+		smoke.push_back(smk);
+		smokeTimeDiff = smokeLife / maxSmoke;
+	}
+	for (auto& s : smoke)
+	{
+		s.second -= delta_time;
+		if (s.second <= 0)
+		{
+			delete s.first;
+			++del;
+		}
+		else
+		{
+			s.first->move({ 0,0.04*(s.second/smokeLife),0});
+			s.first->rotate({ rand() % 45 / 10.0,rand() % 90 / 10.0 ,rand() % 90 / 10.0 });
+			s.first->scale({ 1.01,1.01,1.01 });
+		}
+	}
+	if(del > 0)
+		smoke.erase(smoke.begin(),smoke.begin()+del);
+		
 }
 
 int main()
@@ -211,8 +247,11 @@ int main()
 			last_frame = current_time;
 
 			// resistance on rolling
-			if(directional_speed != 0.0)
+			if (directional_speed != 0.0)
+			{
 				directional_speed += delta_time * (directional_speed > 0 ? -1. : 1.) * 0.002;
+				calcSmoke(Loc1.getPosition());	
+			}
 
 			glfwPollEvents();
 			// Clear the colorbuffer
@@ -280,6 +319,8 @@ int main()
 			TrainTracks.draw();
 
 			environs.draw();
+			for (const auto& s : smoke)
+				s.first->draw();
 
 			camera.adjustPosition(Loc1.getPosition());
 			train_pos = Loc1.getPosition().z;

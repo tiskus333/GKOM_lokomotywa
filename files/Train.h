@@ -10,7 +10,7 @@ class Train
 	int min_wagons = 2;
 
 	std::vector<SmokeParticle*> smoke;
-	int maxSmoke = 4;
+	int maxSmoke = 5;
 	float smokeLife = 2;
 	float smokeTimeDiff = smokeLife / maxSmoke;
 

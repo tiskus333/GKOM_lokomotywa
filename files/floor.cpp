@@ -32,7 +32,7 @@ void Floor::generateIndices()
 void Floor::generateVertices()
 {
 
-	vertices_ = {//TODO proper texture values
+	vertices_ = {
 	//position(x,y,z), color(rgb),vecNorm(x,y,z), texture(x,y)
 	//wall
 	-0.5f, -0.5f, -0.5f,	 0.0f, 0.0f, 0.0f,	0.0f, 0.0f, -1.0f,	 0.75f, 0.499f,	//3
@@ -83,9 +83,4 @@ void Floor::generateVertices()
 		vertices_.at(i+1) = color_.y;
 		vertices_.at(i+2) = color_.z;
 	}
-}
-void Floor::adjustPosition(const glm::vec3& train_pos)
-{
-	//if((int)std::abs(std::floor(train_pos.z)) < )
-	//position_ = { 0,-.5,std::floor(train_pos.z) + 4.02};
 }

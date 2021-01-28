@@ -22,15 +22,18 @@ Camera::Camera(float posX, float posY, float posZ, float upX, float upY, float u
 
 void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime)
 {
-    float velocity = MovementSpeed * deltaTime;
-    if (direction == FORWARD)
-        Position += Front * velocity;
-    if (direction == BACKWARD)
-        Position -= Front * velocity;
-    if (direction == LEFT)
-        Position -= Right * velocity;
-    if (direction == RIGHT)
-        Position += Right * velocity;
+    if (!locked)
+    {
+        float velocity = MovementSpeed * deltaTime;
+        if (direction == FORWARD)
+            Position += Front * velocity;
+        if (direction == BACKWARD)
+            Position -= Front * velocity;
+        if (direction == LEFT)
+            Position -= Right * velocity;
+        if (direction == RIGHT)
+            Position += Right * velocity;
+    }
 }
 void Camera::ProcessMouseMovement(float xoffset, float yoffset, bool constrainPitch  )
 {
@@ -39,6 +42,17 @@ void Camera::ProcessMouseMovement(float xoffset, float yoffset, bool constrainPi
 
     Yaw += xoffset;
     Pitch += yoffset;
+    if (locked)
+    {
+        if (Yaw > -90 + 40.0)
+            Yaw = -90 + 40.0;
+        if (Yaw < -90 -40.0)
+            Yaw = -90 -40.0;
+        if (Pitch >  + 40.0)
+            Pitch =  + 40.0;
+        if (Pitch <  - 40.0)
+            Pitch =  - 40.0;
+    }
 
     // make sure that when pitch is out of bounds, screen doesn't get flipped
     if (constrainPitch)

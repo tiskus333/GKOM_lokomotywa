@@ -1,12 +1,12 @@
 # Projekt GKOM - Pociąg
 
 ## Autorzy
-| Imię Nazwisko     |
-| ----------------- |
-| Paweł Kotiuk      |
-| Maciej Kowalski   |
-| Mateusz Chruściel |
-| Michał Sobieraj   |
+| Imię Nazwisko                                     |
+| ------------------------------------------------- |
+| Paweł Kotiuk - światła, shadery                   |
+| Maciej Kowalski - cienie, tesktury                |
+| Mateusz Chruściel - baza programistyczna, dźwięki |
+| Michał Sobieraj - modele, generacja otoczenia     |
 
 ## Wstępny szkic
 ![Szkic](./szkic.png)

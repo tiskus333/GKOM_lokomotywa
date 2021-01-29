@@ -31,6 +31,7 @@ public:
 	void calculateSmoke(const glm::vec3& locPosition);
 	void update(float delta_time);
 	void setLightIntensity(float intensity);
+	void setLightColor(float r, float g, float b);
 	glm::vec3 getPosition();
 
 };

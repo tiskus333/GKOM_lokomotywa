@@ -56,6 +56,10 @@ void Locomotive::set_light_intensity(float intensity) {
 
 	Loc.getElement(9)->setColor( intensity, intensity, intensity );
 }
+void Locomotive::set_light_color(float r, float g, float b) {
+
+	Loc.getElement(9)->setColor(r, g, b);
+}
 
 void Locomotive::move(const glm::vec3& moveVector)
 {

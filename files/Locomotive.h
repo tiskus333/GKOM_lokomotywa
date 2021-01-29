@@ -31,5 +31,6 @@ public:
 	void draw();
 	void setShader(const ShaderProgram& shader);
 	void set_light_intensity(float intensity);
+	void set_light_color(float r, float g, float b);
 };
 

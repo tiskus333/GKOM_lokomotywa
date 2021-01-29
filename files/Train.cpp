@@ -122,6 +122,11 @@ void Train::setLightIntensity(float intensity)
 	locomotive.set_light_intensity(intensity);
 }
 
+void Train::setLightColor(float r, float g, float b)
+{
+	locomotive.set_light_color(r, g, b);
+}
+
 glm::vec3 Train::getPosition()
 {
 	return locomotive.getPosition();

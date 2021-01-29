@@ -270,7 +270,7 @@ int main()
 			SkyBox.setPosition(camera.getPosition());
 			
 			train->move({ 0,0,directional_speed });
-			train->setLightIntensity(light_intensity);
+			train->setLightColor(light_intensity, light_intensity, light_intensity);
 			LightCube.setPosition(train->getPosition() + glm::vec3(-10,30,10));
 			Scene::getScene().lightPos = LightCube.position_;
 

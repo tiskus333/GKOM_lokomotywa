@@ -54,7 +54,7 @@ Lista zazdań w formie oddzielnych issues [tutaj](http://gitlab.ii.pw.edu.pl/gko
 - [x] Dodanie obsługi oświetlenia
 - [x] Dodanie elementów świecących
 - [x] Obsługa wejść użytkownika
-- [ ] Zarządzanie repozytorium
+- [x] Zarządzanie repozytorium
 
 ## Aktualny stan projektu
 ![Screenshot](./screenshot.png)

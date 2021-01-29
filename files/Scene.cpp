@@ -6,8 +6,7 @@ Scene::Scene(/* args */) : number_of_lights(0), ambient_light(0.2, 0.2, 0.2)
     shape_shader = ShaderProgram("CubeShader.vert", "CubeShader.frag");
     light_shader = ShaderProgram("LightShader.vert", "LightShader.frag");
     skybox_shader = ShaderProgram("SkyBox.vert", "SkyBox.frag");
-    simpleDepthShader = ShaderProgram("3.1.3.shadow_mapping_depth.vs", "3.1.3.shadow_mapping_depth.fs");
-    debugDepthQuad = ShaderProgram("3.1.3.debug_quad.vs", "3.1.3.debug_quad_depth.fs");
+    simpleDepthShader = ShaderProgram("shadow_mapping_depth.vert", "shadow_mapping_depth.frag");
     for (int i = 0; i < MAX_NUM_OF_POINT_LIGHTS; i++)
     {
         is_light_used[i] = false;
@@ -159,8 +158,6 @@ void Scene::initShadows()
     // --------------------
     shape_shader.Use();
     shape_shader.setInt("shadowMap", 1);
-    debugDepthQuad.Use();
-    debugDepthQuad.setInt("depthMap", 0);
 }
 
 void Scene::setViewPort(const glm::vec3& train_pos)
@@ -219,18 +216,6 @@ void Scene::resetViewPort()
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, depthMap);
     //glUniform1i(glGetUniformLocation(shape_shader.get_programID(), "shadowMap"), 1);
-}
-
-void Scene::debug()
-{
-
-    debugDepthQuad.Use();
-    debugDepthQuad.setFloat("near_plane", near_plane);
-    debugDepthQuad.setFloat("far_plane", far_plane);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, depthMap);
-    //glUniform1i(glGetUniformLocation(shape_shader.get_programID(), "depthMap"), 0);
-    renderQuad();
 }
 
 

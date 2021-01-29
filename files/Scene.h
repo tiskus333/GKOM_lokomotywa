@@ -39,7 +39,6 @@ public:
     ShaderProgram light_shader;
     ShaderProgram skybox_shader;
     ShaderProgram simpleDepthShader;
-    ShaderProgram debugDepthQuad;
 
     static Scene &getScene();
 
@@ -59,6 +58,5 @@ public:
     void initShadows();
     void setViewPort(const glm::vec3& train_pos);
     void resetViewPort();
-    void debug();
     void renderQuad();
 };

@@ -11,9 +11,6 @@ public:
     Floor(const glm::vec3& position, const glm::vec3& size);
     void generateIndices();
     void generateVertices();
-
-    void adjustPosition(const glm::vec3& train_pos);
-
 };
 
 

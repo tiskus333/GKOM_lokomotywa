@@ -10,7 +10,6 @@ class Train
 	int min_wagons = 2;
 
 	std::vector<SmokeParticle*> smoke;
-	int maxSmoke = 5;
 	float smokeLife = 2;
 	float smokeTimeDiff = smokeLife / maxSmoke;
 
@@ -21,6 +20,7 @@ class Train
 	Wagon w1 = Wagon({ 0,1.02,3 });
 	Wagon w2 = Wagon({ 0,1.02,6.2 });
 public:
+	int maxSmoke = 5;
 	Train();
 	~Train();
 	void move(const glm::vec3& moveVector);

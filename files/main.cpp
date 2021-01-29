@@ -84,6 +84,7 @@ void processInput(GLFWwindow* window) {
 	{
 		if (play_horn)
 		{
+			train->maxSmoke += 10;
 			PlaySound(L"Horn.wav", NULL, SND_FILENAME | SND_ASYNC);
 			play_horn = false;
 		}
@@ -92,6 +93,7 @@ void processInput(GLFWwindow* window) {
 	{
 		if (!play_horn)
 		{
+			train->maxSmoke -= 10;
 			if (!play_engine)
 			{
 				PlaySound(L"Steam_engine.wav", NULL, SND_LOOP | SND_FILENAME | SND_ASYNC);
